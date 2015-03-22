@@ -67,8 +67,8 @@ end
 minetest.register_craft({
 	output = 'compass:1',
 	recipe = {
-		{'', 'default:iron_ingot', ''},
-		{'default:iron_ingot', 'default_redstone_dust', 'default:iron_ingot'},
-		{'', 'default:iron_ingot', ''}
+		{'', 'default:steel_ingot', ''},
+		{'default:steel_ingot', 'default:mese_crystal', 'default:steel_ingot'},
+		{'', 'default:steel_ingot', ''}
 	}
 })

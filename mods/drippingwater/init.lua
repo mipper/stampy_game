@@ -89,7 +89,7 @@ minetest.register_abm(
         {nodenames = {"group:crumbly"},
 	neighbors = {"group:water"},
         interval = 2,
-        chance = 22,
+        chance = 42,
         action = function(pos)
 		if minetest.env:get_node({x=pos.x, y=pos.y -1, z=pos.z}).name == "air" and 
 		minetest.env:get_node({x=pos.x, y=pos.y -2, z=pos.z}).name == "air" then
@@ -122,7 +122,7 @@ minetest.register_abm(
         {nodenames = {"group:crumbly"},
 	neighbors = {"group:lava"},
         interval = 2,
-        chance = 22,
+        chance = 42,
         action = function(pos)
 		if minetest.env:get_node({x=pos.x, y=pos.y -1, z=pos.z}).name == "air" and 
 		minetest.env:get_node({x=pos.x, y=pos.y -2, z=pos.z}).name == "air" then

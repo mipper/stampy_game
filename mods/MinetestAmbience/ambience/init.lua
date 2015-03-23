@@ -43,8 +43,8 @@ local water_surface_volume = 1.0   -- sloshing water
 local lava_volume = 1.0 --lava
 local flowing_water_volume = .4  --waterfall
 local splashing_water_volume = 1
-local music_frequency = 7  --music (suggestion: keep this one low like around 6)
-local music_volume = 0.3 
+local music_frequency = 5  --music (suggestion: keep this one low like around 6)
+local music_volume = 0.2 
 
 --End of Config
 ----------------------------------------------------------------------------------------------------

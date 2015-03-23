@@ -345,7 +345,7 @@ mobs:register_mob("mobs:cow", {
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "bucket:bucket_empty" and clicker:get_inventory() then
 			if minetest.registered_items["food:milk"] then
-				clicker:get_inventory():add_item("main", ItemStack("food:milk "..math.random(1,3)))
+				clicker:get_inventory():add_item("main", ItemStack("bucket:bucket_milk 1"))
 			end
 		end
 	end,

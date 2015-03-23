@@ -170,6 +170,14 @@ bucket.register_liquid(
 	"Lava Bucket"
 )
 
+bucket.register_liquid(
+	"default:water_source",
+	"default:water_flowing",
+	"bucket:bucket_milk",
+	"bucket_milk.png",
+	"Milk Bucket"
+)
+
 minetest.register_craft({
 	type = "fuel",
 	recipe = "bucket:bucket_lava",

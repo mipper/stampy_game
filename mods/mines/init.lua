@@ -33,7 +33,8 @@ local ids = {
 	air = minetest.get_content_id("air"),
 	fence = minetest.get_content_id("default:fence_wood"),
 	wood = minetest.get_content_id("default:wood"),
-	dummy = minetest.get_content_id("mines:dummy")
+	dummy = minetest.get_content_id("mines:dummy"),
+	cobweb = minetest.get_content_id("mobs:cobweb")
 }
 
 local chest_stuff = {
@@ -172,11 +173,19 @@ local function make_mine(mpos,p2,p3, vm_data, vx_area,cnt)
 				z5 = pos.z+1
 			end
 			vm_data[vx_area:indexp({x=x1, y=pos.y-1, z=z1})] = pillar
-			vm_data[vx_area:indexp({x=x2, y=pos.y-1, z=z2})] = ids.air
+			if math.random(0,6) == 1 then
+				vm_data[vx_area:indexp({x=x2, y=pos.y-1, z=z2})] = ids.cobweb
+			else
+				vm_data[vx_area:indexp({x=x2, y=pos.y-1, z=z2})] = ids.air
+			end
 			vm_data[vx_area:indexp({x=x3, y=pos.y-1, z=z3})] = pillar
 
 			vm_data[vx_area:indexp({x=x1, y=pos.y, z=z1})] = pillar
-			vm_data[vx_area:indexp({x=x2, y=pos.y, z=z2})] = ids.air
+			if math.random(0,6) == 3 then
+				vm_data[vx_area:indexp({x=x2, y=pos.y, z=z2})] = ids.cobweb
+			else
+				vm_data[vx_area:indexp({x=x2, y=pos.y, z=z2})] = ids.air
+			end
 			vm_data[vx_area:indexp({x=x3, y=pos.y, z=z3})] = pillar
 
 			vm_data[vx_area:indexp({x=x1, y=pos.y+1, z=z1})] = pillar_top

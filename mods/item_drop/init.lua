@@ -8,7 +8,7 @@ minetest.register_globalstep(function(dtime)
 			for _,object in ipairs(minetest.env:get_objects_inside_radius(pos, 1)) do
 				if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" then
 					-- only pick up resting objects, so "q" can be used to drop without immediately picking an item up again
-					vel = object:getvelocity()
+					local vel = object:getvelocity()
 					if inv and inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring)) and math.abs(vel.x) < .2 and math.abs(vel.z) < .2 then
 						inv:add_item("main", ItemStack(object:get_luaentity().itemstring))
 						if object:get_luaentity().itemstring ~= "" then

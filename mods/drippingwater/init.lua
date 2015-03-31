@@ -26,7 +26,7 @@ minetest.register_entity("drippingwater:drop_water", {
 	end,
 
 	on_step = function(self, dtime)
-	local k = math.random(1,22)
+	local k = math.random(1,12)
 	local ownpos = self.object:getpos()
 
 	if k==1 then
@@ -62,7 +62,7 @@ minetest.register_entity("drippingwater:drop_lava", {
 	end,
 
 	on_step = function(self, dtime)
-	local k = math.random(1,22)
+	local k = math.random(1,12)
 	local ownpos = self.object:getpos()
 
 	if k==1 then

@@ -157,6 +157,14 @@ minetest.register_craftitem("bucket:bucket_empty", {
 bucket.register_liquid(
 	"default:water_source",
 	"default:water_flowing",
+	"bucket:bucket_milk",
+	"bucket_milk.png",
+	"Milk Bucket"
+)
+
+bucket.register_liquid(
+	"default:water_source",
+	"default:water_flowing",
 	"bucket:bucket_water",
 	"bucket_water.png",
 	"Water Bucket"
@@ -168,14 +176,6 @@ bucket.register_liquid(
 	"bucket:bucket_lava",
 	"bucket_lava.png",
 	"Lava Bucket"
-)
-
-bucket.register_liquid(
-	"default:water_source",
-	"default:water_flowing",
-	"bucket:bucket_milk",
-	"bucket_milk.png",
-	"Milk Bucket"
 )
 
 minetest.register_craft({

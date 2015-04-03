@@ -17,6 +17,7 @@ local drop = function(pos, itemstack)
 	return itemstack
 end
 
+if minetest.setting_get("keepInventory") == false then
 minetest.register_on_dieplayer(function(player)
 
 	if minetest.setting_getbool("creative_mode") then
@@ -41,3 +42,5 @@ minetest.register_on_dieplayer(function(player)
 	end
 
 end)
+end
+

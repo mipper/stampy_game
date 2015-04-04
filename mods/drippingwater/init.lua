@@ -37,7 +37,7 @@ minetest.register_entity("drippingwater:drop_water", {
 	self.object:setacceleration({x=0, y=-5, z=0})
 	end
 	
-		if minetest.env:get_node({x=ownpos.x, y=ownpos.y -0.5, z=ownpos.z}).name ~= "air" then
+		if minetest.env:get_node({x=ownpos.x, y=ownpos.y - 1, z=ownpos.z}).name ~= "air" then
 		self.object:remove()
 		minetest.sound_play({name="drippingwater_drip"}, {pos = ownpos, gain = 0.5, max_hear_distance = 8})
 		end
@@ -74,7 +74,7 @@ minetest.register_entity("drippingwater:drop_lava", {
 	end
 
 		
-		if minetest.env:get_node({x=ownpos.x, y=ownpos.y -0.5, z=ownpos.z}).name ~= "air" then
+		if minetest.env:get_node({x=ownpos.x, y=ownpos.y - 1, z=ownpos.z}).name ~= "air" then
 		self.object:remove()
 		minetest.sound_play({name="drippingwater_lavadrip"}, {pos = ownpos, gain = 0.5, max_hear_distance = 8})
 		end

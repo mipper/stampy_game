@@ -139,6 +139,21 @@ function beds.on_rightclick(pos, player)
 		minetest.chat_send_player(name, "You can only sleep at night.")
 		return
 	end
+	-- check for nearby monsters
+	local objects = minetest.get_objects_inside_radius(ppos, 8)
+	local mobname = ""
+	for _,obj in ipairs(objects) do
+		if obj:get_luaentity() then
+			mobname = obj:get_luaentity().name
+		end
+		if mobname == "mobs:creeper" or mobname == "mobs:zombie" or mobname == "mobs:skeleton" then
+			if beds.player[name] then
+				lay_down(player, nil, nil, false)
+			end
+			minetest.chat_send_player(name, "You may not rest now, there are monsters nearby.")
+			return
+		end
+	end
 
 	-- move to bed
 	if not beds.player[name] then

@@ -903,7 +903,8 @@ mg_villages.place_villages_via_voxelmanip = function( villages, minp, maxp, vm, 
 	end
 	t1 = time_elapsed( t1, 'place_buildings and place_dirt_roads' );
 
-	mg_villages.village_area_fill_with_plants( village_area, villages, tmin, tmax, data, param2_data, a, cid );
+	-- TODO: uses the wrong nodes for some reason, so disable for now...
+	-- mg_villages.village_area_fill_with_plants( village_area, villages, tmin, tmax, data, param2_data, a, cid );
 	t1 = time_elapsed( t1, 'fill_with_plants' );
 
 	vm:set_data(data)

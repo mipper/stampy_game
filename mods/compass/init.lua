@@ -22,7 +22,7 @@ minetest.register_globalstep(function(dtime)
 			if angle_north < 0 then angle_north = angle_north + 360 end
 			local angle_dir = 90 - math.deg(dir)
 			local angle_relative = (angle_north - angle_dir) % 360
-			local compass_image = math.floor((angle_relative/30) + 0.5)%12
+			local compass_image = math.floor((angle_relative/11.25) + 16.5) % 32
 
 			for j,stack in ipairs(player:get_inventory():get_list("main")) do
 				if minetest.get_item_group(stack:get_name(), "compass") ~= 0 and
@@ -35,18 +35,38 @@ minetest.register_globalstep(function(dtime)
 end)
 
 local images = {
-	"compass_0.png",
-	"compass_1.png",
-	"compass_2.png",
-	"compass_3.png",
-	"compass_4.png",
-	"compass_5.png",
-	"compass_6.png",
-	"compass_7.png",
-	"compass_8.png",
-	"compass_9.png",
-	"compass_10.png",
-	"compass_11.png",
+    "compass_0.png",
+    "compass_1.png",
+    "compass_2.png",
+    "compass_3.png",
+    "compass_4.png",
+    "compass_5.png",
+    "compass_6.png",
+    "compass_7.png",
+    "compass_8.png",
+    "compass_9.png",
+    "compass_10.png",
+    "compass_11.png",
+    "compass_12.png",
+    "compass_13.png",
+    "compass_14.png",
+    "compass_15.png",
+    "compass_16.png",
+    "compass_17.png",
+    "compass_18.png",
+    "compass_19.png",
+    "compass_20.png",
+    "compass_21.png",
+    "compass_22.png",
+    "compass_23.png",
+    "compass_24.png",
+    "compass_25.png",
+    "compass_26.png",
+    "compass_27.png",
+    "compass_28.png",
+    "compass_29.png",
+    "compass_30.png",
+    "compass_31.png",
 }
 
 local i

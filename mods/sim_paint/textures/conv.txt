@@ -1,0 +1,5 @@
+# Create sim_paint tiles from images (needs ImageMagick)
+
+convert a.png -crop 32x32 bedroom_%d.png
+convert b.png -crop 32x32 brewing_%d.png
+convert c.png -crop 32x32 base_%d.png

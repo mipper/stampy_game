@@ -33,11 +33,11 @@ minetest.register_globalstep(function(dtime)
 			save_weather()
 		end
 	else
-		if math.random(1, 50000) == 1 then
+		if math.random(1, 30000) == 2 then
 			weather = "rain"
 			save_weather()
 		end
-		if math.random(1, 50000) == 2 then
+		if math.random(1, 60000) == 2 then
 			weather = "snow"
 			save_weather()
 		end

@@ -24,6 +24,7 @@ wool.dyes = {
 	{"pink",       "Pink",       "unicolor_light_red"},
 	{"dark_grey",  "Dark Grey",  "unicolor_darkgrey"},
 	{"dark_green", "Dark Green", "unicolor_dark_green"},
+	{"light_blue", "Light Blue", "unicolor_light_blue"},
 }
 
 for _, row in ipairs(wool.dyes) do

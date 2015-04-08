@@ -1,3 +1,6 @@
+Note that arrows must be in the hotbar slot directly behind the bow!
+
+
 === THROWING-MOD for MINETEST-C55 ===
 by PilzAdam
 

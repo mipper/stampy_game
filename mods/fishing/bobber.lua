@@ -9,56 +9,56 @@ local PoLeWeaR = (65535/(30-(math.random(15, 29))))
 local BooTSWear = (2000*(math.random(20, 29)))
 -- Here's what you can catch
 local CaTCH = {
---	  MoD 						 iTeM				WeaR		 MeSSaGe ("You caught "..)	GeTBaiTBack		NRMiN  	CHaNCe (../120)
-    {"fishing",  				"fish_raw",			0,			"a Fish.",					false,			1,		60},
-	{"animal_clownfish",		"clownfish",		0,			"a Clownfish.",				false,			61,		10},
-	{"animal_fish_blue_white",	"fish_blue_white",	0,			"a Blue white fish.",		false,			71,		10},
-	{"default",					"stick",			0,			"a Twig.",					true,			81,		2},
-	{"mobs",					"rat",				0,			"a Rat.",					false,			83,		1},
-    {"animal_rat",				"rat",				0,			"a Rat.",					false,			84,		1},
-	{"",						"rat",				0,			"a Rat.",					false,			85,		1},
-	{"flowers_plus",			"seaweed",			0,			"some Seaweed.",			true,			86,		20},
-	{"seaplants",				"kelpgreen",		0,			"a Green Kelp.",			true,			106,	10},
-	{"farming",					"string",			0,			"a String.",				true,			116,	2},
-	{"fishing",					"pole",				PoLeWeaR,	"an old Fishing Pole.",		true,			118,	2},
-	{"3d_armor",				"boots_wood",		BooTSWear,	"some very old Boots.",		true,			120,	1},
-	{"trunks",					"twig_1",			0,			"a Twig.",					true,			121,	2},
+--	  MoD 				 iTeM				WeaR		 MeSSaGe ("You caught "..)	GeTBaiTBack		NRMiN  	CHaNCe (../120)
+	{"fishing",  			"fish_raw",			0,		"a fish.",			false,			1,		60},
+	{"animal_clownfish",		"clownfish",			0,		"a clownfish.",			false,			61,		10},
+	{"animal_fish_blue_white",	"fish_blue_white",		0,		"a blue white fish.",		false,			71,		10},
+	{"default",			"stick",			0,		"a twig.",			true,			81,		2},
+	{"vessels",			"glass_bottle",			0,		"a bottle",			true,			83,		1},
+	{"bones",			"single_bone",			0,		"a bone.",			true,			84,		1},
+	{"dye",				"black",			0,		"an ink sac.",			true,			85,		1},
+	{"default",			"book",				0,		"a book.",			true,			86,		20},
+	{"food",			"bowl",				0,		"a bowl.",			true,			106,		10},
+	{"farming",			"cotton",			0,		"some cotton.",			true,			116,		2},
+	{"fishing",			"pole",				PoLeWeaR,	"an old fishing pole.",		true,			118,		2},
+	{"3d_armor",			"boots_wood",			BooTSWear,	"some very old boots.",		true,			120,		1},
+	{"throwing",			"bow_wood",			0,		"a bow.",			true,			121,		2},
 }
 minetest.register_alias("flowers_plus:seaweed", "flowers:seaweed") -- exception
 
 local PLaNTS = {
  --	  MoD* 			iTeM				MeSSaGe ("You caught "..)
-	{"flowers",		"waterlily",		"a Waterlily." }, 
-	{"flowers",		"waterlily_225",	"a Waterlily." }, 
-	{"flowers",		"waterlily_45",		"a Waterlily." }, 
-	{"flowers",		"waterlily_675",	"a Waterlily." }, 
-	{"flowers",		"waterlily_s1",		"a Waterlily." }, 
-	{"flowers",		"waterlily_s2",		"a Waterlily." }, 
-	{"flowers",		"waterlily_s3",		"a Waterlily." }, 
-	{"flowers",		"waterlily_s4",		"a Waterlily." },
-	{"flowers",		"seaweed",			"some Seaweed."}, 
-	{"flowers",		"seaweed_2",		"some Seaweed."}, 
-	{"flowers",		"seaweed_3",		"some Seaweed."}, 
-	{"flowers",		"seaweed_4",		"some Seaweed."},
-	{"trunks",		"twig_1",			"a Twig."	   },
-	{"trunks",		"twig_2",			"a Twig."	   },
-	{"trunks",		"twig_3",			"a Twig."	   },
-	{"trunks",		"twig_4",			"a Twig."	   },
-	{"trunks",		"twig_5",			"a Twig."	   },
-	{"trunks",		"twig_7",			"a Twig."	   },
-	{"trunks",		"twig_8",			"a Twig."	   },
-	{"trunks",		"twig_9",			"a Twig."	   },
-	{"trunks",		"twig_10",			"a Twig."	   },
-	{"trunks",		"twig_11",			"a Twig."	   },
-	{"trunks",		"twig_12",			"a Twig."	   },
-	{"trunks",		"twig_13",			"a Twig."	   },
+	{"flowers",		"waterlily",		"a waterlily." }, 
+	{"flowers",		"waterlily_225",	"a waterlily." }, 
+	{"flowers",		"waterlily_45",		"a waterlily." }, 
+	{"flowers",		"waterlily_675",	"a waterlily." }, 
+	{"flowers",		"waterlily_s1",		"a waterlily." }, 
+	{"flowers",		"waterlily_s2",		"a waterlily." }, 
+	{"flowers",		"waterlily_s3",		"a waterlily." }, 
+	{"flowers",		"waterlily_s4",		"a waterlily." },
+	{"flowers",		"seaweed",		"some seaweed."}, 
+	{"flowers",		"seaweed_2",		"some seaweed."}, 
+	{"flowers",		"seaweed_3",		"some seaweed."}, 
+	{"flowers",		"seaweed_4",		"some seaweed."},
+	{"trunks",		"twig_1",			"a twig."	   },
+	{"trunks",		"twig_2",			"a twig."	   },
+	{"trunks",		"twig_3",			"a twig."	   },
+	{"trunks",		"twig_4",			"a twig."	   },
+	{"trunks",		"twig_5",			"a twig."	   },
+	{"trunks",		"twig_7",			"a twig."	   },
+	{"trunks",		"twig_8",			"a twig."	   },
+	{"trunks",		"twig_9",			"a twig."	   },
+	{"trunks",		"twig_10",			"a twig."	   },
+	{"trunks",		"twig_11",			"a twig."	   },
+	{"trunks",		"twig_12",			"a twig."	   },
+	{"trunks",		"twig_13",			"a twig."	   },
 }
 -- *as used in the node name
 
 local MoBS = { -- not in use
  --	  iTeM										 MeSSaGe ("You caught "..)
-	{"animal_clownfish:clownfish",				"a Clownfish."		},
-	{"animal_fish_blue_white:fish_blue_white",	"a Blue white fish."},
+	{"animal_clownfish:clownfish",			"a clownfish."		},
+	{"animal_fish_blue_white:fish_blue_white",	"a blue white fish."},
 }
 
 minetest.register_node("fishing:bobber_box", {
@@ -151,7 +151,7 @@ local FISHING_BOBBER_ENTITY={
 						local 	iTeM = 			CaTCH[i][2]
 						local 	WeaR = 			CaTCH[i][3]
 						local 	MeSSaGe = 		CaTCH[i][4]
-						local 	GeTBaiTBack = 	CaTCH[i][5]
+						local 	GeTBaiTBack = 		CaTCH[i][5]
 						local 	NRMiN = 		CaTCH[i][6]
 						local 	CHaNCe = 		CaTCH[i][7]
 						local 	NRMaX = 		NRMiN + CHaNCe - 1
@@ -164,7 +164,7 @@ local FISHING_BOBBER_ENTITY={
 										MoD = "animal_fish_blue_white"
 										iTeM = "fish_blue_white"
 										WeaR = 0
-										MeSSaGe = "a Blue white fish."
+										MeSSaGe = "a blue white fish."
 										obj:remove()	
 									end
 								end
@@ -184,7 +184,7 @@ local FISHING_BOBBER_ENTITY={
 							else
 								if inv:room_for_item("main", {name="fishing:fish_raw", count=1, wear=0, metadata=""}) then
 									inv:add_item("main", {name="fishing:fish_raw", count=1, wear=0, metadata=""})
-									if MESSAGES == true then say(player, "You caught a Fish.", false) end -- caught Fish
+									if MESSAGES == true then say(player, "You caught a fish.", false) end -- caught Fish
 								end
 							end
 						end

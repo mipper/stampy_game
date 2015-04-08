@@ -140,7 +140,7 @@ function beds.on_rightclick(pos, player)
 		return
 	end
 	-- check for nearby monsters
-	local objects = minetest.get_objects_inside_radius(ppos, 8)
+	local objects = minetest.get_objects_inside_radius(pos, 8)
 	local mobname = ""
 	for _,obj in ipairs(objects) do
 		if obj:get_luaentity() then

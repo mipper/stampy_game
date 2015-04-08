@@ -73,6 +73,10 @@ function set_inv(filter, player)
 					if def.tool_capabilities ~= nil and (string.find(string.lower(def.description), "sword") or string.find(string.lower(def.name), "armor") or string.find(string.lower(def.description), "bow") or string.find(string.lower(def.description), "arrow")) or string.find(string.lower(def.name), "armor") then
 						table.insert(creative_list, name)
 					end
+				elseif filter == "#brew" then
+					if (string.find(string.lower(def.description), "potion") or string.find(string.lower(def.name), "bottle")) then
+						table.insert(creative_list, name)
+					end
 				elseif filter == "#matr" then
 					if def.drawtype == nil and def.tool_capabilities == nil and (string.find(string.lower(def.description), "ingot") or string.find(string.lower(def.description), "lump") or string.find(string.lower(def.description), "dye") or string.find(string.lower(def.name), "diamond") or string.find(string.lower(def.name), "mese") or string.find(string.lower(def.name), "obsidian") or string.find(string.lower(def.description), "clay") or string.find(string.lower(def.description), "stick") or string.find(string.lower(def.description), "flint") or string.find(string.lower(def.description), "seed")) then
 						table.insert(creative_list, name)
@@ -128,7 +132,7 @@ offset["food"] = "-0.29,8.12"
 offset["tools"] = "0.98,8.12"
 offset["combat"] = "2.23,8.12"
 offset["brew"] = "3.495,8.12"
-offset["matr"] = offset["brew"]--"4.74,8.12"
+offset["matr"] = "4.74,8.12"
 offset["inv"] = "8.99,8.12"
 
 hoch["blocks"] = ""
@@ -198,8 +202,8 @@ crafting.set_creative_formspec = function(player, start_i, pagenum, show, page)
 			"image_button[-0.1,8.28;1,1;"..bg["food"].."^crafting_food.png;food;]"..	--foodstuff
 			"image_button[1.15,8.28;1,1;"..bg["tools"].."^crafting_creative_tool.png;tools;]"..	--tools
 			"image_button[2.415,8.28;1,1;"..bg["combat"].."^crafting_creative_sword.png;combat;]"..	--combat
-			"image_button[3.693,8.28;1,1;"..bg["matr"].."^crafting_creative_matr.png;matr;]"..	--brewing
-			--"image_button[4.93,8.28;1,1;"..bg["brew"].."^crafting_creative_matr.png;matr;]"..	--materials^
+			"image_button[3.693,8.28;1,1;"..bg["brew"].."^crafting_creative_brew.png;brew;]"..	--brewing
+			"image_button[4.93,8.28;1,1;"..bg["matr"].."^crafting_creative_matr.png;matr;]"..	--materials^
 			"image_button[9.19,8.28;1,1;"..bg["inv"].."^crafting_creative_inv.png;inv;]"..			--inventory
 			"list[detached:creative_trash;main;9,7;1,1;]"..
 			"image[9,7;1,1;crafting_creative_trash.png]"
@@ -261,6 +265,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.combat then
 		set_inv("#combat")
 		page = "combat"
+	end
+	if fields.brew then
+		set_inv("#brew")
+		page = "brew"
 	end
 	if fields.matr then
 		set_inv("#matr")

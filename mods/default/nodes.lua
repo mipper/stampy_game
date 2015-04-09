@@ -371,10 +371,13 @@ minetest.register_node("default:snowblock", {
 minetest.register_node("default:ice", {
 	description = "Ice",
 	tiles = {"default_ice.png"},
+	drawtype = "liquid",
+	sunlight_propagates = true,
 	is_ground_content = true,
 	paramtype = "light",
 	groups = {cracky=3},
 	sounds = default.node_sound_glass_defaults(),
+	alpha = 180,
 })
 
 --

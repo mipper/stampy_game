@@ -360,6 +360,10 @@ if minetest.get_modpath("ferns") ~= nil then
 	overwrite("ferns:horsetail_01", 1)
 end
 
+if minetest.get_modpath("crops") ~= nil then
+	overwrite("crops:melon_slice", 2)
+end
+
 -- player-action based hunger changes
 function hud.handle_node_actions(pos, oldnode, player, ext)
 	if not player or not player:is_player() then

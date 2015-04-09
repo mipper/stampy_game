@@ -748,9 +748,17 @@ minetest.register_node("default:cactus", {
 	groups = {snappy=1,choppy=3,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
+	damage_per_second = 1,
 
 	after_dig_node = function(pos, node, metadata, digger)
 		default.dig_up(pos, node, digger)
+	end,
+	on_punch = function(pos, node, puncher)
+		if not puncher then return end
+
+		if puncher:get_wielded_item():get_name() == "" then 
+			minetest.sound_play("player_damage", {pos = pos, gain = 0.3, max_hear_distance = 10}) 
+		end
 	end,
 })
 

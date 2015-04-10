@@ -22,11 +22,13 @@ minetest.register_node("sponge:sponge_dry",{
 			local c_ws = minetest.get_content_id("water_source")
 			local c_sw = minetest.get_content_id("sponge:sponge_wet")
 			local iswet = false
+			local dist = 0
 			for x=pos.x-7,pos.x+7,1 do
 				for z=pos.z-7,pos.z+7,1 do
 					for y=pos.y-7,pos.y+7,1 do
 						local p_pos = area:index(x, y, z)
-						if data[p_pos] == c_w or data[p_pos] == c_ws then
+						dist = math.abs(x-pos.x) + math.abs(y-pos.y) + math.abs(z-pos.z)
+						if (data[p_pos] == c_w or data[p_pos] == c_ws) and dist <= 7 then
 							data[p_pos] = c_air
 							iswet = true
 						end

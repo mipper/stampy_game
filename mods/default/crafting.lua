@@ -462,6 +462,22 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:emeraldblock',
+	recipe = {
+		{'default:emerald', 'default:emerald', 'default:emerald'},
+		{'default:emerald', 'default:emerald', 'default:emerald'},
+		{'default:emerald', 'default:emerald', 'default:emerald'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:emerald 9',
+	recipe = {
+		{'default:emeraldblock'},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:sandstone',
 	recipe = {
 		{'group:sand', 'group:sand'},

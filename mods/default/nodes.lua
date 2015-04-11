@@ -85,6 +85,9 @@ default:mese
 default:stone_with_diamond
 default:diamondblock
 
+default:stone_with_emerald
+default:emeraldblock
+
 Plantlife (non-cubic)
 ---------------------
 default:cactus
@@ -735,6 +738,25 @@ minetest.register_node("default:diamondblock", {
 	groups = {cracky=1,level=3},
 	sounds = default.node_sound_stone_defaults(),
 })
+
+
+minetest.register_node("default:stone_with_emerald", {
+	description = "Emerald Ore",
+	tiles = {"emerald_ore.png"},
+	is_ground_content = true,
+	groups = {cracky=1},
+	drop = "default:emerald",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:emeraldblock", {
+	description = "Emerald Block",
+	tiles = {"emerald_block.png"},
+	is_ground_content = true,
+	groups = {cracky=1,level=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 
 --
 -- Plantlife (non-cubic)

@@ -28,7 +28,10 @@ mobs.default_definition = {
 				for dy=-tnt_range,tnt_range do
 					local npos = {x=pos.x + dx, y=pos.y + dy, z=pos.z + dz}
 					if ((dx)^2 + (dy)^2 + (dz)^2)^0.5 + math.random(0,2) <= tnt_range then
-						minetest.remove_node(npos)
+						local node = minetest.get_node(npos)
+						if node.name ~= "bedrock:bedrock" and node.name ~= "default:obsidian" then
+							minetest.remove_node(npos)
+						end
 					end
 				end
 			end

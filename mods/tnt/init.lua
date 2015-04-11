@@ -23,6 +23,7 @@ minetest.after(0, function()
 			name = name,
 			drops = def.drops,
 			flammable = def.groups.flammable,
+			groups = def.groups,
 		}
 	end
 end)
@@ -79,6 +80,14 @@ local function destroy(drops, pos, cid)
 		return
 	end
 	local def = cid_data[cid]
+	-- bedrock
+	if def and def.groups.immortal ~= nil then
+		return
+	end
+	-- obsidian
+	if def and def.name == "default:obsidian" then
+		return
+	end
 	if def and def.flammable then
 		minetest.set_node(pos, fire_node)
 	else

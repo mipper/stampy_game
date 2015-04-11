@@ -2,7 +2,7 @@ minetest.register_node("sponge:sponge_wet",{
 	description = "Wet Sponge",
 	tiles = {"sponge_wet.png"},
 	paramtype = "light",
-	groups = {crumbly=3, level=0, dig_immediate=1, oddly_breakable_by_hand=1}
+	groups = {crumbly=3, level=0, dig_immediate=3, oddly_breakable_by_hand=1}
 })
 
 minetest.register_node("sponge:sponge_dry",{

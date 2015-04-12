@@ -90,7 +90,7 @@ slimes:register_spawn("slimes:greenbig", {"default:stone"},{"air","default:stone
 slimes:register_spawn("slimes:greenmedium", {"default:stone"},{"air","default:stone"}, 20, 4, 10000, 8, -25)
 slimes:register_spawn("slimes:greensmall", {"default:stone"},{"air","default:stone"}, 20, 4, 15000, 8, -25)
 
-slimes:register_spawn("slimes:greenbig", {"default:mossycobble"},{"air"}, 20, 15, 50, 8, 32000)
-slimes:register_spawn("slimes:greenmedium", {"default:mossycobble"},{"air"}, 20, 15, 20, 8, 32000)
-slimes:register_spawn("slimes:greensmall", {"default:mossycobble"},{"air"}, 20, 15, 8, 8, 32000)
+slimes:register_spawn("slimes:greenbig", {"default:cobble"},{"default:mossycobble"}, 20, 15, 50, 8, 32000)
+slimes:register_spawn("slimes:greenmedium", {"default:cobble"},{"default:mossycobble"}, 20, 15, 20, 8, 32000)
+slimes:register_spawn("slimes:greensmall", {"default:cobble"},{"default:mossycobble"}, 20, 15, 8, 8, 32000)
 

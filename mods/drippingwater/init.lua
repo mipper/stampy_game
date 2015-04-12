@@ -94,23 +94,17 @@ minetest.register_abm(
 		if minetest.env:get_node({x=pos.x, y=pos.y -1, z=pos.z}).name == "air" and 
 		minetest.env:get_node({x=pos.x, y=pos.y -2, z=pos.z}).name == "air" then
 		local i = math.random(-45,45) / 100
-		minetest.env:add_entity({x=pos.x + i, y=pos.y - 0.5, z=pos.z + i}, "drippingwater:drop_water")
+		local p2 = {x=pos.x + i, y=pos.y - 0.5, z=pos.z + i}
+		local objects = minetest.get_objects_inside_radius(p2, 5)
+		local count = 0
+		for _,obj in ipairs(objects) do
+			if obj:get_luaentity() and obj:get_luaentity().name == "drippingwater:drop_water" then
+				count = count + 1
+			end
 		end
-        end,
-})
-
-
---Cloudstone
-
-minetest.register_abm(
-        {nodenames = {"default:cloud"},
-        interval = 0,
-        chance = 1,
-        action = function(pos)
-		if minetest.env:get_node({x=pos.x, y=pos.y -1, z=pos.z}).name == "air" and 
-		minetest.env:get_node({x=pos.x, y=pos.y -2, z=pos.z}).name == "air" then
-		local i = math.random(-45,45) / 100
-		minetest.env:add_entity({x=pos.x + i, y=pos.y - 0.5, z=pos.z + i}, "drippingwater:drop_water")
+		if count < 10 then
+			minetest.env:add_entity(p2, "drippingwater:drop_water")
+		end
 		end
         end,
 })
@@ -127,7 +121,17 @@ minetest.register_abm(
 		if minetest.env:get_node({x=pos.x, y=pos.y -1, z=pos.z}).name == "air" and 
 		minetest.env:get_node({x=pos.x, y=pos.y -2, z=pos.z}).name == "air" then
 		local i = math.random(-45,45) / 100
-		minetest.env:add_entity({x=pos.x + i, y=pos.y - 0.5, z=pos.z + i}, "drippingwater:drop_lava")
+		local p2 = {x=pos.x + i, y=pos.y - 0.5, z=pos.z + i}
+		local objects = minetest.get_objects_inside_radius(p2, 5)
+		local count = 0
+		for _,obj in ipairs(objects) do
+			if obj:get_luaentity() and obj:get_luaentity().name == "drippingwater:drop_lava" then
+				count = count + 1
+			end
+		end
+		if count < 10 then
+			minetest.env:add_entity(p2, "drippingwater:drop_lava")
+		end
 		end
         end,
 })

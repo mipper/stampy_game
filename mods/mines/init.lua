@@ -201,10 +201,9 @@ local function make_mine(mpos,p2,p3, vm_data, vx_area,cnt)
 			end
 			if math.random(0,60) == 13 then
 				local p = {x=x5, y=pos.y-1, z=z5}
-				if vm_data[vx_area:indexp(p)] ~= ids.fence then
-					vm_data[vx_area:indexp(p)] = ids.dummy
-					fill_chest(p)
-				end
+				vm_data[vx_area:indexp(p)] = ids.dummy
+				vm_data[vx_area:indexp({x=x5, y=pos.y, z=z5})] = ids.air
+				fill_chest(p)
 			end
 		end
 		if switch == 1 then			

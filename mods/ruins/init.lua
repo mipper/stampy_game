@@ -98,7 +98,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		minetest.after(0.5, function()
 		 local p2 = minetest.find_node_near(mpos, 25, {"default:dirt_with_grass"})	
 		 if not p2 or p2 == nil or p2.y < 0 then return end
-		 minetest.log("action", "Created ruin at ("..p2.x..","..p2.y..","..p2.z..")")
+		 minetest.log("action", "Created ruins at ("..p2.x..","..p2.y..","..p2.z..")")
 		 make(p2)
 		end)
 	end

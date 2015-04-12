@@ -127,6 +127,9 @@ minetest.register_craftitem(":default:torch", {
 	wield_scale = {x=1,y=1,z=1+1/16},
 	liquids_pointable = false,
    	on_place = function(itemstack, placer, pointed_thing)
+		if minetest.env:get_node(pointed_thing.under).name == "default:snow" then
+			minetest.env:remove_node(pointed_thing.under)
+		end
 		if pointed_thing.type ~= "node" or string.find(minetest.env:get_node(pointed_thing.above).name, "torch") then
 			return itemstack
 		end
@@ -184,6 +187,27 @@ minetest.register_node("torches:floor", {
 	update = function(pos,node, pos2)
 		if pos2.y < pos.y then
 			minetest.dig_node(pos)
+		end
+	end,
+})
+
+-- melt snow cover around torches
+minetest.register_abm({
+	nodenames = {"torches:floor"},
+	interval = 30,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		for i=-3,3 do
+			for j=-3,3 do
+				local np = addvectors(pos, {x=i, y=0, z=j})
+				if minetest.env:get_node(np).name == "default:snow" then
+					minetest.env:remove_node(np)
+				end
+				np.y = np.y - 1
+				if minetest.env:get_node(np).name == "default:dirt_with_snow" then
+					minetest.env:add_node(np, {name="default:dirt"})
+				end
+			end
 		end
 	end,
 })

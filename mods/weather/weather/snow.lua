@@ -55,7 +55,7 @@ minetest.register_abm({
 	nodenames = {"group:crumbly", "group:snappy", "group:cracky", "group:choppy"},
 	neighbors = {"default:air"},
 	interval = 10.0, 
-	chance = 30000,
+	chance = 30000,  -- NOTE: This high value is only needed for Stampyworld, use 100 or so for newly created maps.
 	action = function (pos, node, active_object_count, active_object_count_wider)
 		if weather == "snow" then
 			if minetest.registered_nodes[node.name].drawtype == "normal"

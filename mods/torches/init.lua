@@ -205,7 +205,7 @@ minetest.register_abm({
 				end
 				np.y = np.y - 1
 				if minetest.env:get_node(np).name == "default:dirt_with_snow" then
-					minetest.env:add_node(np, {name="default:dirt"})
+					minetest.env:add_node(np, {name="default:dirt_with_grass"})
 				end
 			end
 		end

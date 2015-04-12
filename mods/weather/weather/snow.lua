@@ -55,7 +55,7 @@ minetest.register_abm({
 	nodenames = {"group:crumbly", "group:snappy", "group:cracky", "group:choppy"},
 	neighbors = {"default:air"},
 	interval = 10.0, 
-	chance = 30000,  -- NOTE: This high value is only needed for Stampyworld, use 100 or so for newly created maps.
+	chance = 100,
 	action = function (pos, node, active_object_count, active_object_count_wider)
 		if weather == "snow" then
 			if minetest.registered_nodes[node.name].drawtype == "normal"
@@ -63,7 +63,18 @@ minetest.register_abm({
 				local np = addvectors(pos, {x=0, y=1, z=0})
 				if minetest.env:get_node_light(np, 0.5) == 15
 				and minetest.env:get_node(np).name == "air" then
-					minetest.env:add_node(np, {name="default:snow"})
+					local count = 0
+					for i=-2,2 do
+						for j=-2,2 do
+							local np2 = addvectors(np, {x=i, y=0, z=j})
+							if minetest.env:get_node(np2).name == "default:snow" then
+								count = count + 1
+							end
+						end
+					end
+					if math.random(0,25) > count then
+						minetest.env:add_node(np, {name="default:snow"})
+					end
 				end
 			end
 		end

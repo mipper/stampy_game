@@ -1168,6 +1168,21 @@ local function has_locked_chest_privilege(meta, player)
 	return true
 end
 
+local function drop_chest_stuff()
+	return function(pos, oldnode, oldmetadata, digger)
+		local meta = minetest.env:get_meta(pos)
+		meta:from_table(oldmetadata)
+		local inv = meta:get_inventory()
+		for i=1,inv:get_size("main") do
+			local stack = inv:get_stack("main", i)
+			if not stack:is_empty() then
+				local p = {x=pos.x+math.random(0, 5)/5-0.5, y=pos.y, z=pos.z+math.random(0, 5)/5-0.5}
+				minetest.add_item(p, stack)
+			end
+		end
+	end
+end
+
 minetest.register_node("default:chest", {
 	description = "Chest",
 	tiles = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
@@ -1185,11 +1200,7 @@ minetest.register_node("default:chest", {
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8*4)
 	end,
-	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
-		local inv = meta:get_inventory()
-		return inv:is_empty("main")
-	end,
+	after_dig_node = drop_chest_stuff(),
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		minetest.log("action", player:get_player_name()..
 				" moves stuff in chest at "..minetest.pos_to_string(pos))
@@ -1232,8 +1243,9 @@ minetest.register_node("default:chest_locked", {
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory()
-		return inv:is_empty("main") and has_locked_chest_privilege(meta, player)
+		return has_locked_chest_privilege(meta, player)
 	end,
+	after_dig_node = drop_chest_stuff(),
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
 		if not has_locked_chest_privilege(meta, player) then

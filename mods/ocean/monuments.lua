@@ -1,3 +1,5 @@
+dofile(minetest.get_modpath("ocean").."/room.lua")
+
 -- mapgenv6.cpp; np_terrain_base
 local perl1 = {SEED1 = 82341, OCTA1 = 5, PERS1 = 0.6, SCAL1 = 250}
 
@@ -106,67 +108,6 @@ local function ground(pos, old)
 	end
 end
 
-local room = {"a","a","a","a","a","a","a","a","a",
-	"a","c","a","c","a","c","a","c","a",
-	"a","s","a","s","a","s","a","s","a",
-	"a","a","a","a","a","a","a","a","a",
-	"a","a","a","a","a","a","a","a","a",
-	"a","a","a","a","a","a","a","a","a",
-	"a","s","a","s","a","s","a","s","a",
-	"a","c","a","c","a","c","a","c","a",
-	"a","a","a","a","a","a","a","a","a"}
-
-local code = {}
-code["s"] = "ocean:prismarine_bricks"
-code["eye"] = "ocean:sea_lantern"
-code["men"] = "ocean:sea_lantern"
-code["sun"] = "ocean:sea_lantern"
-code["b"] = "ocean:prismarine"
-code["a"] = "water_source"
-code["c"] = "water_source"
-code["l"] = "sponge:sponge"
-code["t"] = "ocean:prismarine"
-
-local function replace(str,iy)
-	if iy == 0 and str == "s" then str = "sun" end
-	if iy == 3 and str == "s" then str = "men" end
-	return code[str]
-end
-
-local function make_room(pos)
- local loch = {x=pos.x+7,y=pos.y+5, z=pos.z+7}
- for iy=0,4,1 do
-	for ix=0,8,1 do
-		for iz=0,8,1 do
-			local n_str = room[tonumber(ix*9+iz+1)]
-			if n_str == "c" and iy > 2 then
-				if iy == 4 then
-					minetest.set_node({x=loch.x+ix,y=loch.y-iy,z=loch.z+iz}, {name="default:goldblock"})
-				else
-					minetest.set_node({x=loch.x+ix,y=loch.y-iy,z=loch.z+iz}, {name="ocean:dark_prismarine"})
-				end
-			else
-				minetest.set_node({x=loch.x+ix,y=loch.y-iy,z=loch.z+iz}, {name=replace(n_str,iy)})
-				if n_str == "a" and math.random(1,30) > 29 then
-					minetest.set_node({x=loch.x+ix,y=loch.y-iy,z=loch.z+iz}, {name="sponge:sponge_wet"})
-				end
-			end
-		end
-	end
- end
-end
-
-
-local function make_pillars(pos)
- for iy=1,24,1 do
-	for ix=1,22,2 do
-		for iz=1,22,2 do
-			minetest.set_node({x=pos.x+ix,y=pos.y-iy,z=pos.z+iz}, {name="ocean:prismarine_bricks"})
-		end
-	end
- end
-end
-
 local function make(pos)
  minetest.log("action", "Created monument at ("..pos.x..","..pos.y..","..pos.z..")")
  for iy=0,10,1 do
@@ -177,8 +118,8 @@ local function make(pos)
 		end
 	end
  end
- make_room(pos)
- minetest.after(2, make_pillars, pos)
+ ocean.make_room(pos)
+ minetest.after(2, ocean.make_pillars, pos)
 end
 
 minetest.register_on_generated(function(minp, maxp, seed)

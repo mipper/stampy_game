@@ -1,5 +1,3 @@
-ocean = {}
-
 local function near_floor(pos)
 	local n = minetest.get_node_or_nil({x=pos.x,y=pos.y-2,z=pos.z})
 	if n and n.name and n.name ~= "default:water_source" then

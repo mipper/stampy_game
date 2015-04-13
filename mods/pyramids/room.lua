@@ -33,6 +33,7 @@ local function replace(str,iy)
 	local out = "default:"
 	if iy < 4 and str == "c" then str = "a" end
 	if iy == 0 and str == "s" then out = "pyramids:" str = "sun" end
+	if iy == 1 and str == "s" then out = "pyramids:" str = "eye" end
 	if iy == 3 and str == "s" then out = "pyramids:" str = "men" end
 	if str == "a" then out = "" end
 	return out..code[str]

@@ -57,18 +57,26 @@ function ocean:register_guardian (name, def)
 				if guardian_lonely(self, pos) and not minetest.env:find_node_near(pos, 24, def.spawn) then
 					self.object:remove()
 				end
-
+				if pos.y > 2 then
+					self.object:setvelocity({x = self.direction.x/5, y = -5, z = self.direction.z/5})
+				end
 				-- FIXME improve IA
 				local objs = minetest.env:get_objects_inside_radius(pos, 24)
 				local ppos = {}
+				local attack_player
 				self.found_target = false
 				self.yaw = math.random() * 360
 				for i, obj in ipairs(objs) do
-					if obj:is_player() and damage_enabled and not def.passive then self.found_target = obj break end
+					if obj:is_player() and damage_enabled and not def.passive then
+						self.found_target = obj
+						attack_player = true
+						break
+					end
 					if self.found_target == false
 						and obj:get_luaentity()
 						and (obj:get_luaentity().name == "ocean:guardian") then
 							self.found_target = obj
+							attack_player = false
 					end
 				end
 				if self.found_target  ~= false then
@@ -103,7 +111,7 @@ function ocean:register_guardian (name, def)
 				else
 					self.object:setacceleration({x = self.direction.x/5, y = self.direction.y/5, z = self.direction.z/5})
 				end
-				if too_close(self, pos) then
+				if too_close(self, pos) and not attack_player then
 					self.object:setyaw(self.yaw + math.pi)
 					self.object:setvelocity({x = -self.direction.x/5, y = -self.direction.y/5, z = -self.direction.z/5})
 					self.object:setacceleration({x = math.random(-20,20)/20, y = math.random(-5,5)/20, z = math.random(-20,20)/20})
@@ -144,7 +152,7 @@ function ocean:register_guardian (name, def)
 end
 
 function too_close (self, pos)
-	local objs = minetest.env:get_objects_inside_radius(pos, 14)
+	local objs = minetest.env:get_objects_inside_radius(pos, 2)
 	local count = 0
 	for i, obj in pairs(objs) do
 		if obj:get_luaentity() and (obj:get_luaentity().name == "ocean:guardian") then

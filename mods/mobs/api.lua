@@ -606,12 +606,14 @@ mobs.default_definition = {
 			if self.sounds and self.sounds.death then
 				minetest.sound_play(self.sounds.death, {object = self.object})
 			end
-			if hitter and hitter:is_player() and hitter:get_inventory() then
-				for _,drop in ipairs(self.drops) do
-					if math.random(1, drop.chance) == 1 then
-						if minetest.registered_items[drop.name] ~= nil then
-							hitter:get_inventory():add_item("main", ItemStack(drop.name.." "..math.random(drop.min, drop.max)))
-						end
+			local pos = self.object:getpos()
+			pos.y = pos.y + 0.5
+			local obj = nil
+			for _,drop in ipairs(self.drops) do
+				if math.random(1, drop.chance) == 1 then
+					obj = minetest.add_item(pos, ItemStack(drop.name.." "..math.random(drop.min, drop.max)))
+					if obj then
+						obj:setvelocity({x=math.random(-1,1), y=5, z=math.random(-1,1)})
 					end
 				end
 			end

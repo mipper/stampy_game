@@ -1,21 +1,20 @@
 -- textures: top, bottom, front, back, left, right
-local green_textures = {"guardian_side1.png", "guardian_side1.png", "guardian_front.png", "guardian_side2.png", "guardian_side2.png", "guardian_side3.png"}
+local guardian_textures = {"guardian_side1.png", "guardian_side1.png", "guardian_front.png", "guardian_side2.png", "guardian_side2.png", "guardian_side3.png"}
 
 ocean:register_guardian ("ocean:guardian", {
 	name = "ocean:guardian",
 	type = "monster",
 	passive = false,
 	size = 1,
-	textures = green_textures,
-	blood = "green_slime_blood.png",
+	textures = guardian_textures,
 	gravity = 0,
-	min_hp = 4,
-	max_hp = 6,
-	damage = 2,
+	max_hp = 12,
+	damage = 4,
+	drop = "ocean:prismarine 1",
 	drops = {	
 		type = "item",
 		name = "ocean:prismarine",
-		chance = 0, min = 1, max = 2},
+		chance = 2, min = 1, max = 2},
 	-- damage by
 	water_damage = 0,
 	lava_damage = 10,

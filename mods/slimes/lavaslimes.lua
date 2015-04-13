@@ -68,9 +68,10 @@ slimes:register_slime ("slimes:lavasmall", {
 	textures = lava_textures,
 	blood = "lava_slime_blood.png",
 	gravity = 9.8,
+	drop = "tnt:gunpowder 1",
 	drops = {
 		type = "item",
-		name = "tnt:gunpowder 1",
+		name = "tnt:gunpowder",
 		chance = 4, min = 1, max = 2},
 	-- damage by
 	water_damage = 10,

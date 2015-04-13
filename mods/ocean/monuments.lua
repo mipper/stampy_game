@@ -19,6 +19,14 @@ minetest.register_node("ocean:dark_prismarine", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("ocean:prismarine_bricks", {
+	description = "Prismarine Bricks",
+	drawtype = "normal",
+	tiles = {"prismarine_bricks.png"},
+	groups = {cracky=2,level=1},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("ocean:sea_lantern", {
 	description = "Sea Lantern",
 	tiles = {"sea_lantern.png"},

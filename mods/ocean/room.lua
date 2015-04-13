@@ -9,7 +9,7 @@ local room = {"a","a","a","a","a","a","a","a","a",
 	"a","a","a","a","a","a","a","a","a"}
 
 local code = {}
-code["s"] = "ocean:prismarine"
+code["s"] = "ocean:prismarine_bricks"
 code["eye"] = "ocean:sea_lantern"
 code["men"] = "ocean:sea_lantern"
 code["sun"] = "ocean:sea_lantern"

@@ -180,7 +180,7 @@ mobs:register_mob("mobs:sheep", {
 	walk_velocity = 1,
 	armor = 200,
 	drops = {
-		{name = "mobs:meat_raw",
+		{name = "mobs:mutton_raw",
 		chance = 1,
 		min = 2,
 		max = 3,},
@@ -268,7 +268,7 @@ mobs:register_mob("mobs:pig", {
 	walk_velocity = 1,
 	armor = 200,
 	drops = {
-		{name = "mobs:meat_raw",
+		{name = "mobs:porkchop_raw",
 		chance = 1,
 		min = 2,
 		max = 3,},
@@ -314,7 +314,7 @@ mobs:register_mob("mobs:cow", {
 	walk_velocity = 1,
 	armor = 200,
 	drops = {
-		{name = "mobs:meat_raw",
+		{name = "mobs:beef_raw",
 		chance = 1,
 		min = 3,
 		max = 5,},
@@ -368,7 +368,7 @@ mobs:register_mob("mobs:chicken", {
 	walk_velocity = 1,
 	armor = 200,
 	drops = {
-		{name = "mobs:meat_raw",
+		{name = "mobs:chicken_raw",
 		chance = 1,
 		min = 1,
 		max = 1,},
@@ -610,6 +610,7 @@ minetest.register_node("mobs:arrow_box", {
 	groups = {not_in_creative_inventory=1},
 })
 
+-- generic meat
 minetest.register_craftitem("mobs:meat_raw", {
 	description = "Raw Meat",
 	inventory_image = "mobs_meat_raw.png",
@@ -625,6 +626,85 @@ minetest.register_craft({
 	type = "cooking",
 	output = "mobs:meat",
 	recipe = "mobs:meat_raw",
+	cooktime = 5,
+})
+
+-- beef
+minetest.register_craftitem("mobs:beef_raw", {
+	description = "Raw Beef",
+	inventory_image = "beef_raw.png",
+	on_use = minetest.item_eat(3),
+})
+
+minetest.register_craftitem("mobs:beef_cooked", {
+	description = "Steak",
+	inventory_image = "beef_cooked.png",
+	on_use = minetest.item_eat(8),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "mobs:beef_cooked",
+	recipe = "mobs:beef_raw",
+	cooktime = 5,
+})
+
+-- pork
+minetest.register_craftitem("mobs:porkchop_raw", {
+	description = "Raw Porkchop",
+	inventory_image = "porkchop_raw.png",
+	on_use = minetest.item_eat(3),
+})
+
+minetest.register_craftitem("mobs:porkchop_cooked", {
+	description = "Cooked Porkchop",
+	inventory_image = "porkchop_cooked.png",
+	on_use = minetest.item_eat(8),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "mobs:porkchop_cooked",
+	recipe = "mobs:porkchop_raw",
+	cooktime = 5,
+})
+
+--mutton
+minetest.register_craftitem("mobs:mutton_raw", {
+	description = "Raw Mutton",
+	inventory_image = "mutton_raw.png",
+	on_use = minetest.item_eat(2),
+})
+
+minetest.register_craftitem("mobs:mutton_cooked", {
+	description = "Cooked Mutton",
+	inventory_image = "mutton_cooked.png",
+	on_use = minetest.item_eat(6),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "mobs:mutton_cooked",
+	recipe = "mobs:mutton_raw",
+	cooktime = 5,
+})
+
+-- chicken
+minetest.register_craftitem("mobs:chicken_raw", {
+	description = "Raw Chicken",
+	inventory_image = "chicken_raw.png",
+})
+
+minetest.register_craftitem("mobs:chicken_cooked", {
+	description = "Cooked Chicken",
+	inventory_image = "chicken_cooked.png",
+	on_use = minetest.item_eat(6),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "mobs:chicken_cooked",
+	recipe = "mobs:chicken_raw",
 	cooktime = 5,
 })
 
@@ -652,33 +732,6 @@ mobs:register_mob("mobs:rat", {
 	end,
 })
 -- mobs:register_spawn("mobs:rat", {"default:dirt_with_grass", "default:stone"}, 20, -1, 7000, 1, 31000)
-
-minetest.register_craftitem("mobs:rat", {
-	description = "Rat",
-	inventory_image = "mobs_rat_inventory.png",
-	
-	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.above then
-			minetest.env:add_entity(pointed_thing.above, "mobs:rat")
-			itemstack:take_item()
-		end
-		return itemstack
-	end,
-})
-	
-minetest.register_craftitem("mobs:rat_cooked", {
-	description = "Cooked Rat",
-	inventory_image = "mobs_cooked_rat.png",
-	
-	on_use = minetest.item_eat(3),
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "mobs:rat_cooked",
-	recipe = "mobs:rat",
-	cooktime = 5,
-})
 
 mobs:register_mob("mobs:oerkki", {
 	type = "monster",

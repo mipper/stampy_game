@@ -10,11 +10,14 @@ ocean:register_guardian ("ocean:guardian", {
 	gravity = 0,
 	max_hp = 12,
 	damage = 4,
-	drop = "ocean:prismarine 1",
-	drops = {	
-		type = "item",
-		name = "ocean:prismarine",
-		chance = 2, min = 1, max = 2},
+	drops = {
+		{name = "ocean:prismarine_crystals",
+		chance = 1, min = 0, max = 1,},
+		{name = "ocean:prismarine_shard",
+		chance = 1, min = 0, max = 2,},
+		{name = "fishing:fish_raw",
+		chance = 3, min = 1, max = 1,},
+	},
 	-- damage by
 	water_damage = 0,
 	lava_damage = 10,

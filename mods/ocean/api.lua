@@ -189,17 +189,13 @@ function check_for_guardian_death(self,def)
 
 	--if (def.sounds.death.file ~= nil ) then minetest.sound_play(def.sounds.death.file, {pos = pos,gain = (def.sounds.death.gain or 0.25)}) end
 	self.object:remove()
-
-	local chance = def.drops.chance
-	if math.random(1, def.drops.chance+1) == 1 or def.drops.chance == 0 then
-		local min = def.drops.min
-		local max = def.drops.max
-		local num = math.floor(math.random(min, max+1))
-		if def.drops.type == "item" then
-			for i=1,num do	minetest.env:add_item(pos, def.drop) end
-		end
-		if def.drops.type == "entity" then
-			for i=1,num do	minetest.env:add_entity({x=pos.x, y=pos.y + (def.size*math.random()), z=pos.z + (def.size*math.random())}, def.drops.name)	end
+	local obj = nil
+	for _,drop in ipairs(def.drops) do
+		if math.random(1, drop.chance) == 1 then
+			obj = minetest.add_item(pos, ItemStack(drop.name.." "..math.random(drop.min, drop.max)))
+			if obj then
+				obj:setvelocity({x=math.random(-1,1), y=5, z=math.random(-1,1)})
+			end
 		end
 	end
 end

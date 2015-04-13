@@ -35,6 +35,58 @@ minetest.register_node("ocean:sea_lantern", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
+minetest.register_craftitem("ocean:prismarine_crystals", {
+	description = "Prismarine Crystals",
+	inventory_image = "prismarine_crystals.png",
+})
+
+minetest.register_craftitem("ocean:prismarine_shard", {
+	description = "Prismarine Shard",
+	inventory_image = "prismarine_shard.png",
+})
+
+minetest.register_craft({
+	output = 'ocean:sea_lantern',
+	recipe = {
+		{'ocean:prismarine_shard',    'ocean:prismarine_crystals', 'ocean:prismarine_shard'},
+		{'ocean:prismarine_crystals', 'ocean:prismarine_crystals', 'ocean:prismarine_crystals'},
+		{'ocean:prismarine_shard',    'ocean:prismarine_crystals', 'ocean:prismarine_shard'},
+	}
+})
+
+minetest.register_craft({
+	output = 'ocean:prismarine_bricks',
+	recipe = {
+		{'ocean:prismarine_shard',    'ocean:prismarine_shard', 'ocean:prismarine_shard'},
+		{'ocean:prismarine_shard',    'ocean:prismarine_shard', 'ocean:prismarine_shard'},
+		{'ocean:prismarine_shard',    'ocean:prismarine_shard', 'ocean:prismarine_shard'},
+	}
+})
+
+minetest.register_craft({
+	output = 'ocean:dark_prismarine',
+	recipe = {
+		{'ocean:prismarine_shard',    'ocean:prismarine_shard', 'ocean:prismarine_shard'},
+		{'ocean:prismarine_shard',    'dye:black',              'ocean:prismarine_shard'},
+		{'ocean:prismarine_shard',    'ocean:prismarine_shard', 'ocean:prismarine_shard'},
+	}
+})
+
+minetest.register_craft({
+	output = 'ocean:prismarine',
+	recipe = {
+		{'ocean:prismarine_shard',    'ocean:prismarine_shard'},
+		{'ocean:prismarine_shard',    'ocean:prismarine_shard'},
+	}
+})
+
+minetest.register_craft({
+	output = 'ocean:prismarine_shard 4',
+	recipe = {
+		{'ocean:prismarine'},
+	}
+})
+
 local function hlp_fnct(pos, name)
 	local n = minetest.get_node_or_nil(pos)
 	if n and n.name and n.name == name then

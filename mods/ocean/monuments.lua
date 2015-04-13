@@ -67,6 +67,7 @@ local function make(pos)
 	end
  end
  ocean.make_room(pos)
+ minetest.after(2, ocean.make_pillars, pos)
 end
 
 minetest.register_on_generated(function(minp, maxp, seed)
@@ -109,6 +110,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		--local wnode = minetest.get_node_or_nil({x=p2.x,y=-2,z=p2.z})
 		--if wnode and wnode.name ~= "water_source" then return end
 		if minetest.find_node_near({x=p2.x,y=-2,z=p2.z}, 2, {"default:water_source"}) and minetest.find_node_near({x=p2.x+20,y=-2,z=p2.z+20}, 2, {"default:water_source"}) then
+			p2.y = p2.y + 3
 			minetest.after(0.8,make,p2)
 		end
 	end

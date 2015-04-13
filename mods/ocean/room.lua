@@ -48,3 +48,15 @@ function ocean.make_room(pos)
  end
 end
 
+
+function ocean.make_pillars(pos)
+ for iy=1,14,1 do
+	for ix=1,22,2 do
+		for iz=1,22,2 do
+			minetest.set_node({x=pos.x+ix,y=pos.y-iy,z=pos.z+iz}, {name="ocean:prismarine_bricks"})
+		end
+	end
+ end
+end
+
+

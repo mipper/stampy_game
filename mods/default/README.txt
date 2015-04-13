@@ -191,9 +191,6 @@ Mito551 (sounds) (CC BY-SA):
 Gambit (WTFPL):
   default_bronze_ingot.png
   default_copper_ingot.png
-  default_copper_lump.png
-  default_iron_lump.png
-  default_gold_lump.png
   default_clay_lump.png
   default_coal.png
   default_grass_*.png

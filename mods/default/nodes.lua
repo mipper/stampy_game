@@ -638,7 +638,6 @@ minetest.register_node("default:stone_with_iron", {
 	tiles = {"default_stone.png^default_mineral_iron.png"},
 	is_ground_content = true,
 	groups = {cracky=2},
-	drop = 'default:iron_lump',
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -657,7 +656,6 @@ minetest.register_node("default:stone_with_copper", {
 	tiles = {"default_stone.png^default_mineral_copper.png"},
 	is_ground_content = true,
 	groups = {cracky=2},
-	drop = 'default:copper_lump',
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -708,7 +706,6 @@ minetest.register_node("default:stone_with_gold", {
 	tiles = {"default_stone.png^default_mineral_gold.png"},
 	is_ground_content = true,
 	groups = {cracky=2},
-	drop = "default:gold_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
 

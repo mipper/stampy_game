@@ -18,7 +18,7 @@ minetest.register_craftitem("default:book", {
 })
 
 minetest.register_craftitem("default:coal_lump", {
-	description = "Coal Lump",
+	description = "Coal",
 	inventory_image = "default_coal_lump.png",
 	groups = {coal = 1}
 })
@@ -29,24 +29,9 @@ minetest.register_craftitem("default:charcoal", {
 	groups = {coal = 1},
 })
 
-minetest.register_craftitem("default:iron_lump", {
-	description = "Iron Lump",
-	inventory_image = "default_iron_lump.png",
-})
-
-minetest.register_craftitem("default:copper_lump", {
-	description = "Copper Lump",
-	inventory_image = "default_copper_lump.png",
-})
-
 minetest.register_craftitem("default:mese_crystal", {
 	description = "Mese Crystal",
 	inventory_image = "default_mese_crystal.png",
-})
-
-minetest.register_craftitem("default:gold_lump", {
-	description = "Gold Lump",
-	inventory_image = "default_gold_lump.png",
 })
 
 minetest.register_craftitem("default:diamond", {
@@ -60,7 +45,7 @@ minetest.register_craftitem("default:emerald", {
 })
 
 minetest.register_craftitem("default:clay_lump", {
-	description = "Clay Lump",
+	description = "Clay",
 	inventory_image = "default_clay_lump.png",
 })
 

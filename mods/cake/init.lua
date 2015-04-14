@@ -18,7 +18,7 @@ minetest.register_craft({
 		{'food:sugar', 'food:egg', 'food:sugar'},
 		{'farming:wheat_harvested', 'farming:wheat_harvested', 'farming:wheat_harvested'},
 	},
-	replacements = {{"bucket:bucket_water", "bucket:bucket_empty"}},
+	replacements = {{"bucket:bucket_milk", "bucket:bucket_empty"},{"bucket:bucket_milk", "bucket:bucket_empty"},{"bucket:bucket_milk", "bucket:bucket_empty"}},
 })
 
 minetest.register_node("cake:cake", {

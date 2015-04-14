@@ -348,8 +348,15 @@ mobs:register_mob("mobs:cow", {
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "bucket:bucket_empty" and clicker:get_inventory() then
-			if minetest.registered_items["food:milk"] then
-				clicker:get_inventory():add_item("main", ItemStack("bucket:bucket_milk 1"))
+			local inv = clicker:get_inventory()
+			inv:remove_item("main", "bucket:bucket_empty")
+			-- if room add bucket of milk to inventory, otherwise drop as item
+			if inv:room_for_item("main", {name="bucket:bucket_milk"}) then
+				clicker:get_inventory():add_item("main", "bucket:bucket_milk")
+			else
+				local pos = self.object:getpos()
+				pos.y = pos.y + 0.5
+				minetest.add_item(pos, {name = "bucket:bucket_milk"})
 			end
 		end
 	end,

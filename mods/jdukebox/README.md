@@ -1,10 +1,7 @@
 jdukebox
 ========
 
-Modified and bugfixed Jukebox for Minetest+
+Modified and bugfixed Jukebox for Minetest+ by BlockMen and Jordach
 
-Punch with music disc to play, punch again to stop.
-
-Only punching player hears the tracks.
-
+Right click with music disc to play, right click again to stop.
 

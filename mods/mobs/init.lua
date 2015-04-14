@@ -231,25 +231,23 @@ mobs:register_mob("mobs:sheep", {
 					clicker:set_wielded_item(item)
 				end
 				self.food = (self.food or 0) + 1
-				if self.food >= 8 then
+				if self.food >= 4 then
 					self.food = 0
 					self.naked = false
 					self.object:set_properties({
 						textures = {"sheep.png"},
-						-- mesh = "sheep.x",
 					})
 				end
 			end
 			return
 		end
-		if clicker:get_inventory() and not self.naked then
+		if item:get_name() == "shears:shears" and not self.naked then
 			self.naked = true
-			if minetest.registered_items["wool:white"] then
-				clicker:get_inventory():add_item("main", ItemStack("wool:white "..math.random(1,3)))
-			end
+			local pos = self.object:getpos()
+			pos.y = pos.y + 0.5
+			minetest.add_item(pos, ItemStack("wool:white "..math.random(1,3)))
 			self.object:set_properties({
 				textures = {"sheep_sheared.png"},
-				-- mesh = "sheep_sheared.x",
 			})
 		end
 	end,
@@ -297,7 +295,7 @@ mobs:register_mob("mobs:pig", {
 		look_start = 78,
 		look_end = 108,
 	},
-	follow = "farming:wheat",
+	follow = "farming_plus:carrot_item",
 	view_range = 5,
 })
 mobs:register_spawn("mobs:pig", {"default:dirt_with_grass"}, 20, 12, 5000, 8, 31000)
@@ -406,7 +404,7 @@ mobs:register_mob("mobs:chicken", {
 		fly_start = 181,
 		fly_end = 187,
 	},
-	follow = "farming:wheat",
+	follow = "farming:seed_wheat",
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		if clicker:get_inventory() then

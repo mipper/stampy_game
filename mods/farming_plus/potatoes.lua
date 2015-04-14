@@ -54,7 +54,7 @@ minetest.register_node("farming_plus:potato", {
 	paramtype = "light",
 	walkable = false,
 	drawtype = "plantlike",
-	tiles = {"farming_potato_3.png"},
+	tiles = {"farming_potato_4.png"},
 	drop = {
 		max_items = 4,
 		items = {
@@ -88,4 +88,5 @@ minetest.register_alias("farming_plus:potatoe_seed", "farming_plus:potato_seed")
 minetest.register_alias("farming_plus:potatoe", "farming_plus:potato")
 minetest.register_alias("farming_plus:potatoe_1", "farming_plus:potato_1")
 minetest.register_alias("farming_plus:potatoe_2", "farming_plus:potato_2")
+minetest.register_alias("farming_plus:potatoe_3", "farming_plus:potato_3")
 

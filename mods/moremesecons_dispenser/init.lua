@@ -88,7 +88,7 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 					if stack:get_name() == "throwing:arrow" then
 						local obj = minetest.env:add_entity(pos_under, "throwing:arrow_entity")
 						obj:setvelocity({x=-dir.x*22, y=0, z=-dir.z*22})
-						obj:setacceleration({x=-dir.x*-3, y=-10, z=-dir.z*-3})
+						obj:setacceleration({x=-dir.x*-3, y=-4, z=-dir.z*-3})
 						obj:setyaw(math.atan(dir.x/dir.z) - math.pi/2)
 						minetest.sound_play("throwing_sound", {pos=pos})
 						stack:take_item()

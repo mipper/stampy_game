@@ -47,7 +47,7 @@ minetest.register_craft({
 	output = 'throwing:bow_wood',
 	recipe = {
 		{'farming:cotton', 'default:stick', ''},
-		{'farming:cotton', '', 'default:stick'},
+		{'farming:cotton', '',              'default:stick'},
 		{'farming:cotton', 'default:stick', ''},
 	}
 })

@@ -202,8 +202,16 @@ minetest.register_craft({
 	output = 'itemframes:frame',
 	recipe = {
 		{'default:stick', 'default:stick', 'default:stick'},
-		{'default:stick', 'default:paper', 'default:stick'},
+		{'default:stick', 'mobs:leather',  'default:stick'},
 		{'default:stick', 'default:stick', 'default:stick'},
+	}
+})
+minetest.register_craft({
+	output = 'itemframes:frame',
+	recipe = {
+		{'moreblocks:jungle_stick', 'moreblocks:jungle_stick', 'moreblocks:jungle_stick'},
+		{'moreblocks:jungle_stick', 'mobs:leather',            'moreblocks:jungle_stick'},
+		{'moreblocks:jungle_stick', 'moreblocks:jungle_stick', 'moreblocks:jungle_stick'},
 	}
 })
 minetest.register_craft({

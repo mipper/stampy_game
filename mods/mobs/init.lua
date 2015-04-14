@@ -499,7 +499,7 @@ mobs:register_mob("mobs:skeleton", {
 		min = 0,
 		max = 2,},
 		{name = "throwing:bow_wood",
-		chance = 3,
+		chance = 11,
 		min = 1,
 		max = 1,},
 		{name = "bones:single_bone",

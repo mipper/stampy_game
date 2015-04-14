@@ -105,8 +105,7 @@ minetest.register_craftitem("fake_fire:flint", {
 minetest.register_craft({
 	output = '"fake_fire:flint_and_steel" 1',
 	recipe = {
-		{"fake_fire:flint", ""},
-		{"", "default:steel_ingot"},
+		{"fake_fire:flint", "default:steel_ingot"},
 	}
 })
 

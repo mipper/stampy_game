@@ -96,7 +96,7 @@ end,
 })
 
 minetest.register_craftitem("fake_fire:flint", {
-	description = "flint",
+	description = "Flint",
 	inventory_image = "flint.png",
 	stack_max = 99,
 	liquids_pointable = false,

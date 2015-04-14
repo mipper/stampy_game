@@ -182,8 +182,8 @@ mobs:register_mob("mobs:sheep", {
 	drops = {
 		{name = "mobs:mutton_raw",
 		chance = 1,
-		min = 2,
-		max = 3,},
+		min = 1,
+		max = 2,},
 		{name = "wool:white",
 		chance = 1,
 		min = 1,
@@ -268,7 +268,7 @@ mobs:register_mob("mobs:pig", {
 	drops = {
 		{name = "mobs:porkchop_raw",
 		chance = 1,
-		min = 2,
+		min = 1,
 		max = 3,},
 	},
 	drawtype = "front",
@@ -314,8 +314,12 @@ mobs:register_mob("mobs:cow", {
 	drops = {
 		{name = "mobs:beef_raw",
 		chance = 1,
-		min = 3,
-		max = 5,},
+		min = 1,
+		max = 3,},
+		{name = "mobs:leather",
+		chance = 1,
+		min = 0,
+		max = 2,},
 	},
 	drawtype = "front",
 	water_damage = 1,
@@ -377,6 +381,10 @@ mobs:register_mob("mobs:chicken", {
 		chance = 1,
 		min = 1,
 		max = 1,},
+		{name = "mobs:feather",
+		chance = 1,
+		min = 0,
+		max = 2,},
 	},
 	drawtype = "front",
 	water_damage = 1,
@@ -490,7 +498,7 @@ mobs:register_mob("mobs:skeleton", {
 		chance = 1,
 		min = 0,
 		max = 2,},
-		{name = "throwing:bow_steel",
+		{name = "throwing:bow_wood",
 		chance = 3,
 		min = 1,
 		max = 1,},
@@ -711,6 +719,18 @@ minetest.register_craft({
 	output = "mobs:chicken_cooked",
 	recipe = "mobs:chicken_raw",
 	cooktime = 5,
+})
+
+-- leather, feathers, etc.
+
+minetest.register_craftitem("mobs:leather", {
+	description = "Leather",
+	inventory_image = "mobs_leather.png",
+})
+
+minetest.register_craftitem("mobs:feather", {
+	description = "Feather",
+	inventory_image = "mobs_feather.png",
 })
 
 mobs:register_mob("mobs:rat", {

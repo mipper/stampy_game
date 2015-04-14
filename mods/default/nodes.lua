@@ -367,6 +367,12 @@ minetest.register_node("default:snow", {
 			minetest.set_node(pos, {name="default:dirt_with_snow"})
 		end
 	end,
+	after_destruct = function(pos, node, digger)
+		pos.y = pos.y - 1
+		if minetest.get_node(pos).name == "default:dirt_with_snow" then
+			minetest.set_node(pos, {name="default:dirt_with_grass"})
+		end
+	end,
 })
 
 

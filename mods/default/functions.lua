@@ -318,3 +318,19 @@ minetest.register_abm({
 		end
 	end
 })
+
+minetest.register_abm({
+	nodenames = {"default:dirt_with_snow"},
+	interval = 2,
+	chance = 20,
+	action = function(pos, node)
+		local above = {x=pos.x, y=pos.y+1, z=pos.z}
+		local name = minetest.get_node(above).name
+		local nodedef = minetest.registered_nodes[name]
+		if name ~= "default:snow" then
+			minetest.set_node(pos, {name = "default:dirt_with_grass"})
+		end
+	end
+})
+
+

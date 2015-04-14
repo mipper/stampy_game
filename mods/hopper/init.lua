@@ -14,16 +14,18 @@ minetest.register_abm({
 		for i, obj in ipairs(objs) do
 			if not obj:is_player() then
 				local o = obj:get_luaentity()
-				local q = o:get_staticdata()
-				local p = minetest.deserialize(q)
-				local stack = ItemStack(p.itemstring)
-				local cpos = minetest.find_node_near(pos, 1.5, {"default:chest"})
-				if cpos then
-					local meta = minetest.env:get_meta(cpos)
-					local inv = meta:get_inventory()
-					if inv:room_for_item("main", stack) then
-						inv:add_item("main", stack)
-						obj:remove()
+				if o.get_staticdata then
+					local q = o:get_staticdata()
+					local p = minetest.deserialize(q)
+					local stack = ItemStack(p.itemstring)
+					local cpos = minetest.find_node_near(pos, 1.5, {"default:chest"})
+					if cpos then
+						local meta = minetest.env:get_meta(cpos)
+						local inv = meta:get_inventory()
+						if inv:room_for_item("main", stack) then
+							inv:add_item("main", stack)
+							obj:remove()
+						end
 					end
 				end
 			end

@@ -115,5 +115,24 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 })
 
 
+minetest.register_craft({
+	output = 'moremesecons_dispenser:dropper',
+	recipe = {
+		{'default:cobble', 'default:cobble',      'default:cobble'},
+		{'default:cobble', '',                    'default:cobble'},
+		{'default:cobble', 'default:mese_crystal','default:cobble'},
+	}
+})
+
+
+minetest.register_craft({
+	output = 'moremesecons_dispenser:dispenser',
+	recipe = {
+		{'default:cobble', 'default:cobble',      'default:cobble'},
+		{'default:cobble', 'throwing:bow_wood',   'default:cobble'},
+		{'default:cobble', 'default:mese_crystal','default:cobble'},
+	}
+})
+
 
 

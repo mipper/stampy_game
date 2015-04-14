@@ -2,6 +2,7 @@ minetest.register_node("hopper:hopper", {
 	description = "Hopper",
 	drawtype = "normal",
 	tiles = {"hopper_top.png", "hopper_outside.png", "hopper_outside.png", "hopper_outside.png", "hopper_outside.png", "hopper_outside.png"},
+	inventory_image = "hopper.png",
 	groups = {cracky=2,level=1},
 })
 

@@ -22,7 +22,7 @@ minetest.register_craft({
 
 minetest.register_node("jdukebox:box", {
 	description = "Jukebox",
-	tiles = {"jdukebox_top.png", "deco_wood_oak_planks.png", "jdukebox_side.png"},
+	tiles = {"jdukebox_top.png", "jdukebox_side.png"},
 	groups = {oddly_breakable_by_hand=1, flammable=1, choppy=3},
 	on_rightclick = function(pos, node, clicker, itemstack)	
 		local meta = minetest.env:get_meta(pos)

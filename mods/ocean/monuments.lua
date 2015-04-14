@@ -108,18 +108,41 @@ local function ground(pos, old)
 	end
 end
 
+local function make_entrance(pos)
+ local gang = {x=pos.x+10,y=pos.y, z=pos.z}
+ for iy=2,3,1 do
+	for iz=0,6,1 do
+		minetest.set_node({x=gang.x+1,y=gang.y+iy,z=gang.z+iz}, {name = "default:water_source"})
+		if iz >=3 and iy == 3 then
+			minetest.set_node({x=gang.x,y=gang.y+iy+1,z=gang.z+iz},   {name="ocean:prismarine_bricks"})
+			minetest.set_node({x=gang.x+1,y=gang.y+iy+1,z=gang.z+iz}, {name="ocean:prismarine_bricks"})
+			minetest.set_node({x=gang.x+2,y=gang.y+iy+1,z=gang.z+iz}, {name="ocean:prismarine_bricks"})
+		end
+	end
+ end
+end
+
 local function make(pos)
  minetest.log("action", "Created monument at ("..pos.x..","..pos.y..","..pos.z..")")
  for iy=0,10,1 do
 	for ix=iy,22-iy,1 do
 		for iz=iy,22-iy,1 do
 			if iy <1 then minetest.set_node({x=pos.x+ix,y=pos.y,z=pos.z+iz}, {name="ocean:prismarine"}) end
-			minetest.set_node({x=pos.x+ix,y=pos.y+iy,z=pos.z+iz}, {name="ocean:prismarine"})
+			if ix == iy or ix == 22-iy or iz == iy or iz == 22-iy then
+				minetest.set_node({x=pos.x+ix,y=pos.y+iy,z=pos.z+iz}, {name="ocean:prismarine_bricks"})
+			else
+				minetest.set_node({x=pos.x+ix,y=pos.y+iy,z=pos.z+iz}, {name="ocean:prismarine"})
+			end
 		end
 	end
  end
+ minetest.set_node({x=pos.x+10,y=pos.y+11,z=pos.z+10}, {name="ocean:sea_lantern"})
+ minetest.set_node({x=pos.x+12,y=pos.y+11,z=pos.z+12}, {name="ocean:sea_lantern"})
+ minetest.set_node({x=pos.x+10,y=pos.y+11,z=pos.z+12}, {name="ocean:sea_lantern"})
+ minetest.set_node({x=pos.x+12,y=pos.y+11,z=pos.z+10}, {name="ocean:sea_lantern"})
  ocean.make_room(pos)
  minetest.after(2, ocean.make_pillars, pos)
+ make_entrance({x=pos.x,y=pos.y, z=pos.z})
 end
 
 minetest.register_on_generated(function(minp, maxp, seed)

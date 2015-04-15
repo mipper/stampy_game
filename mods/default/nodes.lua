@@ -170,7 +170,7 @@ minetest.register_node("default:stonebrick", {
 })
 
 minetest.register_node("default:mossycobble", {
-	description = "Mossy Cobblestone",
+	description = "Moss Stone",
 	tiles = {"default_mossycobble.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1},

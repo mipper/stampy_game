@@ -1,5 +1,5 @@
 minetest.register_node("permaleaves:leaves", {
-	description = "Permanent leaves",
+	description = "Permanent Leaves",
 	drawtype = "allfaces_optional",
 	visual_scale = 1.3,
 	tiles = {"default_leaves.png"},

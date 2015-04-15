@@ -260,7 +260,7 @@ local nodes = {
 		no_stairs = true,
 	},
 	["rope"] = {
-		description = S("Rope"),
+		description = S("Vines"),
 		drawtype = "signlike",
 		inventory_image = "moreblocks_rope.png",
 		wield_image = "moreblocks_rope.png",

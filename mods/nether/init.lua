@@ -388,7 +388,7 @@ minetest.register_node("nether:rack", {
 })
 
 minetest.register_node("nether:sand", {
-	description = "Nethersand",
+	description = "Soul Sand",
 	tiles = {"nether_sand.png"},
 	is_ground_content = true,
 	light_source = NETHER_AMBIENT,

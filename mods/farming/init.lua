@@ -62,7 +62,7 @@ minetest.register_craft({
 
 -- Straw
 minetest.register_craft({
-	output = "farming:straw 3",
+	output = "farming:straw",
 	recipe = {
 		{"farming:wheat", "farming:wheat", "farming:wheat"},
 		{"farming:wheat", "farming:wheat", "farming:wheat"},
@@ -71,7 +71,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "farming:wheat 3",
+	output = "farming:wheat 9",
 	recipe = {
 		{"farming:straw"},
 	}

@@ -176,7 +176,7 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_node("crafting:workbench", {
-	description = "Crafting table",
+	description = "Crafting Table",
 	tiles = {"crafting_workbench_top.png", "default_wood.png", "crafting_workbench_side.png",
 		"crafting_workbench_side.png", "crafting_workbench_front.png", "crafting_workbench_front.png"},
 	paramtype2 = "facedir",

@@ -84,7 +84,7 @@ minetest.register_node("gate:fencegate_open", {
 })
 
 minetest.register_node("gate:fencegate", {
-	description = "Wooden fence gate",
+	description = "Fence Gate",
 	tiles = {"default_wood.png", "default_wood.png", wood_rotated,
 		wood_rotated, wood_rotated, wood_rotated},
 	inventory_image = "gate_fencegate.png",

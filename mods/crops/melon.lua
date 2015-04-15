@@ -18,7 +18,7 @@ local faces = {
 }
 
 minetest.register_node("crops:melon_seed", {
-	description = "Melon seeds",
+	description = "Melon Seeds",
 	inventory_image = "crops_melon_seed.png",
 	wield_image = "crops_melon_seed.png",
 	tiles = { "crops_melon_plant_1.png" },
@@ -77,7 +77,7 @@ minetest.register_node("crops:melon_plant_5_attached", {
 
 
 minetest.register_craftitem("crops:melon_slice", {
-	description = "Melon slice",
+	description = "Melon Slice",
 	inventory_image = "crops_melon_slice.png",
 	on_use = minetest.item_eat(1)
 })

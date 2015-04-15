@@ -20,7 +20,7 @@ minetest.register_abm({
 					local p = minetest.deserialize(q)
 					local stack = ItemStack(p.itemstring)
 					local cpos = minetest.find_node_near(pos, 1.5, {"default:chest"})
-					if cpos then
+					if cpos and not stack:is_empty() then
 						local meta = minetest.env:get_meta(cpos)
 						local inv = meta:get_inventory()
 						if inv:room_for_item("main", stack) then

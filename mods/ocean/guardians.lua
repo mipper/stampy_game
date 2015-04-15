@@ -27,5 +27,6 @@ ocean:register_guardian ("ocean:guardian", {
 	spawn = "ocean:prismarine"
 })
 ocean:register_spawn("ocean:guardian", {"default:water_source"},{"ocean:prismarine_bricks","ocean:prismarine"}, 20, 0, 20, 8, 0)
+mobs:register_egg("ocean:guardian", "Guardian", "spawn_egg_guardian.png")
 
 

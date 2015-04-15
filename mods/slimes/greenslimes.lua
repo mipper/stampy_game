@@ -94,3 +94,5 @@ slimes:register_spawn("slimes:greenbig", {"default:cobble"},{"default:mossycobbl
 slimes:register_spawn("slimes:greenmedium", {"default:cobble"},{"default:mossycobble"}, 20, 15, 20, 8, 32000)
 slimes:register_spawn("slimes:greensmall", {"default:cobble"},{"default:mossycobble"}, 20, 15, 8, 8, 32000)
 
+mobs:register_egg("slimes:greenbig", "Slime", "spawn_egg_slime.png")
+

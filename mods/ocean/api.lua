@@ -54,12 +54,6 @@ function ocean:register_guardian (name, def)
 				if guardian_lonely(self, pos) and not minetest.env:find_node_near(pos, 24, def.spawn) then
 					self.object:remove()
 				end
-				if pos.y > 2 then
-					self.object:setvelocity({x = 0, y = -5, z = 0})
-				end
-				if pos.y > 6 then
-					self.object:remove()
-				end
 				local objs = minetest.env:get_objects_inside_radius(pos, 24)
 				local ppos = {}
 				local attack_player

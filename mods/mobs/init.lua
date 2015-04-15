@@ -953,6 +953,16 @@ minetest.register_craft({
 	}
 })
 
+-- spawn eggs
+
+mobs:register_egg("mobs:chicken", "Chicken", "spawn_egg_chicken.png")
+mobs:register_egg("mobs:cow", "Cow", "spawn_egg_cow.png")
+mobs:register_egg("mobs:creeper", "Creeper", "spawn_egg_creeper.png")
+mobs:register_egg("mobs:pig", "Pig", "spawn_egg_pig.png")
+mobs:register_egg("mobs:sheep", "Sheep", "spawn_egg_sheep.png")
+mobs:register_egg("mobs:skeleton", "Skeleton", "spawn_egg_skeleton.png")
+mobs:register_egg("mobs:zombie", "Zombie", "spawn_egg_zombie.png")
+
 if minetest.setting_get("log_mods") then
 	minetest.log("action", "mobs loaded")
 end

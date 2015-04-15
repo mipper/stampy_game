@@ -85,3 +85,5 @@ slimes:register_spawn("slimes:lavabig", {"nether:rack"},{"air","nether:rack"}, 2
 slimes:register_spawn("slimes:lavamedium", {"nether:rack"},{"air","nether:rack"}, 20, 4, 10000, 8, -5000)
 slimes:register_spawn("slimes:lavasmall", {"nether:rack"},{"air","nether:rack"}, 20, 4, 15000, 8, -5000)
 
+mobs:register_egg("slimes:lavabig", "Magma Cube", "spawn_egg_magma_cube.png")
+

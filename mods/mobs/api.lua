@@ -728,3 +728,23 @@ function mobs:register_arrow(name, def)
 		end
 	})
 end
+
+function mobs:register_egg(mob, desc, img)
+minetest.register_craftitem(mob, {
+	description = "Spawn "..desc,
+	inventory_image = img,
+	on_place = function(itemstack, placer, pointed_thing)
+		local pos = pointed_thing.above
+		if pointed_thing.above and not minetest.is_protected(pos, placer:get_player_name()) then
+			pos.y = pos.y + 0.5
+			minetest.add_entity(pos, mob)
+			if not minetest.setting_getbool("creative_mode") then
+				itemstack:take_item()
+			end
+		end
+		return itemstack
+	end,
+})
+end
+
+

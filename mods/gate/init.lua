@@ -112,7 +112,7 @@ minetest.register_node("gate:fencegate", {
 	collision_box = {
 		type = "fixed",
 		fixed = {
-			{-0.2, -0.5, -0.2, 0.2, 1.0, 0.2}}
+			{-0.5, -0.5, -0.2, 0.5, 1.0, 0.2}}
 	},
 	on_rightclick = gate_rightclick,
 })

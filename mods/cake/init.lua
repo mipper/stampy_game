@@ -38,12 +38,18 @@ minetest.register_node("cake:cake", {
 	stack_max = 1,
 	groups = {crumbly=3,falling_node=1},
 	drop = '',
-	--legacy_mineral = true,
 	on_rightclick = function(pos, node, clicker, itemstack)
-		if clicker:get_hp() < 20 then
-			clicker:set_hp(clicker:get_hp()+2)
-			minetest.env:add_node(pos,{type="node",name="cake:cake_5",param2=param2})
-		end
+			local name = clicker:get_player_name()
+			local h = tonumber(hud.hunger[name])
+			local hp = clicker:get_hp()
+
+			if h < 30 then
+				h = h + 2
+				if h > 30 then h = 30 end
+				hud.hunger[name] = h
+				hud.set_hunger(clicker)
+				minetest.env:add_node(pos,{type="node",name="cake:cake_5",param2=param2})
+			end
 	end,
 })
 minetest.register_node("cake:cake_5", {
@@ -62,12 +68,18 @@ minetest.register_node("cake:cake_5", {
 	is_ground_content = true,
 	groups = {crumbly=3,falling_node=1,not_in_creative_inventory=1},
 	drop = '',
-	--legacy_mineral = true,
 	on_rightclick = function(pos, node, clicker, itemstack)
-		if clicker:get_hp() < 20 then
-			clicker:set_hp(clicker:get_hp()+2)
-			minetest.env:add_node(pos,{type="node",name="cake:cake_4",param2=param2})
-		end
+			local name = clicker:get_player_name()
+			local h = tonumber(hud.hunger[name])
+			local hp = clicker:get_hp()
+
+			if h < 30 then
+				h = h + 2
+				if h > 30 then h = 30 end
+				hud.hunger[name] = h
+				hud.set_hunger(clicker)
+				minetest.env:add_node(pos,{type="node",name="cake:cake_4",param2=param2})
+			end
 	end,
 })
 minetest.register_node("cake:cake_4", {
@@ -86,12 +98,18 @@ minetest.register_node("cake:cake_4", {
 	is_ground_content = true,
 	groups = {crumbly=3,falling_node=1,not_in_creative_inventory=1},
 	drop = '',
-	--legacy_mineral = true,
 	on_rightclick = function(pos, node, clicker, itemstack)
-		if clicker:get_hp() < 20 then
-			clicker:set_hp(clicker:get_hp()+2)
-			minetest.env:add_node(pos,{type="node",name="cake:cake_3",param2=param2})
-		end
+			local name = clicker:get_player_name()
+			local h = tonumber(hud.hunger[name])
+			local hp = clicker:get_hp()
+
+			if h < 30 then
+				h = h + 2
+				if h > 30 then h = 30 end
+				hud.hunger[name] = h
+				hud.set_hunger(clicker)
+				minetest.env:add_node(pos,{type="node",name="cake:cake_3",param2=param2})
+			end
 	end,
 })
 minetest.register_node("cake:cake_3", {
@@ -110,12 +128,18 @@ minetest.register_node("cake:cake_3", {
 	is_ground_content = true,
 	groups = {crumbly=3,falling_node=1,not_in_creative_inventory=1},
 	drop = '',
-	--legacy_mineral = true,
 	on_rightclick = function(pos, node, clicker, itemstack)
-		if clicker:get_hp() < 20 then
-			clicker:set_hp(clicker:get_hp()+2)
-			minetest.env:add_node(pos,{type="node",name="cake:cake_2",param2=param2})
-		end
+			local name = clicker:get_player_name()
+			local h = tonumber(hud.hunger[name])
+			local hp = clicker:get_hp()
+
+			if h < 30 then
+				h = h + 2
+				if h > 30 then h = 30 end
+				hud.hunger[name] = h
+				hud.set_hunger(clicker)
+				minetest.env:add_node(pos,{type="node",name="cake:cake_2",param2=param2})
+			end
 	end,
 })
 minetest.register_node("cake:cake_2", {
@@ -134,12 +158,18 @@ minetest.register_node("cake:cake_2", {
 	is_ground_content = true,
 	groups = {crumbly=3,falling_node=1,not_in_creative_inventory=1},
 	drop = '',
-	--legacy_mineral = true,
 	on_rightclick = function(pos, node, clicker, itemstack)
-		if clicker:get_hp() < 20 then
-			clicker:set_hp(clicker:get_hp()+2)
-			minetest.env:add_node(pos,{type="node",name="cake:cake_1",param2=param2})
-		end
+			local name = clicker:get_player_name()
+			local h = tonumber(hud.hunger[name])
+			local hp = clicker:get_hp()
+
+			if h < 30 then
+				h = h + 2
+				if h > 30 then h = 30 end
+				hud.hunger[name] = h
+				hud.set_hunger(clicker)
+				minetest.env:add_node(pos,{type="node",name="cake:cake_1",param2=param2})
+			end
 	end,
 })
 minetest.register_node("cake:cake_1", {
@@ -158,11 +188,17 @@ minetest.register_node("cake:cake_1", {
 	is_ground_content = true,
 	groups = {crumbly=3,falling_node=1,not_in_creative_inventory=1},
 	drop = '',
-	--legacy_mineral = true,
 	on_rightclick = function(pos, node, clicker, itemstack)
-		if clicker:get_hp() < 20 then
-			clicker:set_hp(clicker:get_hp()+2)
-			minetest.env:remove_node(pos)
-		end
+			local name = clicker:get_player_name()
+			local h = tonumber(hud.hunger[name])
+			local hp = clicker:get_hp()
+
+			if h < 30 then
+				h = h + 2
+				if h > 30 then h = 30 end
+				hud.hunger[name] = h
+				hud.set_hunger(clicker)
+				minetest.env:remove_node(pos)
+			end
 	end,
 })

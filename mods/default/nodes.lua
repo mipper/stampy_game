@@ -1263,25 +1263,25 @@ minetest.register_node("default:torch", {
 
 
 local chest_formspec =
-	"size[8,9]"..
+	"size[9,9]"..
 	default.gui_bg..
 	default.gui_bg_img..
 	default.gui_slots..
-	"list[current_name;main;0,0.3;8,4;]"..
-	"list[current_player;main;0,4.85;8,1;]"..
-	"list[current_player;main;0,6.08;8,3;8]"..
+	"list[current_name;main;0,0.3;9,4;]"..
+	"list[current_player;main;0,7.85;9,1;]"..
+	"list[current_player;main;0,4.75;9,3;9]"..
 	default.get_hotbar_bg(0,4.85)
 
 local function get_locked_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec =
-		"size[8,9]"..
+		"size[9,9]"..
 		default.gui_bg..
 		default.gui_bg_img..
 		default.gui_slots..
-		"list[nodemeta:".. spos .. ";main;0,0.3;8,4;]"..
-		"list[current_player;main;0,4.85;8,1;]"..
-		"list[current_player;main;0,6.08;8,3;8]"..
+		"list[nodemeta:".. spos .. ";main;0,0.3;9,4;]"..
+		"list[current_player;main;0,7.85;9,1;]"..
+		"list[current_player;main;0,4.75;9,3;9]"..
 		default.get_hotbar_bg(0,4.85)
  return formspec
 end
@@ -1323,7 +1323,7 @@ minetest.register_node("default:chest", {
 		meta:set_string("formspec", chest_formspec)
 		meta:set_string("infotext", "Chest")
 		local inv = meta:get_inventory()
-		inv:set_size("main", 8*4)
+		inv:set_size("main", 9*4)
 	end,
 	after_dig_node = drop_chest_stuff(),
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
@@ -1363,7 +1363,7 @@ minetest.register_node("default:chest_locked", {
 		meta:set_string("infotext", "Locked Chest")
 		meta:set_string("owner", "")
 		local inv = meta:get_inventory()
-		inv:set_size("main", 8*4)
+		inv:set_size("main", 9*4)
 	end,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);

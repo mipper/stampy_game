@@ -1270,7 +1270,7 @@ local chest_formspec =
 	"list[current_name;main;0,0.3;9,4;]"..
 	"list[current_player;main;0,7.85;9,1;]"..
 	"list[current_player;main;0,4.75;9,3;9]"..
-	default.get_hotbar_bg(0,4.85)
+	default.get_hotbar_bg(0,7.85)
 
 local function get_locked_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
@@ -1282,7 +1282,7 @@ local function get_locked_chest_formspec(pos)
 		"list[nodemeta:".. spos .. ";main;0,0.3;9,4;]"..
 		"list[current_player;main;0,7.85;9,1;]"..
 		"list[current_player;main;0,4.75;9,3;9]"..
-		default.get_hotbar_bg(0,4.85)
+		default.get_hotbar_bg(0,7.85)
  return formspec
 end
 

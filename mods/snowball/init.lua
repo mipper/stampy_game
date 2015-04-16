@@ -49,6 +49,7 @@ local snowball_ent = {
 	physical = false,
 	textures = { 'default_snowball.png' },
 	collisionbox = { 0, 0, 0, 0, 0, 0 },
+	visual_size = {x=.5, y=.5},
 	launcher = nil,
 }
 

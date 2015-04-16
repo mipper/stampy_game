@@ -48,6 +48,7 @@ local farorb_ent = {
 	physical = false,
 	textures = { 'ender_pearl.png' },
 	collisionbox = { 0, 0, 0, 0, 0, 0 },
+	visual_size = {x=.5, y=.5},
 	launcher = nil,
 }
 

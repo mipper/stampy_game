@@ -555,6 +555,10 @@ mobs:register_mob("mobs:zombie", {
 	damage = 1,
 	armor = 200,
 	drops = {
+		{name = "mobs:rotten_flesh",
+		chance = 1,
+		min = 1,
+		max = 1,},
 		{name = "default:steel_ingot",
 		chance = 3,
 		min = 0,
@@ -650,6 +654,12 @@ minetest.register_craft({
 	cooktime = 5,
 })
 
+minetest.register_craftitem("mobs:rotten_flesh", {
+	description = "Rotten Flesh",
+	inventory_image = "mobs_rotten_flesh.png",
+	on_use = minetest.item_eat(4),
+})
+
 -- beef
 minetest.register_craftitem("mobs:beef_raw", {
 	description = "Raw Beef",
@@ -714,6 +724,7 @@ minetest.register_craft({
 minetest.register_craftitem("mobs:chicken_raw", {
 	description = "Raw Chicken",
 	inventory_image = "chicken_raw.png",
+	on_use = minetest.item_eat(2),
 })
 
 minetest.register_craftitem("mobs:chicken_cooked", {

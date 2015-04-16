@@ -6,11 +6,29 @@ function hud.load_hunger(player)
 	hud.get_hunger(player)
 end
 
--- Poison player
+-- poison status effect
 local function poisenp(tick, time, time_left, player)
 	time_left = time_left + tick
 	if time_left < time then
 		minetest.after(tick, poisenp, tick, time, time_left, player)
+		pos = player:getpos()
+minetest.add_particlespawner({
+	amount = 20,
+	time = 4,
+	minpos = {x=pos.x-1, y=pos.y-1, z=pos.z-1},
+	maxpos = {x=pos.x+1, y=pos.y+1, z=pos.z+1},
+	minvel = {x=0, y=0, z=0},
+	maxvel = {x=.5, y=2, z=.5},
+	minacc = {x=0, y=0, z=0},
+	maxacc = {x=0, y=0, z=0},
+	minexptime = 1,
+	maxexptime = 4,
+	minsize = 1,
+	maxsize = 2,
+	collisiondetection = false,
+	vertical = false,
+	texture = "poison_swirl.png",
+})
 	else
 		--reset hud image
 	end
@@ -20,7 +38,43 @@ local function poisenp(tick, time, time_left, player)
 	
 end
 
-function hud.item_eat(hunger_change, replace_with_item, poisen, heal)
+-- hunger status effect
+local function hungerp(tick, time, time_left, player)
+	local name = player:get_player_name()
+	local h = tonumber(hud.hunger[name])
+
+	time_left = time_left + tick
+	if time_left < time then
+		minetest.after(tick, hungerp, tick, time, time_left, player)
+		pos = player:getpos()
+minetest.add_particlespawner({
+	amount = 20,
+	time = 4,
+	minpos = {x=pos.x-1, y=pos.y-1, z=pos.z-1},
+	maxpos = {x=pos.x+1, y=pos.y+1, z=pos.z+1},
+	minvel = {x=0, y=0, z=0},
+	maxvel = {x=.5, y=2, z=.5},
+	minacc = {x=0, y=0, z=0},
+	maxacc = {x=0, y=0, z=0},
+	minexptime = 1,
+	maxexptime = 4,
+	minsize = 1,
+	maxsize = 2,
+	collisiondetection = false,
+	vertical = false,
+	texture = "hunger_swirl.png",
+})
+	else
+		--reset hud image
+	end
+	if h-1 > 0 then
+		h = h - .1
+	end
+	hud.hunger[name] = h
+	hud.set_hunger(player)
+end
+
+function hud.item_eat(hunger_change, replace_with_item, poisen, heal, poison_chance, hunger, hunger_chance)
 	return function(itemstack, user, pointed_thing)
 		if itemstack:take_item() ~= nil and user ~= nil then
 			local name = user:get_player_name()
@@ -41,9 +95,14 @@ function hud.item_eat(hunger_change, replace_with_item, poisen, heal)
 				user:set_hp(hp)
 			end
 			-- Poison
-			if poisen then
+			if poisen and math.random() < poison_chance then
 				--set hud-img
 				poisenp(1.0, poisen, 0, user)
+			end
+			-- Hunger effect
+			if hunger and math.random() < hunger_chance then
+				--set hud-img
+				hungerp(1.0, hunger, 0, user)
 			end
 
 			--sound:eat
@@ -53,10 +112,10 @@ function hud.item_eat(hunger_change, replace_with_item, poisen, heal)
 	end
 end
 
-local function overwrite(name, hunger_change, replace_with_item, poisen, heal)
+local function overwrite(name, hunger_change, replace_with_item, poisen, heal, poison_chance, hunger, hunger_chance)
 	local tab = minetest.registered_items[name]
 	if tab == nil then return end
-	tab.on_use = hud.item_eat(hunger_change, replace_with_item, poisen, heal)
+	tab.on_use = hud.item_eat(hunger_change, replace_with_item, poisen, heal, poison_chance, hunger, hunger_chance)
 	minetest.registered_items[name] = tab
 end
 
@@ -66,25 +125,20 @@ if minetest.get_modpath("farming") ~= nil then
 end
 
 if minetest.get_modpath("mobs") ~= nil then
-	if mobs.mod ~= nil and mobs.mod == "redo" then
-		overwrite("mobs:cheese", 4)
 		overwrite("mobs:meat", 8)
 		overwrite("mobs:meat_raw", 4)
-		overwrite("mobs:rat_cooked", 4)
-		overwrite("mobs:honey", 2)
-		overwrite("mobs:pork_raw", 3, "", 3)
-		overwrite("mobs:pork_cooked", 8)
+		overwrite("mobs:beef_cooked", 8)
+		overwrite("mobs:beef_raw", 3)
+		overwrite("mobs:porkchop_cooked", 8)
+		overwrite("mobs:porkchop_raw", 3)
+		overwrite("mobs:mutton_cooked", 6)
+		overwrite("mobs:mutton_raw", 3)
 		overwrite("mobs:chicken_cooked", 6)
-		overwrite("mobs:chicken_raw", 2, "", 3)
-		overwrite("mobs:chicken_egg_fried", 2)
+		overwrite("mobs:chicken_raw", 2, "", false, false, false, 30, .3)
+		overwrite("mobs:rotten_flesh", 4, "", false, false, false, 30, .8)
 		if minetest.get_modpath("bucket") then 
-			overwrite("mobs:bucket_milk", 3, "bucket:bucket_empty")
+			overwrite("bucket:bucket_milk", 3, "bucket:bucket_empty")
 		end
-	else
-		overwrite("mobs:meat", 6)
-		overwrite("mobs:meat_raw", 3)
-		overwrite("mobs:rat_cooked", 5)
-	end
 end
 
 if minetest.get_modpath("moretrees") ~= nil then
@@ -362,6 +416,9 @@ end
 
 if minetest.get_modpath("crops") ~= nil then
 	overwrite("crops:melon_slice", 2)
+end
+if minetest.get_modpath("farming_plus") ~= nil then
+	overwrite("farming_plus:poisonous_potato_item", 2, "", 4, false, .6)
 end
 
 -- player-action based hunger changes

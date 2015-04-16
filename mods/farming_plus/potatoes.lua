@@ -79,6 +79,7 @@ minetest.register_craftitem("farming_plus:potato_item", {
 minetest.register_craftitem("farming_plus:poisonous_potato_item", {
 	description = "Poisonous Potato",
 	inventory_image = "potato_poisonous.png",
+	on_use = minetest.item_eat(2),
 })
 
 farming.add_plant("farming_plus:potato", {"farming_plus:potato_1", "farming_plus:potato_2", "farming_plus:potato_3"}, 50, 20)

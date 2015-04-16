@@ -3,265 +3,36 @@
 -- License LGPL
 -- This mod adds carpets into Minetest.
 
-minetest.register_node("carpet:red", {
-	description = "Red Carpet",
+for _, row in ipairs(dye.dyes) do
+	local name = row[1]
+	local cname = "carpet:"..name
+	local wname = "wool:"..name
+	local img = "wool_"..name..".png"
+	local str = name.." Carpet"
+	str = string.gsub(str, "_", " ")
+	local desc = string.gsub(" "..str, "%W%l", string.upper):sub(2)
+minetest.register_node(cname, {
+	description = desc,
 	drawtype = "raillike",
-	tiles = {"carpet_red_out.png"},
-	inventory_image = "carpet_red_out.png",
-	wield_image = "carpet_red_out.png",
+	tiles = {img},
+	inventory_image = img,
+	wield_image = img,
 	paramtype = "light",
 	is_ground_content = true,
 	walkable = false,
 	buildable_to = true,
 	selection_box = {
-		type = "fixed",
-                
+		type = "fixed", 
                 fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
 	groups = {dig_immediate=2},
 })
-
-minetest.register_node("carpet:orange", {
-	description = "Orange Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_orange_out.png"},
-	inventory_image = "carpet_orange_out.png",
-	wield_image = "carpet_orange_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-minetest.register_node("carpet:yellow", {
-	description = "Yellow Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_yellow_out.png"},
-	inventory_image = "carpet_yellow_out.png",
-	wield_image = "carpet_yellow_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-minetest.register_node("carpet:green", {
-	description = "Green Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_green_out.png"},
-	inventory_image = "carpet_green_out.png",
-	wield_image = "carpet_green_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-minetest.register_node("carpet:cyan", {
-	description = "Cyan Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_cyan_out.png"},
-	inventory_image = "carpet_cyan_out.png",
-	wield_image = "carpet_cyan_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-minetest.register_node("carpet:blue", {
-	description = "Blue Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_blue_out.png"},
-	inventory_image = "carpet_blue_out.png",
-	wield_image = "carpet_blue_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-minetest.register_node("carpet:pink", {
-	description = "Pink Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_pink_out.png"},
-	inventory_image = "carpet_pink_out.png",
-	wield_image = "carpet_pink_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-
-minetest.register_node("carpet:black", {
-	description = "Black Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_black_out.png"},
-	inventory_image = "carpet_black_out.png",
-	wield_image = "carpet_black_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-minetest.register_node("carpet:magenta", {
-	description = "Magenta Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_magenta_out.png"},
-	inventory_image = "carpet_magenta_out.png",
-	wield_image = "carpet_magenta_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
-minetest.register_node("carpet:white", {
-	description = "White Carpet",
-	drawtype = "raillike",
-	tiles = {"carpet_white_out.png"},
-	inventory_image = "carpet_white_out.png",
-	wield_image = "carpet_white_out.png",
-	paramtype = "light",
-	is_ground_content = true,
-	walkable = false,
-	buildable_to = true,
-	selection_box = {
-		type = "fixed",
-                
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
-	},
-	groups = {dig_immediate=2},
-})
-
--- Crafing
-
 minetest.register_craft({
-	output = 'carpet:red 64',
+	output = cname..' 3',
 	recipe = {
-		{'wool:red', 'wool:red', 'wool:red'},
-		{'wool:red', 'wool:red', 'wool:red'},
+		{wname, wname},
 	}
 })
+end
 
-minetest.register_craft({
-	output = 'carpet:orange 64',
-	recipe = {
-		{'wool:orange', 'wool:orange', 'wool:orange'},
-		{'wool:orange', 'wool:orange', 'wool:orange'},
-	}
-})
 
-minetest.register_craft({
-	output = 'carpetyellow 64',
-	recipe = {
-		{'wool:yellow', 'wool:yellow', 'wool:yellow'},
-		{'wool:yellow', 'wool:yellow', 'wool:yellow'},
-	}
-})
-
-minetest.register_craft({
-	output = 'carpet:green 64',
-	recipe = {
-		{'wool:green', 'wool:green', 'wool:green'},
-		{'wool:green', 'wool:green', 'wool:green'},
-	}
-})
-
-minetest.register_craft({
-	output = 'carpet:cyan 64',
-	recipe = {
-		{'wool:cyan', 'wool:cyan', 'wool:cyan'},
-		{'wool:cyan', 'wool:cyan', 'wool:cyan'},
-	}
-})
-
-minetest.register_craft({
-	output = 'carpet:blue 64',
-	recipe = {
-		{'wool:blue', 'wool:blue', 'wool:blue'},
-		{'wool:blue', 'wool:blue', 'wool:blue'},
-	}
-})
-
-minetest.register_craft({
-	output = 'carpet:pink 64',
-	recipe = {
-		{'wool:pink', 'wool:pink', 'wool:pink'},
-		{'wool:pink', 'wool:pink', 'wool:pink'},
-	}
-})
-
-minetest.register_craft({
-	output = 'carpet:magenta 64',
-	recipe = {
-		{'wool:magenta', 'wool:megenta', 'wool:magenta'},
-		{'wool:magenta', 'wool:magenta', 'wool:magenta'},
-	}
-})
-
-minetest.register_craft({
-	output = 'carpet:white 64',
-	recipe = {
-		{'wool:white', 'wool:white', 'wool:white'},
-		{'wool:white', 'wool:white', 'wool:white'},
-	}
-})
-
-minetest.register_craft({
-	output = 'carpet:black 64',
-	recipe = {
-		{'wool:black', 'wool:black', 'wool:black'},
-		{'wool:black', 'wool:black', 'wool:black'},
-	}
-})

@@ -25,9 +25,11 @@ for _, color in pairs(colors) do
 	})
 	minetest.register_craft({
 		type = "shapeless",
-		output = 'hardenedclay:hardened_clay_'..nodecolor,
+		output = 'hardenedclay:hardened_clay_'..nodecolor.." 8",
 		recipe = {
-			'dye:'..nodecolor, 'hardenedclay:hardened_clay',
+			'hardenedclay:hardened_clay', 'hardenedclay:hardened_clay', 'hardenedclay:hardened_clay',
+			'hardenedclay:hardened_clay', 'dye:'..nodecolor, 'hardenedclay:hardened_clay',
+			'hardenedclay:hardened_clay', 'hardenedclay:hardened_clay', 'hardenedclay:hardened_clay',
 		}
 	})
 	minetest.register_alias("hardenedclay:"..nodecolor.."_hardened_clay",

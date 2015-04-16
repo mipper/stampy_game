@@ -173,8 +173,15 @@ minetest.register_craft({
     output = 'fertiliser:fertiliser 9',
     recipe = {
         {'default:dirt',	'default:dirt',			'default:dirt'},
-        {'default:dirt',	'bones:single_bone',	'default:dirt'},
+        {'default:dirt',	'bones:single_bone',	        'default:dirt'},
         {'default:dirt',	'default:dirt',			'default:dirt'},
+    },
+})
+
+minetest.register_craft({
+    output = 'dye:white 3',
+    recipe = {
+        {'bones:single_bone'},
     },
 })
 

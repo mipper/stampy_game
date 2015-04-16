@@ -637,7 +637,23 @@ minetest.register_node("default:stone_with_coal", {
 	tiles = {"default_stone.png^default_mineral_coal.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
-	drop = 'default:coal_lump',
+	drop = {
+		max_items = 3,
+		items = {
+			{
+				items = {'default:coal_lump'},
+				rarity = 1,
+			},
+			{
+				items = {'default:coal_lump'},
+				rarity = 2,
+			},
+			{
+				items = {'default:coal_lump'},
+				rarity = 2,
+			},
+		}
+	},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -742,7 +758,23 @@ minetest.register_node("default:stone_with_diamond", {
 	tiles = {"default_stone.png^default_mineral_diamond.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
-	drop = "default:diamond",
+	drop = {
+		max_items = 3,
+		items = {
+			{
+				items = {'default:diamond'},
+				rarity = 1,
+			},
+			{
+				items = {'default:diamond'},
+				rarity = 3,
+			},
+			{
+				items = {'default:diamond'},
+				rarity = 4,
+			},
+		}
+	},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -754,19 +786,76 @@ minetest.register_node("default:diamondblock", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-
 minetest.register_node("default:stone_with_emerald", {
 	description = "Emerald Ore",
 	tiles = {"emerald_ore.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
-	drop = "default:emerald",
+	drop = {
+		max_items = 4,
+		items = {
+			{
+				items = {'default:emerald'},
+				rarity = 1,
+			},
+			{
+				items = {'default:emerald'},
+				rarity = 2,
+			},
+			{
+				items = {'default:emerald'},
+				rarity = 2,
+			},
+			{
+				items = {'default:emerald'},
+				rarity = 2,
+			},
+		}
+	},
 	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("default:emeraldblock", {
 	description = "Emerald Block",
 	tiles = {"emerald_block.png"},
+	is_ground_content = true,
+	groups = {cracky=1,level=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+
+minetest.register_node("default:stone_with_lapis", {
+	description = "Lapis Lazuli Ore",
+	tiles = {"lapis_ore.png"},
+	is_ground_content = true,
+	groups = {cracky=1},
+	drop = {
+		max_items = 4,
+		items = {
+			{
+				items = {'dye:blue'},
+				rarity = 1,
+			},
+			{
+				items = {'dye:blue'},
+				rarity = 1,
+			},
+			{
+				items = {'dye:blue'},
+				rarity = 2,
+			},
+			{
+				items = {'dye:blue'},
+				rarity = 2,
+			},
+		}
+	},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:lapisblock", {
+	description = "Lapis Lazuli Block",
+	tiles = {"lapis_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=3},
 	sounds = default.node_sound_stone_defaults(),

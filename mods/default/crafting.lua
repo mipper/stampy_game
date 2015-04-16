@@ -486,6 +486,22 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:lapisblock',
+	recipe = {
+		{'dye:blue', 'dye:blue', 'dye:blue'},
+		{'dye:blue', 'dye:blue', 'dye:blue'},
+		{'dye:blue', 'dye:blue', 'dye:blue'},
+	}
+})
+
+minetest.register_craft({
+	output = 'dye:blue 9',
+	recipe = {
+		{'default:lapisblock'},
+	}
+})
+
+minetest.register_craft({
 	output = 'default:sandstone',
 	recipe = {
 		{'group:sand', 'group:sand'},
@@ -714,6 +730,30 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:gold_ingot",
 	recipe = "default:stone_with_gold",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "dye:blue",
+	recipe = "default:stone_with_lapis",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:emerald",
+	recipe = "default:stone_with_emerald",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:diamond",
+	recipe = "default:stone_with_diamond",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:coal_lump",
+	recipe = "default:stone_with_coal",
 })
 
 minetest.register_craft({

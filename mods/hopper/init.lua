@@ -1,7 +1,20 @@
 minetest.register_node("hopper:hopper", {
 	description = "Hopper",
-	drawtype = "normal",
 	tiles = {"hopper_top.png", "hopper_outside.png", "hopper_outside.png", "hopper_outside.png", "hopper_outside.png", "hopper_outside.png"},
+	drawtype = "nodebox",
+	paramtype = "light",
+	sunlight_propagates = true,
+	node_box = {
+		type = "fixed",
+		fixed = {
+				{-16/32, 1/6, -0.5,             -12/32, .5, 0.5},
+				{12/32, 1/6, -0.5,              16/32, .5, 0.5},
+				{-0.5, 1/6, -16/32,             0.5, .5, -12/32},
+				{-0.5, 1/6, 12/32,              0.5, .5, 16/32},
+				{-0.5+2/16, -1/6, -0.5+2/16,    0.5-2/16, 1/6, 0.5-2/16},
+				{-0.5+4/16, -0.5, -0.5+4/16,    0.5-4/16, -1/6, 0.5-4/16},
+			},
+		},
 	inventory_image = "hopper.png",
 	groups = {cracky=2,level=1},
 })

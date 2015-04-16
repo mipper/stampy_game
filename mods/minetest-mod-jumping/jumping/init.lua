@@ -1,5 +1,5 @@
 	minetest.register_node("jumping:trampoline", {
-		description = "Slime block",
+		description = "Slime Block",
 		paramtype = "light",
 		tiles = {
 			"slime.png",

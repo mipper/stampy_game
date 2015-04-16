@@ -680,6 +680,12 @@ minetest.register_craft({
 --
 minetest.register_craft({
 	type = "cooking",
+	output = "dye:dark_green",
+	recipe = "default:cactus",
+})
+
+minetest.register_craft({
+	type = "cooking",
 	output = "default:charcoal",
 	recipe = "group:tree",
 })

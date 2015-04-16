@@ -13,7 +13,13 @@ for _, row in ipairs(dye.dyes) do
 	local desc = string.gsub(" "..str, "%W%l", string.upper):sub(2)
 minetest.register_node(cname, {
 	description = desc,
-	drawtype = "raillike",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5,  0.5, -0.5+.5/16, 0.5},
+		},
+	},
 	tiles = {img},
 	inventory_image = img,
 	wield_image = img,
@@ -23,7 +29,7 @@ minetest.register_node(cname, {
 	buildable_to = true,
 	selection_box = {
 		type = "fixed", 
-                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
+                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+.5/16, 1/2},
 	},
 	groups = {dig_immediate=2},
 })

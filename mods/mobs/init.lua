@@ -438,6 +438,7 @@ mobs:register_mob("mobs:creeper", {
 		approach = "Fuse",
 		death = "Creeperdeath",
 		hurt = "Creeper4",
+		attack = "damage",
 	},
 	walk_velocity = 1.5,
 	run_velocity = 3,
@@ -549,6 +550,7 @@ mobs:register_mob("mobs:zombie", {
 		random = "zombie1",
 		death = "zombiedeath",
 		hurt = "zombiehurt1",
+		attack = "damage",
 	},
 	walk_velocity = .8,
 	run_velocity = 1.6,
@@ -917,19 +919,11 @@ mobs:register_arrow("mobs:arrow", {
 		local s = self.object:getpos()
 		local p = player:getpos()
 		local vec = {x=s.x-p.x, y=s.y-p.y, z=s.z-p.z}
+
 		player:punch(self.object, 1.0,  {
 			full_punch_interval=1.0,
 			damage_groups = {fleshy=2},
 		}, vec)
-		local pos = self.object:getpos()
-		for dx=-1,1 do
-			for dy=-1,1 do
-				for dz=-1,1 do
-					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					minetest.env:remove_node(p)
-				end
-			end
-		end
 	end,
 	hit_node = function(self, pos, node) end
 })

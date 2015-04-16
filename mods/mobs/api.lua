@@ -712,6 +712,7 @@ function mobs:register_arrow(name, def)
 		on_step = function(self, dtime)
 			local pos = self.object:getpos()
 			if minetest.env:get_node(self.object:getpos()).name ~= "air" then
+				minetest.sound_play("bowhit1", {pos = pos})
 				self.hit_node(self, pos, node)
 				self.object:remove()
 				return
@@ -720,7 +721,7 @@ function mobs:register_arrow(name, def)
 			for _,player in pairs(minetest.env:get_objects_inside_radius(pos, 1)) do
 				if player:is_player() then
 					self.hit_player(self, player)
-					minetest.sound_play("bowhit1", {pos = pos})
+					minetest.sound_play("damage", {pos = pos})
 					self.object:remove()
 					return
 				end

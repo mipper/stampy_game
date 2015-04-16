@@ -95,6 +95,14 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 						inv:set_stack("main", i, stack)
 						return
 					end
+					if stack:get_name() == "snowball:snowball" then
+						local obj = minetest.env:add_entity(pos_under, "snowball:snowball_ent")
+						obj:setvelocity({x=-dir.x*22, y=0, z=-dir.z*22})
+						obj:setacceleration({x=-dir.x*-3, y=-4, z=-dir.z*-3})
+						stack:take_item()
+						inv:set_stack("main", i, stack)
+						return
+					end
 					minetest.env:add_item(pos_under, stack:take_item())
 					inv:set_stack("main", i, stack)
 					return

@@ -343,8 +343,8 @@ minetest.register_node("default:clay", {
 minetest.register_node("default:snow", {
 	description = "Snow",
 	tiles = {"default_snow.png"},
-	inventory_image = "default_snowball.png",
-	wield_image = "default_snowball.png",
+	inventory_image = "default_snow.png",
+	wield_image = "default_snow.png",
 	is_ground_content = true,
 	paramtype = "light",
 	buildable_to = true,
@@ -354,6 +354,27 @@ minetest.register_node("default:snow", {
 		fixed = {
 			{-0.5, -0.5, -0.5,  0.5, -0.5+2/16, 0.5},
 		},
+	},
+	drop = {
+		max_items = 4,
+		items = {
+			{
+				items = {'snowball:snowball'},
+				rarity = 1,
+			},
+			{
+				items = {'snowball:snowball'},
+				rarity = 2,
+			},
+			{
+				items = {'snowball:snowball'},
+				rarity = 2,
+			},
+			{
+				items = {'snowball:snowball'},
+				rarity = 5,
+			},
+		}
 	},
 	groups = {crumbly=3,falling_node=1},
 	sounds = default.node_sound_dirt_defaults({

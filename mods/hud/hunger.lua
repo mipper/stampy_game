@@ -34,6 +34,7 @@ minetest.add_particlespawner({
 	end
 	if player:get_hp()-1 > 0 then
 		player:set_hp(player:get_hp()-1)
+		minetest.sound_play("damage", {pos = pos})
 	end
 	
 end
@@ -105,7 +106,8 @@ function hud.item_eat(hunger_change, replace_with_item, poisen, heal, poison_cha
 				hungerp(1.0, hunger, 0, user)
 			end
 
-			--sound:eat
+			local thesound = minetest.sound_play("eat", {pos=user:getpos(), loop=true})
+			minetest.after(1.3, minetest.sound_stop, thesound)
 			itemstack:add_item(replace_with_item)
 		end
 		return itemstack

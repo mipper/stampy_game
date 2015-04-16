@@ -141,14 +141,6 @@ local nodes = {
 		tiles = tile_tiles("cactus_checker"),
 		sounds = sound_stone,
 	},
-	["empty_bookshelf"] = {
-		description = S("Empty Bookshelf"),
-		tiles = {"default_wood.png", "default_wood.png",
-			"moreblocks_empty_bookshelf.png"},
-		groups = {snappy=2,choppy=3,oddly_breakable_by_hand=2,flammable=3},
-		sounds = sound_wood,
-		no_stairs = true,
-	},
 	["coal_stone"] = {
 		description = S("Coal Stone"),
 		groups = {cracky=3},
@@ -296,11 +288,6 @@ end
 
 
 -- Items
-
-minetest.register_craftitem("moreblocks:sweeper", {
-	description = S("Sweeper"),
-	inventory_image = "moreblocks_sweeper.png",
-})
 
 minetest.register_craftitem("moreblocks:jungle_stick", {
 	description = S("Jungle Stick"),

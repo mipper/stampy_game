@@ -180,12 +180,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "moreblocks:empty_bookshelf",
-	type = "shapeless",
-	recipe = {"moreblocks:sweeper", "default:bookshelf"},
-})
-
-minetest.register_craft({
 	output = "moreblocks:coal_stone_bricks 4",
 	recipe = {
 		{"moreblocks:coal_stone", "moreblocks:coal_stone"},

@@ -1270,6 +1270,8 @@ local chest_formspec =
 	"list[current_name;main;0,0.3;9,4;]"..
 	"list[current_player;main;0,7.85;9,1;]"..
 	"list[current_player;main;0,4.75;9,3;9]"..
+	"label[0,-0.2;Chest]"..
+	"label[0,4.25;Inventory]"..
 	default.get_hotbar_bg(0,7.85)
 
 local function get_locked_chest_formspec(pos)
@@ -1282,6 +1284,8 @@ local function get_locked_chest_formspec(pos)
 		"list[nodemeta:".. spos .. ";main;0,0.3;9,4;]"..
 		"list[current_player;main;0,7.85;9,1;]"..
 		"list[current_player;main;0,4.75;9,3;9]"..
+		"label[0,-0.2;Chest]"..
+		"label[0,4.25;Inventory]"..
 		default.get_hotbar_bg(0,7.85)
  return formspec
 end
@@ -1340,7 +1344,16 @@ minetest.register_node("default:chest", {
 	end,
 })
 
-
+-- update formspecs of already created chests
+minetest.register_abm({
+	nodenames = {"default:chest"},
+	interval = 10,
+	chance = 1,
+	action = function(pos, node)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", chest_formspec)
+	end
+})
 
 minetest.register_node("default:chest_locked", {
 	description = "Locked Chest",

@@ -18,6 +18,8 @@ local function active_formspec(fuel_percent, item_percent)
 		"list[current_name;dst;4.75,0.96;2,2;]"..
 		"list[current_player;main;0,7.5;9,1;]"..
 		"list[current_player;main;0,4.25;9,3;9]"..
+		"label[3.25,0;Furnace]"..
+		"label[0,3.75;Inventory]"..
 		default.get_hotbar_bg(0, 7.5)
 	return formspec
 end
@@ -34,6 +36,8 @@ local inactive_formspec =
 	"list[current_name;dst;4.75,0.96;2,2;]"..
 	"list[current_player;main;0,7.5;9,1;]"..
 	"list[current_player;main;0,4.25;9,3;9]"..
+	"label[3.25,0;Furnace]"..
+	"label[0,3.75;Inventory]"..
 	default.get_hotbar_bg(0, 7.5)
 
 --

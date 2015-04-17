@@ -106,8 +106,7 @@ function hud.item_eat(hunger_change, replace_with_item, poisen, heal, poison_cha
 				hungerp(1.0, hunger, 0, user)
 			end
 
-			local thesound = minetest.sound_play("eat", {pos=user:getpos(), loop=true})
-			minetest.after(1.3, minetest.sound_stop, thesound)
+			minetest.sound_play("eat4", {pos=user:getpos()})
 			itemstack:add_item(replace_with_item)
 		end
 		return itemstack

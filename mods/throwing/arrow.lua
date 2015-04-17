@@ -44,12 +44,24 @@ THROWING_ARROW_ENTITY.on_step = function(self, dtime)
 	local pos = self.object:getpos()
 	local node = minetest.env:get_node(pos)
 
+minetest.add_particle({
+    pos = pos,
+    vel = {x=0, y=0, z=0},
+    acc = {x=0, y=0, z=0},
+    expirationtime = .3,
+    size = 1,
+    collisiondetection = false,
+    vertical = false,
+    texture = "arrow_particle.png",
+})
+
 	if self.timer>0.2 then
 		local objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)
 		for k, obj in pairs(objs) do
 			if obj:get_luaentity() ~= nil then
 				if obj:get_luaentity().name ~= "throwing:arrow_entity" and obj:get_luaentity().name ~= "__builtin:item" then
 					local damage = 3
+					minetest.sound_play("damage", {pos = pos})
 					obj:punch(self.object, 1.0, {
 						full_punch_interval=1.0,
 						damage_groups={fleshy=damage},
@@ -58,6 +70,7 @@ THROWING_ARROW_ENTITY.on_step = function(self, dtime)
 				end
 			else
 				local damage = 3
+				minetest.sound_play("damage", {pos = pos})
 				obj:punch(self.object, 1.0, {
 					full_punch_interval=1.0,
 					damage_groups={fleshy=damage},
@@ -69,6 +82,7 @@ THROWING_ARROW_ENTITY.on_step = function(self, dtime)
 
 	if self.lastpos.x~=nil then
 		if node.name ~= "air" then
+			minetest.sound_play("bowhit1", {pos = pos})
 			minetest.env:add_item(self.lastpos, 'throwing:arrow')
 			self.object:remove()
 		end

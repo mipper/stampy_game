@@ -552,7 +552,7 @@ mobs.default_definition = {
 				p.y = p.y + (self.collisionbox[2]+self.collisionbox[5])/2
 				local obj = minetest.env:add_entity(p, self.arrow)
 				local amount = (vec.x^2+vec.y^2+vec.z^2)^0.5
-				local v = obj:get_luaentity().velocity
+				local v = 15
 				vec.y = vec.y+1
 				vec.x = vec.x*v/amount
 				vec.y = vec.y*v/amount
@@ -598,6 +598,24 @@ mobs.default_definition = {
 	on_punch = function(self, hitter)
 	-- death happens at 20 hp so we can play the death animation:
 		if self.object:get_hp() <= 20 then
+			local pos = self.object:getpos()
+minetest.add_particlespawner({
+	amount = 20,
+	time = .2,
+	minpos = {x=pos.x-1, y=pos.y-.5, z=pos.z-1},
+	maxpos = {x=pos.x+1, y=pos.y+.5, z=pos.z+1},
+	minvel = {x=0, y=.3, z=0},
+	maxvel = {x=0, y=2, z=0},
+	minacc = {x=-.2, y=-.2, z=-.2},
+	maxacc = {x=.2, y=.2, z=.2},
+	minexptime = 1,
+	maxexptime = 5,
+	minsize = 1,
+	maxsize = 1,
+	collisiondetection = false,
+	vertical = false,
+	texture = "bettertnt_smoke.png",
+})
 			self:set_animation("death")
 			self.object:set_hp(1000)
 			minetest.after(self.animation.deathdur, function()
@@ -606,7 +624,6 @@ mobs.default_definition = {
 			if self.sounds and self.sounds.death then
 				minetest.sound_play(self.sounds.death, {object = self.object})
 			end
-			local pos = self.object:getpos()
 			pos.y = pos.y + 0.5
 			local obj = nil
 			for _,drop in ipairs(self.drops) do

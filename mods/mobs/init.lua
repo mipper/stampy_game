@@ -535,7 +535,7 @@ mobs:register_mob("mobs:skeleton", {
 	light_damage = 1,
 	view_range = 16,
 	attack_type = "shoot",
-	arrow = "mobs:arrow",
+	arrow = "throwing:arrow_entity",
 	shoot_interval = 2.5,
 })
 mobs:register_spawn("mobs:skeleton", {"group:crumbly", "group:cracky", "group:choppy", "group:snappy"}, 7, -1, 5000, 4, 31000)

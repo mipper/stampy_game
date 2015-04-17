@@ -173,6 +173,11 @@ local function explode(pos, radius)
 	local c_boom = minetest.get_content_id("tnt:boom")
 	local c_fire = minetest.get_content_id("fire:basic_flame")
 
+	-- don't destroy any blocks when in water
+	local p0 = {x=pos.x-1, y=pos.y, z=pos.z-1}
+	local p1 = {x=pos.x+1, y=pos.y, z=pos.z+1}
+	if #minetest.find_nodes_in_area(p0, p1, {"group:water"}) then return {} end
+
 	for z = -radius, radius do
 	for y = -radius, radius do
 	local vi = a:index(pos.x + (-radius), pos.y + y, pos.z + z)

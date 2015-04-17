@@ -91,4 +91,4 @@ mesecon.register_pressure_plate(
 	{"jeija_pressure_plate_stone_on.png","jeija_pressure_plate_stone_on.png","jeija_pressure_plate_stone_on_edges.png"},
 	"jeija_pressure_plate_stone_wield.png",
 	"jeija_pressure_plate_stone_inv.png",
-	{{"default:cobble", "default:cobble"}})
+	{{"default:stone", "default:stone"}})

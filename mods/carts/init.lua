@@ -567,37 +567,37 @@ minetest.register_node("carts:brakerail", {
 })
 
 minetest.register_craft({
-	output = "carts:powerrail 2",
+	output = "carts:powerrail 6",
 	recipe = {
-		{"default:steel_ingot", "default:mese_crystal_fragment", "default:steel_ingot"},
-		{"default:steel_ingot", "default:stick", "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
+		{"default:gold_ingot", "default:mese_crystal_fragment", "default:gold_ingot"},
+		{"default:gold_ingot", "group:stick", "default:gold_ingot"},
+		{"default:gold_ingot", "", "default:gold_ingot"},
 	}
 })
 
 minetest.register_craft({
-	output = "carts:powerrail 2",
+	output = "carts:powerrail 6",
 	recipe = {
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "default:stick", "default:steel_ingot"},
-		{"default:steel_ingot", "default:mese_crystal_fragment", "default:steel_ingot"},
+		{"default:gold_ingot", "", "default:gold_ingot"},
+		{"default:gold_ingot", "group:stick", "default:gold_ingot"},
+		{"default:gold_ingot", "default:mese_crystal_fragment", "default:gold_ingot"},
 	}
 })
 
 minetest.register_craft({
-	output = "carts:brakerail 2",
+	output = "carts:brakerail 6",
 	recipe = {
 		{"default:steel_ingot", "default:coal_lump", "default:steel_ingot"},
-		{"default:steel_ingot", "default:stick", "default:steel_ingot"},
+		{"default:steel_ingot", "group:stick", "default:steel_ingot"},
 		{"default:steel_ingot", "", "default:steel_ingot"},
 	}
 })
 
 minetest.register_craft({
-	output = "carts:brakerail 2",
+	output = "carts:brakerail 6",
 	recipe = {
 		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "default:stick", "default:steel_ingot"},
+		{"default:steel_ingot", "group:stick", "default:steel_ingot"},
 		{"default:steel_ingot", "default:coal_lump", "default:steel_ingot"},
 	}
 })

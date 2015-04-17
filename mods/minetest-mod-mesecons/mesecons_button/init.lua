@@ -93,6 +93,6 @@ minetest.register_node("mesecons_button:button_on", {
 minetest.register_craft({
 	output = "mesecons_button:button_off 2",
 	recipe = {
-		{"group:mesecon_conductor_craftable","default:stone"},
+		{"default:stone"},
 	}
 })

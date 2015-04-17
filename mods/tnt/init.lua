@@ -1,12 +1,3 @@
-
--- Default to enabled in singleplayer and disabled in multiplayer
-local singleplayer = minetest.is_singleplayer()
-local setting = minetest.setting_getbool("enable_tnt")
-if (not singleplayer and setting ~= true) or
-		(singleplayer and setting == false) then
-	return
-end
-
 -- loss probabilities array (one in X will be lost)
 local loss_prob = {}
 
@@ -73,8 +64,6 @@ local function add_drop(drops, item)
 	end
 end
 
-local fire_node = {name="fire:basic_flame"}
-
 local function destroy(drops, pos, cid)
 	if minetest.is_protected(pos, "") then
 		return
@@ -88,15 +77,11 @@ local function destroy(drops, pos, cid)
 	if def and def.name == "default:obsidian" then
 		return
 	end
-	if def and def.flammable then
-		minetest.set_node(pos, fire_node)
-	else
-		minetest.remove_node(pos)
-		if def then
-			local node_drops = minetest.get_node_drops(def.name, "")
-			for _, item in ipairs(node_drops) do
-				add_drop(drops, item)
-			end
+	minetest.remove_node(pos)
+	if def then
+		local node_drops = minetest.get_node_drops(def.name, "")
+		for _, item in ipairs(node_drops) do
+			add_drop(drops, item)
 		end
 	end
 end
@@ -353,9 +338,9 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "tnt:tnt",
 	recipe = {
-		{"",           "group:wood",    ""},
-		{"group:wood", "tnt:gunpowder", "group:wood"},
-		{"",           "group:wood",    ""}
+		{"tnt:gunpowder",      "group:sand",      "tnt:gunpowder"},
+		{"group:sand",         "tnt:gunpowder",   "group:sand"},
+		{"tnt:gunpowder",      "group:sand",      "tnt:gunpowder"}
 	}
 })
 

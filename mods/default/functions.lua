@@ -333,4 +333,20 @@ minetest.register_abm({
 	end
 })
 
+--
+-- Lava particles
+--
+
+minetest.register_abm({
+	nodenames = {"group:lava"},
+	interval = 2,
+	chance = 20,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+			if math.random(1,13) == 8 then
+				local rnd = math.random(0,1)*-1
+				minetest.add_particle(pos, {x=0.1*rnd, y=4, z=-0.1*rnd}, {x=-0.5*rnd, y=-10, z=0.5*rnd}, 3,
+   				1.2, true, "default_lava_particle.png")
+			end
+end})
+
 

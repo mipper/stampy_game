@@ -61,19 +61,14 @@ minetest.register_abm({
 			if minetest.registered_nodes[node.name].drawtype == "normal"
 			or minetest.registered_nodes[node.name].drawtype == "allfaces_optional" then
 				local np = addvectors(pos, {x=0, y=1, z=0})
-				if minetest.env:get_node_light(np, 0.5) == 15
-				and minetest.env:get_node(np).name == "air" then
-					local count = 0
-					for i=-2,2 do
-						for j=-2,2 do
-							local np2 = addvectors(np, {x=i, y=0, z=j})
-							if minetest.env:get_node(np2).name == "default:snow" then
-								count = count + 1
-							end
-						end
-					end
-					if math.random(0,25) > count then
-						minetest.env:add_node(np, {name="default:snow"})
+				if minetest.get_node_light(np, 0.5) == 15
+				and minetest.get_node(np).name == "air" then
+					local p0 = {x=np.x-2, y=np.y-2, z=np.z-2}
+					local p1 = {x=np.x+2, y=np.y+2, z=np.z+2}
+					local count = #minetest.find_nodes_in_area(p0, p1, {"default:snow"})
+
+					if math.random(0,30) > count then
+						minetest.add_node(np, {name="default:snow"})
 					end
 				end
 			end

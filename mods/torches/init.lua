@@ -206,11 +206,10 @@ minetest.register_abm({
 			if dist <= 2 then
 				if node.name == "default:snow" then
 					minetest.remove_node(pos)
-					pos.y = pos.y - 1
-					if minetest.get_node(pos).name == "default:dirt_with_snow" then
-						minetest.set_node(pos, {name="default:dirt_with_grass"})
+					if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "default:dirt_with_snow" then
+						minetest.set_node({x=pos.x, y=pos.y-1, z=pos.z}, {name="default:dirt_with_grass"})
 					end
-				else
+				elseif node.name == "default:ice" then
 					minetest.set_node(pos, {name="default:water_source"})
 				end
 			end

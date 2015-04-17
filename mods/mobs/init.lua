@@ -429,9 +429,10 @@ mobs:register_spawn("mobs:chicken", {"default:dirt_with_grass"}, 20, 8, 7000, 7,
 mobs:register_mob("mobs:creeper", {
 	type = "monster",
 	hp_max = 30,
-	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.8, 0.4},
+	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.6, 0.4},
 	textures = {"creeper.png"},
 	visual = "mesh",
+	visual_size = {x=.75, y=.75, z=.75},
 	mesh = "creeper.x",
 	makes_footstep_sound = false,
 	sounds = {
@@ -449,6 +450,10 @@ mobs:register_mob("mobs:creeper", {
 		chance = 1,
 		min = 0,
 		max = 2,},
+		{name = "farorb:farorb",
+		chance = 1,
+		min = 0,
+		max = 1,},
 	},
 	animation = {
 		speed_normal = 24,
@@ -480,7 +485,7 @@ mobs:register_spawn("mobs:creeper", {"group:crumbly", "group:cracky", "group:cho
 mobs:register_mob("mobs:skeleton", {
 	type = "monster",
 	hp_max = 30,
-	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.8, 0.4},
+	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
 	textures = {"skeleton.png"},
 	visual = "mesh",
 	mesh = "skeleton.x",
@@ -541,7 +546,7 @@ mobs:register_spawn("mobs:skeleton", {"group:crumbly", "group:cracky", "group:ch
 mobs:register_mob("mobs:zombie", {
 	type = "monster",
 	hp_max = 35,
-	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.8, 0.4},
+	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
 	textures = {"zombie.png"},
 	visual = "mesh",
 	mesh = "zombie.x",

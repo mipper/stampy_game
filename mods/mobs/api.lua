@@ -626,9 +626,11 @@ minetest.add_particlespawner({
 			end
 			pos.y = pos.y + 0.5
 			local obj = nil
+			local ndrops = 0
 			for _,drop in ipairs(self.drops) do
-				if math.random(1, drop.chance) == 1 then
+				if math.random(1, drop.chance) == 1 and ndrops < (self.maxdrops or 100) then
 					obj = minetest.add_item(pos, ItemStack(drop.name.." "..math.random(drop.min, drop.max)))
+					ndrops = ndrops + 1
 					if obj then
 						obj:setvelocity({x=math.random(-1,1), y=5, z=math.random(-1,1)})
 					end

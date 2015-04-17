@@ -191,21 +191,27 @@ minetest.register_node("torches:floor", {
 	end,
 })
 
--- melt snow cover around torches
+-- melt snow cover and ice around torches
 minetest.register_abm({
-	nodenames = {"torches:floor"},
-	interval = 30,
-	chance = 1,
+	nodenames = {"default:snow", "default:ice"},
+	interval = 3,
+	chance = 10,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		for i=-3,3 do
-			for j=-3,3 do
-				local np = addvectors(pos, {x=i, y=0, z=j})
-				if minetest.env:get_node(np).name == "default:snow" then
-					minetest.env:remove_node(np)
-				end
-				np.y = np.y - 1
-				if minetest.env:get_node(np).name == "default:dirt_with_snow" then
-					minetest.env:add_node(np, {name="default:dirt_with_grass"})
+		local p0 = {x=pos.x-2, y=pos.y-2, z=pos.z-2}
+		local p1 = {x=pos.x+2, y=pos.y+2, z=pos.z+2}
+		local tp = minetest.find_nodes_in_area(p0, p1, {"group:torch"})
+		if not tp then return end
+		for i=1,#tp do
+			local dist = math.abs(tp[i].x-pos.x) + math.abs(tp[i].y-pos.y) + math.abs(tp[i].z-pos.z)
+			if dist <= 2 then
+				if node.name == "default:snow" then
+					minetest.remove_node(pos)
+					pos.y = pos.y - 1
+					if minetest.get_node(pos).name == "default:dirt_with_snow" then
+						minetest.set_node(pos, {name="default:dirt_with_grass"})
+					end
+				else
+					minetest.set_node(pos, {name="default:water_source"})
 				end
 			end
 		end

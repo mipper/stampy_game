@@ -43,11 +43,18 @@ minetest.register_node("moremesecons_dispenser:dropper", {
 	}},
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec",	"invsize[8,9;]"..
-									"list[context;main;0,0;8,4;]"..
-									"list[current_player;main;0,4;8,4;]")
+		meta:set_string("formspec",	"size[9,8;]"..
+						default.gui_bg..
+						default.gui_bg_img..
+						default.gui_slots..
+						"list[context;main;3,.5;3,3;]"..
+						"list[current_player;main;0,6.85;9,1;]"..
+						"list[current_player;main;0,3.75;9,3;9]"..
+						"label[3,-0.2;Dropper]"..
+						"label[0,3.25;Inventory]"..
+						default.get_hotbar_bg(0,6.85))
 		local inv = meta:get_inventory()
-		inv:set_size("main", 4*8)
+		inv:set_size("main", 3*3)
 	end,
 	after_dig_node = drop_chest_stuff(),
 })
@@ -113,11 +120,18 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 	}},
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec",	"invsize[8,9;]"..
-									"list[context;main;0,0;8,4;]"..
-									"list[current_player;main;0,4;8,4;]")
+		meta:set_string("formspec",	"size[9,8;]"..
+						default.gui_bg..
+						default.gui_bg_img..
+						default.gui_slots..
+						"list[context;main;3,.5;3,3;]"..
+						"list[current_player;main;0,6.85;9,1;]"..
+						"list[current_player;main;0,3.75;9,3;9]"..
+						"label[3,-0.2;Dispenser]"..
+						"label[0,3.25;Inventory]"..
+						default.get_hotbar_bg(0,6.85))
 		local inv = meta:get_inventory()
-		inv:set_size("main", 4*8)
+		inv:set_size("main", 3*3)
 	end,
 	after_dig_node = drop_chest_stuff(),
 })

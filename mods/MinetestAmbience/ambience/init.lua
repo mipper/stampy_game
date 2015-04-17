@@ -50,9 +50,8 @@ local music_volume = 0.2
 ----------------------------------------------------------------------------------------------------
 local ambiences
 local counter=0--*****************
-local SOUNDVOLUME = 1
-local MUSICVOLUME = 1
-local sound_vol = 1
+local SOUNDVOLUME = .5
+local MUSICVOLUME = .5
 local last_x_pos = 0
 local last_y_pos = 0
 local last_z_pos = 0

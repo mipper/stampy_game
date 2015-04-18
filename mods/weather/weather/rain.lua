@@ -22,3 +22,15 @@ minetest.register_globalstep(function(dtime)
 			collisiondetection=false, vertical=true, texture="weather_rain.png", player=player:get_player_name()})
 	end
 end)
+
+minetest.register_abm({
+	nodenames = {"fire:basic_flame"},
+	interval = 8,
+	chance = 1,
+	action = function (pos, node, active_object_count, active_object_count_wider)
+		if weather == "rain" and minetest.get_node_light(pos, 0.5) > 3 then
+			minetest.remove_node(pos)
+		end
+	end
+})
+

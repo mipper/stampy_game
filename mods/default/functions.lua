@@ -339,13 +339,14 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"group:lava"},
-	interval = 2,
-	chance = 20,
+	interval = 1,
+	chance = 200,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-			if math.random(1,13) == 8 then
-				local rnd = math.random(0,1)*-1
-				minetest.add_particle(pos, {x=0.1*rnd, y=4, z=-0.1*rnd}, {x=-0.5*rnd, y=-10, z=0.5*rnd}, 3,
-   				1.2, true, "default_lava_particle.png")
+			if active_object_count_wider < 30 then
+				minetest.add_particle({x=pos.x, y=pos.y+.5, z=pos.z},
+						{x=4-math.random(1,40)/5, y=4+math.random(1,40)/20, z=4-math.random(1,40)/5},
+						{x=0, y=-10, z=0}, 2,
+   						1.2, true, "default_lava_particle.png")
 			end
 end})
 

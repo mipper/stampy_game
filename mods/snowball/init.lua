@@ -59,7 +59,7 @@ snowball_ent.on_step = function( self, dtime )
 		local objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 1.5)
 		for k, obj in pairs(objs) do
 			if obj:get_luaentity() ~= nil then
-				if obj:get_luaentity().name ~= "snowball:snowball_ent" and obj:get_luaentity() ~= self.launcher then
+				if obj:get_luaentity().name ~= "snowball:snowball_ent" and obj:get_luaentity().name ~= "__builtin:item" and obj:get_luaentity() ~= self.launcher then
 					local damage = 1
 					obj:punch(self.object, 1.0, {
 						full_punch_interval=1.0,

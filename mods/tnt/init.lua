@@ -1,8 +1,12 @@
+tnt = {}
+
+
 -- loss probabilities array (one in X will be lost)
 local loss_prob = {}
 
 loss_prob["default:cobble"] = 3
 loss_prob["default:dirt"] = 4
+loss_prob["tnt:tnt"] = 1
 
 local radius = tonumber(minetest.setting_get("tnt_radius") or 3)
 
@@ -19,12 +23,12 @@ minetest.after(0, function()
 	end
 end)
 
-local function rand_pos(center, pos, radius)
+function tnt:rand_pos(center, pos, radius)
 	pos.x = center.x + math.random(-radius, radius)
 	pos.z = center.z + math.random(-radius, radius)
 end
 
-local function eject_drops(drops, pos, radius)
+function tnt:eject_drops(drops, pos, radius)
 	local drop_pos = vector.new(pos)
 	for _, item in pairs(drops) do
 		local count = item:get_count()
@@ -36,7 +40,7 @@ local function eject_drops(drops, pos, radius)
 			if count < max then
 				item:set_count(count)
 			end
-			rand_pos(pos, drop_pos, radius)
+			tnt:rand_pos(pos, drop_pos, radius)
 			local obj = minetest.add_item(drop_pos, item)
 			if obj then
 				obj:get_luaentity().collect = true
@@ -49,7 +53,7 @@ local function eject_drops(drops, pos, radius)
 	end
 end
 
-local function add_drop(drops, item)
+function tnt:add_drop(drops, item)
 	item = ItemStack(item)
 	local name = item:get_name()
 	if loss_prob[name] ~= nil and math.random(1, loss_prob[name]) == 1 then
@@ -64,7 +68,7 @@ local function add_drop(drops, item)
 	end
 end
 
-local function destroy(drops, pos, cid)
+function tnt:destroy(drops, pos, cid)
 	if minetest.is_protected(pos, "") then
 		return
 	end
@@ -81,20 +85,20 @@ local function destroy(drops, pos, cid)
 	if def then
 		local node_drops = minetest.get_node_drops(def.name, "")
 		for _, item in ipairs(node_drops) do
-			add_drop(drops, item)
+			tnt:add_drop(drops, item)
 		end
 	end
 end
 
 
-local function calc_velocity(pos1, pos2, old_vel, power)
+function tnt:calc_velocity(pos1, pos2, old_vel, power)
 	local vel = vector.direction(pos1, pos2)
 	vel = vector.normalize(vel)
 	vel = vector.multiply(vel, power)
 
 	-- Divide by distance
 	local dist = vector.distance(pos1, pos2)
-	dist = math.max(dist, 1)
+	dist = math.max(dist, 3)
 	vel = vector.divide(vel, dist)
 
 	-- Add old velocity
@@ -102,7 +106,7 @@ local function calc_velocity(pos1, pos2, old_vel, power)
 	return vel
 end
 
-local function entity_physics(pos, radius)
+function tnt:entity_physics(pos, radius)
 	-- Make the damage radius larger than the destruction radius
 	radius = radius * 2
 	local objs = minetest.get_objects_inside_radius(pos, radius)
@@ -112,8 +116,10 @@ local function entity_physics(pos, radius)
 		local dist = math.max(1, vector.distance(pos, obj_pos))
 
 		if obj_vel ~= nil then
-			obj:setvelocity(calc_velocity(pos, obj_pos,
-					obj_vel, radius * 10))
+			local vel = tnt:calc_velocity(pos, obj_pos,
+					obj_vel, radius * 10)
+			obj:setvelocity({x=vel.x, y=vel.y, z=vel.z})
+			obj:setacceleration({x=-vel.x/5, y=-10, z=-vel.z/5})
 		end
 
 		local damage = (4 / dist) * radius
@@ -121,7 +127,7 @@ local function entity_physics(pos, radius)
 	end
 end
 
-local function add_effects(pos, radius)
+function tnt:add_effects(pos, radius)
 	minetest.add_particlespawner({
 		amount = 128,
 		time = 1,
@@ -139,12 +145,11 @@ local function add_effects(pos, radius)
 	})
 end
 
-local function burn(pos)
+function tnt:burn(pos)
 	local name = minetest.get_node(pos).name
 	if name == "tnt:tnt" then
 		minetest.sound_play("tnt_ignite", {pos=pos})
-		minetest.set_node(pos, {name="tnt:tnt_burning"})
-		minetest.get_node_timer(pos):start(1)
+		tnt:lit(pos, name)
 	elseif name == "tnt:gunpowder" then
 		minetest.sound_play("tnt_gunpowder_burning", {pos=pos, gain=2})
 		minetest.set_node(pos, {name="tnt:gunpowder_burning"})
@@ -152,7 +157,7 @@ local function burn(pos)
 	end
 end
 
-local function explode(pos, radius)
+function tnt:explode(pos, radius)
 	local pos = vector.round(pos)
 	local vm = VoxelManip()
 	local pr = PseudoRandom(os.time())
@@ -176,11 +181,12 @@ local function explode(pos, radius)
 	-- don't destroy any blocks when in water
 	local p0 = {x=pos.x-1, y=pos.y, z=pos.z-1}
 	local p1 = {x=pos.x+1, y=pos.y, z=pos.z+1}
-	if #minetest.find_nodes_in_area(p0, p1, {"group:water"}) then return {} end
+	if #minetest.find_nodes_in_area(p0, p1, {"group:water"}) > 0 then return {} end
 
 	for z = -radius, radius do
 	for y = -radius, radius do
 	local vi = a:index(pos.x + (-radius), pos.y + y, pos.z + z)
+	local ntnt = 1
 	for x = -radius, radius do
 		if (x * x) + (y * y) + (z * z) <=
 				(radius * radius) + pr:next(-radius, radius) then
@@ -188,14 +194,20 @@ local function explode(pos, radius)
 			p.x = pos.x + x
 			p.y = pos.y + y
 			p.z = pos.z + z
-			if cid == c_tnt or cid == c_gunpowder then
-				burn(p)
+			if cid == c_tnt then
+				minetest.after(ntnt+math.random(1,9)/10, function()
+					tnt:boom(p)
+				end)
+				ntnt = ntnt + 1
+			end
+			if cid == c_gunpowder then
+				tnt:burn(p)
 			elseif cid ~= c_tnt_burning and
 					cid ~= c_gunpowder_burning and
 					cid ~= c_air and
 					cid ~= c_fire and
 					cid ~= c_boom then
-				destroy(drops, p, cid)
+				tnt:destroy(drops, p, cid)
 			end
 		end
 		vi = vi + 1
@@ -206,16 +218,23 @@ local function explode(pos, radius)
 	return drops
 end
 
+function tnt:lit( p, n )
+	minetest.env:remove_node( p )
+	minetest.env:add_entity( p, 'tnt:tnt_ent' )
+end
 
-local function boom(pos)
+function tnt:boom(pos)
 	minetest.sound_play("tnt_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
-	minetest.set_node(pos, {name="tnt:boom"})
-	minetest.get_node_timer(pos):start(0.5)
 
-	local drops = explode(pos, radius)
-	entity_physics(pos, radius)
-	eject_drops(drops, pos, radius)
-	add_effects(pos, radius)
+	local drops = tnt:explode(pos, radius)
+	tnt:entity_physics(pos, radius)
+	tnt:eject_drops(drops, pos, radius)
+	tnt:add_effects(pos, radius)
+end
+
+local function meseboom(pos)
+	minetest.remove_node(pos)
+	tnt:boom(pos)
 end
 
 minetest.register_node("tnt:tnt", {
@@ -226,41 +245,10 @@ minetest.register_node("tnt:tnt", {
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
 			minetest.sound_play("tnt_ignite", {pos=pos})
-			minetest.set_node(pos, {name="tnt:tnt_burning"})
-			minetest.get_node_timer(pos):start(4)
+			tnt:lit(pos, node)
 		end
 	end,
-	mesecons = {effector = {action_on = boom}},
-})
-
-minetest.register_node("tnt:tnt_burning", {
-	tiles = {
-		{
-			name = "tnt_top_burning_animated.png",
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 1,
-			}
-		},
-		"tnt_bottom.png", "tnt_side.png"},
-	light_source = 5,
-	drop = "",
-	sounds = default.node_sound_wood_defaults(),
-	on_timer = boom,
-})
-
-minetest.register_node("tnt:boom", {
-	drawtype = "plantlike",
-	tiles = {"tnt_boom.png"},
-	light_source = default.LIGHT_MAX,
-	walkable = false,
-	drop = "",
-	groups = {dig_immediate=3},
-	on_timer = function(pos, elapsed)
-		minetest.remove_node(pos)
-	end,
+	mesecons = {effector = {action_on = meseboom}},
 })
 
 minetest.register_node("tnt:gunpowder", {
@@ -281,7 +269,7 @@ minetest.register_node("tnt:gunpowder", {
 	
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
-			burn(pos)
+			tnt:burn(pos)
 		end
 	end,
 })
@@ -313,7 +301,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 		for dz = -1, 1 do
 		for dy = -1, 1 do
 			if not (dx == 0 and dz == 0) then
-				burn({
+				tnt:burn({
 					x = pos.x + dx,
 					y = pos.y + dy,
 					z = pos.z + dz,
@@ -331,7 +319,7 @@ minetest.register_abm({
 	neighbors = {"fire:basic_flame", "default:lava_source", "default:lava_flowing"},
 	interval = 1,
 	chance = 1,
-	action = burn,
+	action = tnt.burn,
 })
 
 minetest.register_craft({
@@ -348,6 +336,75 @@ minetest.register_craft({
 		{"tnt:gunpowder",      "group:sand",      "tnt:gunpowder"}
 	}
 })
+--------------------------------------------------------------------------------
+--	TNT
+--------------------------------------------------------------------------------
+--	A simple TNT mod which damages both terrain and entities.
+--	Barely based on bcmpinc's pull request.
+--
+--	(c)2012 Fernando Zapata (ZLovesPancakes, Franz.ZPT)
+--	Code licensed under GNU GPLv2
+--		http://www.gnu.org/licenses/gpl-2.0.html
+--	Content licensed under CC BY-SA 3.0
+--		http://creativecommons.org/licenses/by-sa/3.0/
+--------------------------------------------------------------------------------
+
+-------------------------------------------------------------- Entities --------
+
+tnt.ent_proto = {
+	hp_max		= 1000,
+	physical	= true,
+	collisionbox	= { -1/2, -1/2, -1/2, 1/2, 1/2, 1/2 },
+	visual		= 'cube',
+	textures = {	'tnt_top.png', 'tnt_bottom.png', 'tnt_side.png',
+			'tnt_side.png', 'tnt_side.png', 'tnt_side.png' },
+
+	timer		= 0,
+	btimer		= 0,
+	bstatus		= true,
+	physical_state	= true,
+
+	on_activate = function( sf, sd )
+		sf.object:set_armor_groups( { immortal=1 } )
+		sf.object:setvelocity({x=math.random(-40,40)/40, y=4, z=math.random(-40,40)/40})
+		sf.object:setacceleration({x=0, y=-10, z=0})
+		sf.object:settexturemod('^[brighten')
+	end,
+
+	on_step = function( sf, dt )
+		sf.timer = sf.timer + dt
+		sf.btimer = sf.btimer + dt
+		if sf.btimer > 0.5 then
+			sf.btimer = sf.btimer - 0.5
+			if sf.bstatus then
+				sf.object:settexturemod('')
+			else
+				sf.object:settexturemod('^[brighten')
+			end
+			sf.bstatus = not sf.bstatus
+		end
+		if sf.timer > 0.5 then
+			local p = sf.object:getpos()
+			p.y = p.y - 0.501
+			local nn = minetest.env:get_node(p).name
+			if not minetest.registered_nodes[nn] or
+				minetest.registered_nodes[nn].walkable then
+				sf.object:setvelocity({x=0,y=0,z=0})
+				sf.object:setacceleration({x=0, y=0, z=0})
+			end
+		end
+		if sf.timer > 4 then
+			local pos = sf.object:getpos()
+			local pos2 = {x=math.floor(pos.x+0.5), y=math.floor(pos.y+0.5),
+				z=math.floor(pos.z+0.5)}
+			tnt:boom(pos2)
+			sf.object:remove()
+		end
+	end,
+}
+
+minetest.register_entity( 'tnt:tnt_ent', tnt.ent_proto )
+
 
 if minetest.setting_get("log_mods") then
 	minetest.debug("[TNT] Loaded!")

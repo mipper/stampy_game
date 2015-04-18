@@ -29,10 +29,13 @@ minetest.register_node("moremesecons_dispenser:dropper", {
 								{x=pos.x - 2*dir.x, y=pos.y - 2*dir.y, z=pos.z - 2*dir.z}
 			nodeupdate(pos)
 			
-			local inv = minetest.get_meta(pos):get_inventory()
-			local invlist = inv:get_list("main")
 			minetest.sound_play("click3", {pos = pos})
-			for i, stack in ipairs(invlist) do
+			local inv = minetest.get_meta(pos):get_inventory()
+			if inv:is_empty("main") then return end
+			local invlist = inv:get_list("main")
+			for n=1,100 do
+				local i = math.random(1, #invlist)
+				local stack = invlist[i]
 				if stack:get_name() ~= nil and stack:get_name() ~= "" then --obtain the first non-empty item slot
 					minetest.env:add_item(pos_under, stack:take_item())
 					inv:set_stack("main", i, stack)
@@ -78,8 +81,11 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 			nodeupdate(pos)
 			
 			local inv = minetest.get_meta(pos):get_inventory()
+			if inv:is_empty("main") then return end
 			local invlist = inv:get_list("main")
-			for i, stack in ipairs(invlist) do
+			for n=1,100 do
+				local i = math.random(1, #invlist)
+				local stack = invlist[i]
 				if stack:get_name() ~= nil and stack:get_name() ~= "" then --obtain the first non-empty item slot
 					minetest.sound_play("click1", {pos = pos})
 					if stack:get_name() == "bucket:bucket_water" then

@@ -88,7 +88,7 @@ end
 minetest.register_on_generated(function(minp, maxp, seed)
 
 	if maxp.y < 0 then return end
-	if math.random(0,10)<8 then return end
+	if math.random(0,30)<28 then return end
 	set_seed(seed)
 
 	local perlin1 = minetest.env:get_perlin(perl1.SEED1, perl1.OCTA1, perl1.PERS1, perl1.SCAL1)

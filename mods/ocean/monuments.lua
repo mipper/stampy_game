@@ -123,7 +123,7 @@ local function make_entrance(pos)
 end
 
 local function make(pos)
- minetest.log("action", "Created monument at ("..pos.x..","..pos.y..","..pos.z..")")
+ minetest.log("action", "Created ocean monument at ("..pos.x..","..pos.y..","..pos.z..")")
  for iy=0,10,1 do
 	for ix=iy,22-iy,1 do
 		for iz=iy,22-iy,1 do

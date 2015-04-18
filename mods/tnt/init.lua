@@ -237,6 +237,11 @@ local function meseboom(pos)
 	tnt:boom(pos)
 end
 
+local function lavaboom(pos)
+	local name = minetest.get_node(pos).name
+	tnt:lit(pos, name)
+end
+
 minetest.register_node("tnt:tnt", {
 	description = "TNT",
 	tiles = {"tnt_top.png", "tnt_bottom.png", "tnt_side.png"},
@@ -319,7 +324,7 @@ minetest.register_abm({
 	neighbors = {"fire:basic_flame", "default:lava_source", "default:lava_flowing"},
 	interval = 1,
 	chance = 1,
-	action = tnt.burn,
+	action = lavaboom,
 })
 
 minetest.register_craft({

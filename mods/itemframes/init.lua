@@ -174,6 +174,12 @@ minetest.register_abm({
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local meta = minetest.env:get_meta(pos)
 		meta:set_string("infotext", "")
+		local item = meta:get_string("item")
+		if minetest.get_item_group(item, "clock") ~= 0 and minetest.get_item_group(item, "clock") ~= time then
+			local time = math.floor((64 * (minetest.get_timeofday() + .5)) % 64 + 1)
+			meta:set_string("item", "clock:"..time)
+			update_item(pos, node)
+		end
 		if #minetest.get_objects_inside_radius(pos, 0.5) > 0 then return end
 		update_item(pos, node)
 	end

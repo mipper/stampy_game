@@ -17,7 +17,7 @@ local soot_def = {
     pos = {x = 0, y = 0, z = 0},
     vel = { x= 0, y = 0, z = 0},
     acc = {x = 0, y = 3, z = 0},
-    expirationtime = 4,
+    expirationtime = 2,
     size = 1,
     collisiondetection = true,
     vertical = false,
@@ -37,7 +37,7 @@ local function add_fire(pos, duration)
    					1.5, true, "torches_fire"..tostring(math.random(1,2)) ..".png")
 	if math.random() < .1 then
 		soot_def.pos = pos
-		soot_def.velocity = {x=math.random(-20,20)/20, y=1, z=math.random(-20,20)/20}
+		soot_def.acc = {x=math.random(-20,20)/80, y=3, z=math.random(-20,20)/80}
 		minetest.add_particle(soot_def)
 	end
 end

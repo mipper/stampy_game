@@ -1,4 +1,4 @@
--- Reduce particles send to client if on Server
+-- Reduce particles sent to client if on Server
 local SERVER = minetest.is_singleplayer() or false
 SERVER = not SERVER
 local dur = 0
@@ -6,12 +6,23 @@ if SERVER then
 	dur = 8 --too high??
 end
 
-local VIEW_DISTANCE = 13 -- if player is near that distance flames are shown
+local VIEW_DISTANCE = 8 -- if player is near that distance flames are shown
 
 local null = {x=0, y=0, z=0}
 
 local dirs = {{-1,0,-1},{-1,0,0},{0,0,-1},
 {1,0,1},{1,0,0},{0,0,1},{0,1,0}}
+
+local soot_def = {
+    pos = {x = 0, y = 0, z = 0},
+    vel = { x= 0, y = 0, z = 0},
+    acc = {x = 0, y = 3, z = 0},
+    expirationtime = 4,
+    size = 1,
+    collisiondetection = true,
+    vertical = false,
+    texture = "tnt_gunpowder.png",
+}
 
 --fire_particles
 local function add_fire(pos, duration)
@@ -24,6 +35,11 @@ local function add_fire(pos, duration)
 	pos.y = pos.y +0.01
 	minetest.add_particle(pos, null, null, duration-0.3,
    					1.5, true, "torches_fire"..tostring(math.random(1,2)) ..".png")
+	if math.random() < .1 then
+		soot_def.pos = pos
+		soot_def.velocity = {x=math.random(-20,20)/20, y=1, z=math.random(-20,20)/20}
+		minetest.add_particle(soot_def)
+	end
 end
 
 --help functions

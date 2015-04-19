@@ -5,40 +5,34 @@
 
 local function active_formspec(fuel_percent, item_percent)
 	local formspec = 
-		"size[9,8.5]"..
-		default.gui_bg..
-		default.gui_bg_img..
-		default.gui_slots..
-		"list[current_name;src;2.75,0.5;1,1;]"..
-		"list[current_name;fuel;2.75,2.5;1,1;]"..
-		"image[2.75,1.5;1,1;default_furnace_fire_bg.png^[lowpart:"..
-		(100-fuel_percent)..":default_furnace_fire_fg.png]"..
-		"image[3.75,1.5;1,1;gui_furnace_arrow_bg.png^[lowpart:"..
-		(item_percent)..":gui_furnace_arrow_fg.png^[transformR270]"..
-		"list[current_name;dst;4.75,0.96;2,2;]"..
-		"list[current_player;main;0,7.5;9,1;]"..
-		"list[current_player;main;0,4.25;9,3;9]"..
-		"label[3.25,0;Furnace]"..
-		"label[0,3.75;Inventory]"..
-		default.get_hotbar_bg(0, 7.5)
+	"size[9,8.75]"..
+	"background[-0.19,-0.25;9.41,9.49;crafting_formspec_bg.png^crafting_inventory_furnace.png]"..
+	"bgcolor[#080808BB;true]"..
+	"listcolors[#9990;#FFF7;#FFF0;#160816;#D4D2FF]"..
+	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;main;0,7.74;9,1;]"..
+	"list[current_name;src;2.75,0.5;1,1;]"..
+	"list[current_name;fuel;2.75,2.5;1,1;]"..
+	"list[current_name;dst;5.75,1.5;1,1;]"..
+	"image[4.75,1.5;1,1;gui_furnace_arrow_bg.png^[lowpart:"..
+	(item_percent)..":gui_furnace_arrow_fg.png^[transformR270]"..
+	"image[2.75,1.5;1,1;crafting_furnace_fire_bg.png^[lowpart:"..
+	(100-fuel_percent)..":default_furnace_fire_fg.png]"
 	return formspec
 end
 
 local inactive_formspec =
-	"size[9,8.5]"..
-	default.gui_bg..
-	default.gui_bg_img..
-	default.gui_slots..
+	"size[9,8.75]"..
+	"background[-0.19,-0.25;9.41,9.49;crafting_formspec_bg.png^crafting_inventory_furnace.png]"..
+	"bgcolor[#080808BB;true]"..
+	"listcolors[#9990;#FFF7;#FFF0;#160816;#D4D2FF]"..
+	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;main;0,7.74;9,1;]"..
 	"list[current_name;src;2.75,0.5;1,1;]"..
 	"list[current_name;fuel;2.75,2.5;1,1;]"..
-	"image[2.75,1.5;1,1;default_furnace_fire_bg.png]"..
+	"list[current_name;dst;5.75,1.5;1,1;]"..
 	"image[3.75,1.5;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
-	"list[current_name;dst;4.75,0.96;2,2;]"..
-	"list[current_player;main;0,7.5;9,1;]"..
-	"list[current_player;main;0,4.25;9,3;9]"..
-	"label[3.25,0;Furnace]"..
-	"label[0,3.75;Inventory]"..
-	default.get_hotbar_bg(0, 7.5)
+	"image[2.75,1.5;1,1;crafting_furnace_fire_bg.png"
 
 --
 -- Node callback functions that are the same for active and inactive furnace

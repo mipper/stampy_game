@@ -1263,30 +1263,24 @@ minetest.register_node("default:torch", {
 
 
 local chest_formspec =
-	"size[9,9]"..
-	default.gui_bg..
-	default.gui_bg_img..
-	default.gui_slots..
-	"list[current_name;main;0,0.3;9,4;]"..
-	"list[current_player;main;0,7.85;9,1;]"..
-	"list[current_player;main;0,4.75;9,3;9]"..
-	"label[0,-0.2;Chest]"..
-	"label[0,4.25;Inventory]"..
-	default.get_hotbar_bg(0,7.85)
+	"size[9,9.75]"..
+	"background[-0.19,-0.25;9.41,10.48;crafting_inventory_chest.png]"..
+	"bgcolor[#080808BB;true]"..
+	"listcolors[#9990;#FFF7;#FFF0;#160816;#D4D2FF]"..
+	"list[current_name;main;0,0.5;9,4;]"..
+	"list[current_player;main;0,5.5;9,3;9]"..
+	"list[current_player;main;0,8.74;9,1;]"
 
 local function get_locked_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec =
-		"size[9,9]"..
-		default.gui_bg..
-		default.gui_bg_img..
-		default.gui_slots..
-		"list[nodemeta:".. spos .. ";main;0,0.3;9,4;]"..
-		"list[current_player;main;0,7.85;9,1;]"..
-		"list[current_player;main;0,4.75;9,3;9]"..
-		"label[0,-0.2;Chest]"..
-		"label[0,4.25;Inventory]"..
-		default.get_hotbar_bg(0,7.85)
+		"size[9,9.75]"..
+		"background[-0.19,-0.25;9.41,10.48;crafting_inventory_chest.png]"..
+		"bgcolor[#080808BB;true]"..
+		"listcolors[#9990;#FFF7;#FFF0;#160816;#D4D2FF]"..
+		"list[current_name;main;0,0.5;9,4;]"..
+		"list[current_player;main;0,5.5;9,3;9]"..
+		"list[current_player;main;0,8.74;9,1;]"
  return formspec
 end
 

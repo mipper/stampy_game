@@ -346,6 +346,8 @@ minetest.register_node("default:snow", {
 	inventory_image = "default_snow.png",
 	wield_image = "default_snow.png",
 	is_ground_content = true,
+	sunlight_propagates = true,
+	walkable = false,
 	paramtype = "light",
 	buildable_to = true,
 	drawtype = "nodebox",

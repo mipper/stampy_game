@@ -133,10 +133,11 @@ mesecon.register_node("jungle:tripwire", {
 	inventory_image = "tripwire.png",
 	paramtype = "light",
 	walkable = false,
+	sunlight_propagates = true,
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, -0.3, 0.5, -0.4, 0.3},
+		fixed = {-0.5, -0.5, -0.5, 0.5, -0.5+1/32, 0.5},
 	},
 	on_timer = on_timer,
 	on_construct = function(pos, node, active_object_count, active_object_count_wider)

@@ -49,6 +49,7 @@ function mesecon.register_pressure_plate(basename, description, textures_off, te
 		inventory_image = image_i,
 		wield_image = image_w,
 		paramtype = "light",
+		walkable = false,
 	    	description = description,
 		pressureplate_basename = basename,
 		on_timer = pp_on_timer,

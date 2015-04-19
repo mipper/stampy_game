@@ -83,6 +83,7 @@ minetest.add_particle({
 	if self.lastpos.x~=nil then
 		if node.name ~= "air" then
 			minetest.sound_play("bowhit1", {pos = pos})
+			minetest.punch_node(pos)
 			minetest.env:add_item(self.lastpos, 'throwing:arrow')
 			self.object:remove()
 		end

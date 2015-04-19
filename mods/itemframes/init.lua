@@ -107,38 +107,30 @@ minetest.register_node("itemframes:frame",{
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sunlight_propagates = true,
+	walkable = false,
 	groups = { choppy=2,dig_immediate=2 },
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
-	after_place_node = function(pos, placer, itemstack)
-		local meta = minetest.env:get_meta(pos)
-		meta:set_string("owner",placer:get_player_name())
-		meta:set_string("infotext","Item frame (owned by "..placer:get_player_name()..")")
-	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
 		local meta = minetest.env:get_meta(pos)
-		if clicker:get_player_name() == meta:get_string("owner") then
-			drop_item(pos,node)
-			local s = itemstack:peek_item()
-			if not minetest.setting_getbool("creative_mode") then
-				itemstack:take_item()
-			end
-			meta:set_string("item",s:to_string())
-			update_item(pos,node)
+		drop_item(pos,node)
+		local s = itemstack:peek_item()
+		if not minetest.setting_getbool("creative_mode") then
+			itemstack:take_item()
 		end
+		meta:set_string("item",s:to_string())
+		update_item(pos,node)
 		return itemstack
 	end,
 	on_punch = function(pos,node,puncher)
 		local meta = minetest.env:get_meta(pos)
-		if puncher:get_player_name() == meta:get_string("owner") then
+		if meta:get_string("item") ~= "" then
 			drop_item(pos, node)
+			return
 		end
-	end,
-	can_dig = function(pos,player)
-		
-		local meta = minetest.env:get_meta(pos)
-		return player:get_player_name() == meta:get_string("owner")
+		minetest.remove_node(pos)
+		minetest.add_item(pos, "itemframes:frame")
 	end,
 })
 
@@ -157,32 +149,18 @@ minetest.register_node("itemframes:pedestal",{
 	paramtype = "light",
 	groups = { cracky=3 },
 	sounds = default.node_sound_defaults(),
-	after_place_node = function(pos, placer, itemstack)
-		local meta = minetest.env:get_meta(pos)
-		meta:set_string("owner",placer:get_player_name())
-		meta:set_string("infotext","Pedestal (owned by "..placer:get_player_name()..")")
-	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
 		local meta = minetest.env:get_meta(pos)
-		if clicker:get_player_name() == meta:get_string("owner") then
-			drop_item(pos,node)
-			local s = itemstack:take_item()
-			meta:set_string("item",s:to_string())
-			update_item(pos,node)
-		end
+		drop_item(pos,node)
+		local s = itemstack:take_item()
+		meta:set_string("item",s:to_string())
+		update_item(pos,node)
 		return itemstack
 	end,
 	on_punch = function(pos,node,puncher)
 		local meta = minetest.env:get_meta(pos)
-		if puncher:get_player_name() == meta:get_string("owner") then
-			drop_item(pos,node)
-		end
-	end,
-	can_dig = function(pos,player)
-		
-		local meta = minetest.env:get_meta(pos)
-		return player:get_player_name() == meta:get_string("owner")
+		drop_item(pos,node)
 	end,
 })
 
@@ -194,6 +172,8 @@ minetest.register_abm({
 	interval = 15,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
+		local meta = minetest.env:get_meta(pos)
+		meta:set_string("infotext", "")
 		if #minetest.get_objects_inside_radius(pos, 0.5) > 0 then return end
 		update_item(pos, node)
 	end

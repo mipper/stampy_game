@@ -23,7 +23,29 @@ read_weather = function ()
 	return readweather
 end
 
+set_sky = function()
+	if weather == "rain" or weather == "snow" then
+		local time = minetest.get_timeofday()
+		local color
+		if time > 0.25 and time < 0.75 then
+			color = {r=100, g=100, b=100}
+		else
+			color = {r=30, g=30, b=30}
+		end
+		for _, player in ipairs(minetest.get_connected_players()) do
+			player:set_sky(color, "plain")
+		end
+	else
+		for _, player in ipairs(minetest.get_connected_players()) do
+			player:set_sky(nil, "regular")
+		end
+	end
+end
+
 weather = read_weather()
+minetest.register_globalstep(function(dtime)
+	set_sky()
+end)
 
 minetest.register_globalstep(function(dtime)
 	if weather == "rain" or weather == "snow" then

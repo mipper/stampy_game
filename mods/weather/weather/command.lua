@@ -4,7 +4,7 @@ minetest.register_privilege("weather", {
 })
 
 -- Set weather
-minetest.register_chatcommand("setweather", {
+minetest.register_chatcommand("weather", {
 	params = "<weather>",
 	description = "Set weather to rain, snow or none", -- full description
 	privs = {weather = true},

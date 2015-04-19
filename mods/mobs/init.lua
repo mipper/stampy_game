@@ -244,6 +244,7 @@ mobs:register_mob("mobs:sheep", {
 		if item:get_name() == "shears:shears" and not self.naked then
 			self.naked = true
 			local pos = self.object:getpos()
+			minetest.sound_play("shears", {pos = pos})
 			pos.y = pos.y + 0.5
 			minetest.add_item(pos, ItemStack("wool:white "..math.random(1,3)))
 			self.object:set_properties({

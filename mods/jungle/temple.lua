@@ -155,8 +155,8 @@ mesecon.register_node("jungle:tripwire", {
 })
 
 minetest.register_craft({
-	output = "jungle:tripwire 1",
-	recipe = {{"default:cotton"}}
+	output = "jungle:tripwire_off 2",
+	recipe = {{"farming:cotton", "farming:cotton"}}
 })
 
 

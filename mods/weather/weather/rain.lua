@@ -1,12 +1,33 @@
+rain_sounds = {}
+
 -- Rain
 minetest.register_globalstep(function(dtime)
-	if weather ~= "rain" then return end
+	if weather ~= "rain" then
+		for _, player in ipairs(minetest.get_connected_players()) do
+			local name = player:get_player_name()
+			if rain_sounds[name] then
+				minetest.sound_stop(rain_sounds[name])
+				rain_sounds[name] = nil
+			end
+		end
+		return
+	end
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local ppos = player:getpos()
+		local name = player:get_player_name()
 
 		-- Make sure player is not in a cave/house...
-		if minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12 then return end
+		if minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12 then
+			if rain_sounds[name] then
+				minetest.sound_stop(rain_sounds[name])
+				rain_sounds[name] = nil
+			end
+			return
+		end
 
+		if not rain_sounds[name] then
+			rain_sounds[name] = minetest.sound_play("rain", {to_player = name, loop = true})
+		end
 		local minp = addvectors(ppos, {x=-9, y=7, z=-9})
 		local maxp = addvectors(ppos, {x= 9, y=7, z= 9})
 

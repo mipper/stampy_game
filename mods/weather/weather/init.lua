@@ -40,6 +40,15 @@ set_sky = function()
 			player:set_sky(nil, "regular")
 		end
 	end
+	if weather == "rain" and math.random() < .001 then
+		for _, player in ipairs(minetest.get_connected_players()) do
+			local ppos = player:getpos()
+			if ppos.y > -50 then
+				player:set_sky({r=255, g=255, b=255}, "plain")
+				minetest.sound_play("thunder")
+			end
+		end
+	end
 end
 
 weather = read_weather()

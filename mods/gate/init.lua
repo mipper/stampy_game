@@ -1,8 +1,8 @@
 local nb_gap = 	{
-		{-1, 0.1875, -0.0625, -0.5, 0.3125, 0.0625},
-		{-1, -0.1875, -0.0625, -0.5, -0.3125, 0.0625},
-		{0.5, 0.1875, -0.0625, 1, 0.3125, 0.0625},
-		{0.5, -0.1875, -0.0625, 1, -0.3125, 0.0625}
+		{-.5, 0.1875, -0.0625, -0.5, 0.3125, 0.0625},
+		{-.5, -0.1875, -0.0625, -0.5, -0.3125, 0.0625},
+		{0.5, 0.1875, -0.0625, .5, 0.3125, 0.0625},
+		{0.5, -0.1875, -0.0625, .5, -0.3125, 0.0625}
 		}
 
 local nb_pil = 	{
@@ -38,10 +38,10 @@ end
 
 local function gate_rightclick(pos, node)
 	if node.name == "gate:fencegate" then
-		minetest.sound_play("door_open", {gain = 0.3, max_hear_distance = 10})
+		minetest.sound_play("doors_door_open", {gain = 0.3, max_hear_distance = 10})
 		minetest.set_node(pos, {name="gate:fencegate_open", param2=node.param2})
 	else
-		minetest.sound_play("door_close", {gain = 0.3, max_hear_distance = 10})
+		minetest.sound_play("doors_door_close", {gain = 0.3, max_hear_distance = 10})
 		minetest.set_node(pos, {name="gate:fencegate", param2=node.param2})
 	end	
 end
@@ -101,8 +101,8 @@ minetest.register_node("gate:fencegate", {
 			nb_pil[1], nb_pil[2],
 			nb_pil[3], nb_pil[4],
 			{-0.0625, -0.3125, -0.0625, 0.0625, 0.3125, 0.0625},
-			{-1, 0.1875, -0.0625, 1, 0.3125, 0.0625},
-			{-1, -0.1875, -0.0625, 1, -0.3125, 0.0625},
+			{-.5, 0.1875, -0.0625, .5, 0.3125, 0.0625},
+			{-.5, -0.1875, -0.0625, .5, -0.3125, 0.0625},
 			}
 	},
 	selection_box = {

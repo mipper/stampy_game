@@ -31,7 +31,7 @@ local inactive_formspec =
 	"list[current_name;src;2.75,0.5;1,1;]"..
 	"list[current_name;fuel;2.75,2.5;1,1;]"..
 	"list[current_name;dst;5.75,1.5;1,1;]"..
-	"image[3.75,1.5;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
+	"image[4.75,1.5;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
 	"image[2.75,1.5;1,1;crafting_furnace_fire_bg.png"
 
 --

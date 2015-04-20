@@ -15,9 +15,10 @@ minetest.register_globalstep(function(dtime)
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local ppos = player:getpos()
 		local name = player:get_player_name()
+		local desnode = {"default:desert_sand", "default:desert_stone"}
 
 		-- Make sure player is not in a cave/house...
-		if minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12 then
+		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12) then
 			if rain_sounds[name] then
 				minetest.sound_stop(rain_sounds[name])
 				rain_sounds[name] = nil

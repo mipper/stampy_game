@@ -43,7 +43,9 @@ set_sky = function()
 	if weather == "rain" and math.random() < .001 then
 		for _, player in ipairs(minetest.get_connected_players()) do
 			local ppos = player:getpos()
-			if ppos.y > -50 then
+			local desnode = {"default:desert_sand", "default:desert_stone"}
+
+			if ppos.y > -50 and not minetest.find_node_near(ppos, 14, desnode) then
 				player:set_sky({r=255, g=255, b=255}, "plain")
 				minetest.sound_play("thunder")
 			end

@@ -3,9 +3,10 @@ minetest.register_globalstep(function(dtime)
 	if weather ~= "snow" then return end
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local ppos = player:getpos()
+		local desnode = {"default:desert_sand", "default:desert_stone"}
 
 		-- Make sure player is not in a cave/house...
-		if minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12 then return end
+		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12) then return end
 
 		local minp = addvectors(ppos, {x=-9, y=7, z=-9})
 		local maxp = addvectors(ppos, {x= 9, y=7, z= 9})
@@ -63,6 +64,9 @@ minetest.register_abm({
 				local np = addvectors(pos, {x=0, y=1, z=0})
 				if minetest.get_node_light(np, 0.5) == 15
 				and minetest.get_node(np).name == "air" then
+					local desnode = {"default:desert_sand", "default:desert_stone"}
+
+					if minetest.find_node_near(pos, 8, desnode) then return end
 					local p0 = {x=np.x-2, y=np.y-2, z=np.z-2}
 					local p1 = {x=np.x+2, y=np.y+2, z=np.z+2}
 					local count = #minetest.find_nodes_in_area(p0, p1, {"default:snow"})

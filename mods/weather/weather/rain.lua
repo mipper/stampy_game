@@ -1,5 +1,14 @@
 rain_sounds = {}
 
+local function find_glass(pos)
+	for i=1,12 do
+		if minetest.get_node({x=pos.x, y=pos.y+i, z=pos.z}).name ~= "air" then
+			return true
+		end
+	end
+	return false
+end
+
 -- Rain
 minetest.register_globalstep(function(dtime)
 	if weather ~= "rain" then
@@ -18,7 +27,8 @@ minetest.register_globalstep(function(dtime)
 		local desnode = {"default:desert_sand", "default:desert_stone"}
 
 		-- Make sure player is not in a cave/house...
-		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12) then
+		local ppos2 = addvectors(ppos, {x=0, y=12, z=0})
+		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12) or find_glass(ppos) then
 			if rain_sounds[name] then
 				minetest.sound_stop(rain_sounds[name])
 				rain_sounds[name] = nil

@@ -412,7 +412,7 @@ doors.register_trapdoor("doors:trapdoor", {
 	inventory_image = "doors_trapdoor.png",
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",
-	tile_side = "doors_trapdoor_side.png",
+	tile_side = "doors_trapdoor.png",
 	groups = {snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1},
 	sounds = default.node_sound_wood_defaults(),
 	sound_open = "doors_door_open",

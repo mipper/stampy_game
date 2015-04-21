@@ -135,6 +135,14 @@ function doors.register_door(name, def)
 		end
 	end
 
+	local function on_mesecons_signal_open (pos, node)
+		on_rightclick(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
+	end
+
+	local function on_mesecons_signal_close (pos, node)
+		on_rightclick(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
+	end
+
 	local function check_player_priv(pos, player)
 		if not def.only_placer_can_open then
 			return true
@@ -170,6 +178,9 @@ function doors.register_door(name, def)
 				on_rightclick(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
 			end
 		end,
+		mesecons = {effector = {
+			action_on  = on_mesecons_signal_open
+		}},
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
@@ -234,6 +245,9 @@ function doors.register_door(name, def)
 				on_rightclick(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
 			end
 		end,
+		mesecons = {effector = {
+			action_off = on_mesecons_signal_close
+		}},
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,

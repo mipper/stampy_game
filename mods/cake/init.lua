@@ -202,3 +202,13 @@ minetest.register_node("cake:cake_1", {
 			end
 	end,
 })
+
+minetest.register_abm({
+	nodenames = {"food:cake"},
+	interval = 1,
+	chance = 1,
+	action = function(pos)
+			minetest.set_node(pos, {name = "cake:cake"})
+	end
+})
+

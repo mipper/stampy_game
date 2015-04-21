@@ -25,7 +25,12 @@ local soot_def = {
 }
 
 --fire_particles
-local function add_fire(pos, duration)
+local function add_fire(pos, duration, offset)
+	if offset then
+		pos.x = pos.x + offset.x
+		pos.z = pos.z + offset.z
+		pos.y = pos.y + offset.y
+	end
 	if duration < 1 then
 		duration = 1.1
 	end
@@ -91,14 +96,35 @@ local function player_near(pos)
 	return false
 end
 
+local function get_offset(wdir)
+	local z = 0
+	local x = 0
+	if wdir == 4 then
+		z = 0.25
+	elseif wdir == 2 then
+		x = 0.25
+	elseif wdir == 5 then
+		z = -0.25
+	elseif wdir == 3 then
+		x = -0.25
+	end
+	return {x = x, y = 0.08, z = z}
+		
+end
+
 -- abms for flames
 minetest.register_abm({
-	nodenames = {"torches:wand"},
+	nodenames = {"torches:wall"},
 	interval = 1+dur,
 	chance = 1,
 	action = function(pos)
 		if player_near(pos) then
-			add_fire(pos, dur)
+			local n = minetest.get_node_or_nil(pos)
+			local dir = {x = 0, y = 0, z = 0}
+			if n and n.param2 then
+				dir = get_offset(n.param2)
+			end
+			add_fire(pos, dur - .9, dir)
 		end
 	end
 })
@@ -134,6 +160,20 @@ minetest.register_abm({
 		end
 	end
 })
+minetest.register_abm({
+	nodenames = {"torches:wand"},
+	interval = 1,
+	chance = 1,
+	action = function(pos)
+		local n = minetest.get_node(pos)
+		local def = minetest.registered_nodes[n.name]
+		if def then
+			local conv = {4,2,5,3}
+			local wdir = conv[n.param2+1]
+			minetest.set_node(pos, {name = "torches:wall", param2 = wdir})
+		end
+	end
+})
 
 --node_boxes
 minetest.register_craftitem(":default:torch", {
@@ -161,12 +201,12 @@ minetest.register_craftitem(":default:torch", {
 		if wdir == 1 then
 			minetest.env:add_node(above, {name = "torches:floor"})		
 		else
-			minetest.env:add_node(above, {name = "torches:wand", param2 = is_wall(wdir)})
+			minetest.env:add_node(above, {name = "torches:wall", param2 = wdir})
 		end
 		if not wdir == 0 or not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
-		add_fire(above, dur)
+		--add_fire(above, dur)
 		return itemstack
 		
 	end
@@ -178,9 +218,9 @@ minetest.register_node("torches:floor", {
 	inventory_image = "default_torch.png",
 	wield_image = "torches_torch.png",
 	wield_scale = {x=1,y=1,z=1+2/16},
-	drawtype = "nodebox",
-	tiles = {"torches_torch.png^[transformfy", "default_wood.png", "torches_torch.png",
-		"torches_torch.png^[transformfx", "torches_torch.png", "torches_torch.png"},
+	drawtype = "mesh",
+	mesh = "torch_floor.obj",
+	tiles = {"torches_torch.png"},
 	paramtype = "light",
 	paramtype2 = "none",
 	sunlight_propagates = true,
@@ -189,10 +229,6 @@ minetest.register_node("torches:floor", {
 	light_source = 13,
 	groups = {choppy=2,dig_immediate=3,flammable=1,not_in_creative_inventory=1,torch=1},
 	legacy_wallmounted = true,
-	node_box = {
-		type = "fixed",
-		fixed = {-1/16, -0.5, -1/16, 1/16, 2/16, 1/16},
-	},
 	selection_box = {
 		type = "fixed",
 		fixed = {-1/16, -0.5, -1/16, 1/16, 2/16, 1/16},
@@ -255,6 +291,43 @@ minetest.register_node("torches:wand", {
 
 	paramtype = "light",
 	paramtype2 = "facedir",
+	sunlight_propagates = true,
+	walkable = false,
+	light_source = 13,
+	groups = {choppy=2,dig_immediate=3,flammable=1,not_in_creative_inventory=1,torch=1},
+	legacy_wallmounted = true,
+	drop = "default:torch",
+	node_box = {
+		type = "fixed",
+		fixed =	wall_ndbx
+	},
+	selection_box = {
+		type = "fixed",
+		fixed =	{-1/16, -6/16, 7/16, 1/16, 2/16, 2/16},
+	},
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		if not digger:is_player() then minetest.add_item(pos, {name="default:torch"}) end
+	end,
+	update = function(pos,node)
+		if not check_attached_node_fdir(pos, node) then
+			minetest.dig_node(pos)
+		end
+	end,
+
+
+})
+
+minetest.register_node("torches:wall", {
+	--description = "Fakel",
+	inventory_image = "default_torch.png",
+	wield_image = "torches_torch.png",
+	wield_scale = {x=1,y=1,z=1+1/16},
+	drawtype = "mesh",
+	mesh = "torch_wall.obj",
+	tiles = {"torches_torch.png"},
+
+	paramtype = "light",
+	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
 	walkable = false,
 	light_source = 13,

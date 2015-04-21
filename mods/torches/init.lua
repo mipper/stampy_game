@@ -334,13 +334,11 @@ minetest.register_node("torches:wall", {
 	groups = {choppy=2,dig_immediate=3,flammable=1,not_in_creative_inventory=1,torch=1},
 	legacy_wallmounted = true,
 	drop = "default:torch",
-	node_box = {
-		type = "fixed",
-		fixed =	wall_ndbx
-	},
 	selection_box = {
-		type = "fixed",
-		fixed =	{-1/16, -6/16, 7/16, 1/16, 2/16, 2/16},
+		type = "wallmounted",
+		wall_top = {-0.1, -0.1, -0.1, 0.1, 0.5, 0.1},
+		wall_bottom = {-0.1, -0.5, -0.1, 0.1, 0.1, 0.1},
+		wall_side = {-0.5, -0.3, -0.1, -0.2, 0.3, 0.1},
 	},
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
 		if not digger:is_player() then minetest.add_item(pos, {name="default:torch"}) end

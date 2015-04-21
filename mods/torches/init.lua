@@ -183,9 +183,8 @@ minetest.register_craftitem(":default:torch", {
 	wield_scale = {x=1,y=1,z=1+1/16},
 	liquids_pointable = false,
    	on_place = function(itemstack, placer, pointed_thing)
-		if minetest.env:get_node(pointed_thing.under).name == "default:snow" then
-			minetest.env:remove_node(pointed_thing.under)
-		end
+		if string.find(minetest.get_node(pointed_thing.above).name, "signs:sign") then return end
+		if string.find(minetest.get_node(pointed_thing.above).name, "pressure_plate") or string.find(minetest.get_node(pointed_thing.under).name, "pressure_plate") then return end
 		if pointed_thing.type ~= "node" or string.find(minetest.env:get_node(pointed_thing.above).name, "torch") then
 			return itemstack
 		end

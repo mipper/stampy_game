@@ -243,13 +243,13 @@ minetest.register_entity("signs:text", {
 })
 
 -- CONSTANTS
-local SIGN_WITH = 110
+local SIGN_WITH = 180
 local SIGN_PADDING = 0
 
 local LINE_LENGTH = 14
 local NUMBER_OF_LINES = 4
 
-local LINE_HEIGHT = 14
+local LINE_HEIGHT = 24
 local CHAR_WIDTH = 5
 
 string_to_array = function(str)
@@ -305,7 +305,7 @@ end
 
 generate_texture = function(lines)
     local texture = "[combine:"..SIGN_WITH.."x"..SIGN_WITH
-    local ypos = 12
+    local ypos = 20
     if #lines < 3 then
 	ypos = ypos + (4-#lines) * LINE_HEIGHT/2
     end
@@ -340,7 +340,7 @@ generate_line = function(s, ypos)
             i = i + 1
         end
         if file ~= nil then
-            width = width + clen + 1
+            width = width + 2*clen
             table.insert(parsed, file)
             chars = chars + 1
         end
@@ -351,7 +351,7 @@ generate_line = function(s, ypos)
     local xpos = math.floor((SIGN_WITH - 2 * SIGN_PADDING - width) / 2 + SIGN_PADDING)
     for i = 1, #parsed do
         texture = texture..":"..xpos..","..ypos.."="..parsed[i]..".png"
-        xpos = xpos + cltab[i] + 1
+        xpos = xpos + 2*cltab[i]
     end
     return texture
 end

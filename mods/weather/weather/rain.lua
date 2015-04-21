@@ -1,4 +1,5 @@
 rain_sounds = {}
+rain_inside = {}
 
 local function find_glass(pos)
 	for i=1,12 do
@@ -25,10 +26,11 @@ minetest.register_globalstep(function(dtime)
 		local ppos = player:getpos()
 		local name = player:get_player_name()
 		local desnode = {"default:desert_sand", "default:desert_stone"}
+		local inside = find_glass(ppos)
 
 		-- Make sure player is not in a cave/house...
 		local ppos2 = addvectors(ppos, {x=0, y=12, z=0})
-		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12) or find_glass(ppos) then
+		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 3) or ppos.y < -5 then
 			if rain_sounds[name] then
 				minetest.sound_stop(rain_sounds[name])
 				rain_sounds[name] = nil
@@ -36,9 +38,19 @@ minetest.register_globalstep(function(dtime)
 			return
 		end
 
-		if not rain_sounds[name] then
-			rain_sounds[name] = minetest.sound_play("rain", {to_player = name, loop = true})
+		if not rain_sounds[name] or inside ~= rain_inside[name] then
+			if rain_sounds[name] then
+				minetest.sound_stop(rain_sounds[name])
+				rain_sounds[name] = nil
+			end
+			if not inside then
+				rain_sounds[name] = minetest.sound_play("rain", {to_player = name, loop = true})
+			else
+				rain_sounds[name] = minetest.sound_play("rain_inside", {to_player = name, loop = true})
+			end
+			rain_inside[name] = inside
 		end
+		if inside then return end
 		local minp = addvectors(ppos, {x=-9, y=7, z=-9})
 		local maxp = addvectors(ppos, {x= 9, y=7, z= 9})
 

@@ -285,7 +285,7 @@ doors.register_door("doors:door_wood", {
 })
 
 minetest.register_craft({
-	output = "doors:door_wood",
+	output = "doors:door_wood 3",
 	recipe = {
 		{"group:wood", "group:wood"},
 		{"group:wood", "group:wood"},
@@ -305,7 +305,7 @@ doors.register_door("doors:door_steel", {
 })
 
 minetest.register_craft({
-	output = "doors:door_steel",
+	output = "doors:door_steel 3",
 	recipe = {
 		{"default:steel_ingot", "default:steel_ingot"},
 		{"default:steel_ingot", "default:steel_ingot"},

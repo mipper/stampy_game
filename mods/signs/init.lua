@@ -3,6 +3,7 @@
 -- load characters map
 local chars_file = io.open(minetest.get_modpath("signs").."/characters", "r")
 local charmap = {}
+local charlen = {}
 local max_chars = 16
 if not chars_file then
     print("[signs] E: character map file not found")
@@ -13,8 +14,9 @@ else
             break
         end
         local img = chars_file:read("*l")
-        chars_file:read("*l")
+        local clen = chars_file:read("*l")
         charmap[char] = img
+	charlen[char] = clen
     end
 end
 
@@ -319,20 +321,26 @@ generate_line = function(s, ypos)
     local parsed = {}
     local width = 0
     local chars = 0
+    local clen
+    local cltab = {}
     while chars < max_chars and i <= #s do
         local file = nil
         if charmap[s:sub(i, i)] ~= nil then
             file = charmap[s:sub(i, i)]
+	    clen = charlen[s:sub(i, i)]
+	    table.insert(cltab, clen)
             i = i + 1
         elseif i < #s and charmap[s:sub(i, i + 1)] ~= nil then
             file = charmap[s:sub(i, i + 1)]
+	    clen = charlen[s:sub(i, i)]
+	    table.insert(cltab, clen)
             i = i + 2
         else
             print("[signs] W: unknown symbol in '"..s.."' at "..i.." (probably "..s:sub(i, i)..")")
             i = i + 1
         end
         if file ~= nil then
-            width = width + CHAR_WIDTH + 1
+            width = width + clen + 1
             table.insert(parsed, file)
             chars = chars + 1
         end
@@ -343,7 +351,7 @@ generate_line = function(s, ypos)
     local xpos = math.floor((SIGN_WITH - 2 * SIGN_PADDING - width) / 2 + SIGN_PADDING)
     for i = 1, #parsed do
         texture = texture..":"..xpos..","..ypos.."="..parsed[i]..".png"
-        xpos = xpos + CHAR_WIDTH + 1
+        xpos = xpos + cltab[i] + 1
     end
     return texture
 end

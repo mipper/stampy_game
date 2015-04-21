@@ -304,6 +304,9 @@ end
 generate_texture = function(lines)
     local texture = "[combine:"..SIGN_WITH.."x"..SIGN_WITH
     local ypos = 12
+    if #lines < 3 then
+	ypos = ypos + (4-#lines) * LINE_HEIGHT/2
+    end
     for i = 1, #lines do
         texture = texture..generate_line(lines[i], ypos)
         ypos = ypos + LINE_HEIGHT

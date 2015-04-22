@@ -1144,7 +1144,7 @@ minetest.register_node("default:lava_source", {
 		},
 	},
 	paramtype = "light",
-	light_source = default.LIGHT_MAX - 1,
+	light_source = 15,
 	walkable = false,
 	pointable = false,
 	diggable = false,
@@ -1190,7 +1190,7 @@ minetest.register_node("default:lava_flowing", {
 	},
 	paramtype = "light",
 	paramtype2 = "flowingliquid",
-	light_source = default.LIGHT_MAX - 1,
+	light_source = 15,
 	walkable = false,
 	pointable = false,
 	diggable = false,
@@ -1250,7 +1250,7 @@ minetest.register_node("default:torch", {
 	sunlight_propagates = true,
 	is_ground_content = false,
 	walkable = false,
-	light_source = default.LIGHT_MAX - 1,
+	light_source = 14,
 	selection_box = {
 		type = "wallmounted",
 		wall_top = {-0.1, 0.5-0.6, -0.1, 0.1, 0.5, 0.1},
@@ -1577,7 +1577,7 @@ minetest.register_node("default:meselamp", {
 	is_ground_content = false,
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
 	sounds = default.node_sound_glass_defaults(),
-	light_source = 12,
+	light_source = 15,
 })
 
 --

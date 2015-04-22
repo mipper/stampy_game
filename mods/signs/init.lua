@@ -185,7 +185,7 @@ minetest.register_node("signs:sign_wall", {
     drawtype = "nodebox",
     node_box = {type = "fixed", fixed = {-0.45, -0.15, 0.4, 0.45, 0.45, 0.498}},
     selection_box = {type = "fixed", fixed = {-0.45, -0.15, 0.4, 0.45, 0.45, 0.498}},
-    tiles = {"default_wood.png"},
+    tiles = {"default_wood_pale.png"},
     groups = sign_groups,
     on_construct = function(pos)
         construct_sign(pos)
@@ -212,7 +212,7 @@ minetest.register_node("signs:sign_yard", {
         {-0.05, -0.5, -0.049, 0.05, -0.15, 0.049}
     }},
     selection_box = {type = "fixed", fixed = {-0.45, -0.15, -0.049, 0.45, 0.45, 0.049}},
-    tiles = {"default_wood.png"},
+    tiles = {"default_wood_pale.png"},
     groups = {choppy=2, dig_immediate=2},
     drop = "default:sign_wall",
 

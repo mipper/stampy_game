@@ -25,7 +25,7 @@ for i in ipairs(colours_list) do
 	if colour == "white" then 
 		minetest.register_node("fireworks:white", {
 			drawtype = "airlike",
-			light_source = 14,
+			light_source = 15,
 			buildable_to = true,
 			sunlight_propagates = true,
 			walkable = false,
@@ -70,7 +70,7 @@ for i in ipairs(colours_list) do
 		drawtype = "plantlike",
 		description = desc,
 		tiles = {"fireworks_"..colour..".png"},
-		light_source = 14,
+		light_source = 15,
 		sunlight_propagates = true,
 		walkable = false,
 		is_ground_content = true,

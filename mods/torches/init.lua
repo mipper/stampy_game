@@ -175,6 +175,49 @@ minetest.register_abm({
 	end
 })
 
+-- update lighting in areas with old torch light value
+minetest.register_abm({
+	nodenames = {"torches:wand","torches:floor","torches:wall"},
+	interval = 1,
+	chance = 1,
+	action = function(pos)
+		local n = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
+		local light = minetest.get_node_light({x=pos.x, y=pos.y+1, z=pos.z}, 0)
+		if n.name == "air" and light < 13 then
+			--print ("*** light update needed")
+			local size = 40
+			local minp, maxp = {x = math.floor(pos.x - size), y = math.floor(pos.y - size), z = math.floor(pos.z - size)}, {x = math.ceil(pos.x + size), y = math.ceil(pos.y + size), z = math.ceil(pos.z + size)}
+			local vm = minetest.get_voxel_manip()
+			vm:read_from_map(minp, maxp)
+			vm:calc_lighting()
+			vm:update_liquids()
+			vm:write_to_map()
+			vm:update_map()
+		end
+	end
+})
+-- update light in Nether too
+minetest.register_abm({
+	nodenames = {"nether:glowstone"},
+	interval = 1,
+	chance = 1,
+	action = function(pos)
+		local n = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
+		local light = minetest.get_node_light({x=pos.x, y=pos.y+1, z=pos.z}, 0)
+		if n.name == "air" and light < 13 then
+			--print ("*** light update needed")
+			local size = 40
+			local minp, maxp = {x = math.floor(pos.x - size), y = math.floor(pos.y - size), z = math.floor(pos.z - size)}, {x = math.ceil(pos.x + size), y = math.ceil(pos.y + size), z = math.ceil(pos.z + size)}
+			local vm = minetest.get_voxel_manip()
+			vm:read_from_map(minp, maxp)
+			vm:calc_lighting()
+			vm:update_liquids()
+			vm:write_to_map()
+			vm:update_map()
+		end
+	end
+})
+
 --node_boxes
 minetest.register_craftitem(":default:torch", {
 	description = "Torch",
@@ -225,7 +268,7 @@ minetest.register_node("torches:floor", {
 	sunlight_propagates = true,
 	drop = "default:torch",
 	walkable = false,
-	light_source = 13,
+	light_source = 14,
 	groups = {choppy=2,dig_immediate=3,flammable=1,not_in_creative_inventory=1,torch=1},
 	legacy_wallmounted = true,
 	selection_box = {
@@ -292,7 +335,7 @@ minetest.register_node("torches:wand", {
 	paramtype2 = "facedir",
 	sunlight_propagates = true,
 	walkable = false,
-	light_source = 13,
+	light_source = 14,
 	groups = {choppy=2,dig_immediate=3,flammable=1,not_in_creative_inventory=1,torch=1},
 	legacy_wallmounted = true,
 	drop = "default:torch",
@@ -329,7 +372,7 @@ minetest.register_node("torches:wall", {
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
 	walkable = false,
-	light_source = 13,
+	light_source = 14,
 	groups = {choppy=2,dig_immediate=3,flammable=1,not_in_creative_inventory=1,torch=1},
 	legacy_wallmounted = true,
 	drop = "default:torch",

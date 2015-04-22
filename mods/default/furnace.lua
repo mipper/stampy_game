@@ -122,7 +122,7 @@ minetest.register_node("default:furnace_active", {
 		}
 	},
 	paramtype2 = "facedir",
-	light_source = 8,
+	light_source = 13,
 	drop = "default:furnace",
 	groups = {cracky=2, not_in_creative_inventory=1},
 	legacy_facedir_simple = true,

@@ -30,7 +30,7 @@ minetest.register_node("ocean:prismarine_bricks", {
 minetest.register_node("ocean:sea_lantern", {
 	description = "Sea Lantern",
 	tiles = {"sea_lantern.png"},
-	light_source = 14,
+	light_source = 15,
 	groups = {cracky=3,oddly_breakable_by_hand=3},
 	sounds = default.node_sound_glass_defaults(),
 })

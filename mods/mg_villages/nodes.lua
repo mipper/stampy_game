@@ -49,7 +49,7 @@ minetest.register_node("mg_villages:torch", {
 	sunlight_propagates = true,
 	is_ground_content = false,
 	walkable = false,
-	light_source = LIGHT_MAX-1,
+	light_source = 14,
 	selection_box = {
 		type = "wallmounted",
 		wall_top = {-0.1, 0.5-0.6, -0.1, 0.1, 0.5, 0.1},

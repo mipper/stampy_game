@@ -10,7 +10,7 @@ minetest.register_node("fake_fire:fake_fire", {
 		{name="fake_fire_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=1.5}},
 		},
 	drawtype = "plantlike",
-	light_source = 14,
+	light_source = 15,
 	drop = '',
 	damage_per_second = 2*0.5,
 	groups = {dig_immediate=3,attached_node=1},

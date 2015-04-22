@@ -73,6 +73,7 @@ minetest.register_abm({
 			or minetest.registered_nodes[node.name].drawtype == "allfaces_optional" then
 				local np = addvectors(pos, {x=0, y=1, z=0})
 				if minetest.get_node_light(np, 0.5) == 15
+				and minetest.get_node_light(np, 0) <= 10
 				and minetest.get_node(np).name == "air" then
 					local desnode = {"default:desert_sand", "default:desert_stone"}
 
@@ -89,5 +90,24 @@ minetest.register_abm({
 			end
 		end
 	end
+})
+
+-- melt snow cover and ice around light sources
+minetest.register_abm({
+	nodenames = {"default:snow", "default:ice"},
+	interval = 3,
+	chance = 10,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+			if minetest.get_node_light(pos, 0) >= 12 then
+				if node.name == "default:snow" then
+					minetest.remove_node(pos)
+					if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "default:dirt_with_snow" then
+						minetest.set_node({x=pos.x, y=pos.y-1, z=pos.z}, {name="default:dirt_with_grass"})
+					end
+				elseif node.name == "default:ice" then
+					minetest.set_node(pos, {name="default:water_source"})
+				end
+			end
+	end,
 })
 

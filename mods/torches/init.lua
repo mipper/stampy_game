@@ -190,7 +190,7 @@ minetest.register_abm({
 			local vm = minetest.get_voxel_manip()
 			vm:read_from_map(minp, maxp)
 			vm:calc_lighting()
-			vm:update_liquids()
+			--vm:update_liquids()
 			vm:write_to_map()
 			vm:update_map()
 		end
@@ -211,7 +211,7 @@ minetest.register_abm({
 			local vm = minetest.get_voxel_manip()
 			vm:read_from_map(minp, maxp)
 			vm:calc_lighting()
-			vm:update_liquids()
+			--vm:update_liquids()
 			vm:write_to_map()
 			vm:update_map()
 		end

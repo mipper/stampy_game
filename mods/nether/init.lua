@@ -40,8 +40,8 @@ minetest.register_node("nether:portal", {
 	pointable = false,
 	buildable_to = false,
 	drop = "",
-	light_source = 5,
-	post_effect_color = {a=180, r=128, g=0, b=128},
+	light_source = 11,
+	post_effect_color = {a=180, r=145, g=50, b=230},
 	alpha = 192,
 	node_box = {
 		type = "fixed",

@@ -74,6 +74,7 @@ minetest.register_globalstep(function(dtime)
 			and nod_head:find("default:")
 			and not minetest.check_player_privs(player:get_player_name(), {noclip=true}) then
 				if player:get_hp() > 0 then
+					minetest.sound_play("damage", {pos=pos})
 					player:set_hp(player:get_hp()-1)
 				end
 			end
@@ -85,6 +86,7 @@ minetest.register_globalstep(function(dtime)
 				-- am I touching the cactus? if so it hurts
 				for _,object in ipairs(minetest.get_objects_inside_radius(near, 1.0)) do
 					if object:get_hp() > 0 then
+						minetest.sound_play("damage", {pos=pos})
 						object:set_hp(object:get_hp()-1)
 					end
 				end

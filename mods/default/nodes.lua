@@ -422,6 +422,9 @@ minetest.register_node("default:ice", {
 	groups = {cracky=3},
 	sounds = default.node_sound_glass_defaults(),
 	alpha = 180,
+	on_dig = function(pos, node, digger)
+		minetest.add_node(pos, {name="default:water_source"})
+	end
 })
 
 --

@@ -91,6 +91,22 @@ minetest.register_abm({
 		end
 	end
 })
+-- water freezes during snowfall
+minetest.register_abm({
+	nodenames = {"default:water_source"},
+	neighbors = {"group:crumbly", "group:snappy", "group:cracky", "group:choppy", "default:ice"},
+	interval = 10.0,
+	chance = 100,
+	action = function (pos, node, active_object_count, active_object_count_wider)
+		if weather == "snow" then
+				local np = addvectors(pos, {x=0, y=1, z=0})
+				if minetest.get_node_light(np, 0.5) == 15
+				and minetest.get_node_light(np) < 13 then
+						minetest.add_node(pos, {name="default:ice"})
+				end
+		end
+	end
+})
 
 -- melt snow cover and ice around light sources
 minetest.register_abm({

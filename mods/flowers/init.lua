@@ -168,3 +168,22 @@ minetest.register_abm({
 		end
 	end,
 })
+
+-- flowing water removes flowers, torches, snow, etc.
+minetest.register_abm({
+	nodenames = {"group:flora", "group:torch", "group:plant", "group:grass", "default:snow"},
+	neighbors = {"default:water_flowing"},
+	interval = 1,
+	chance = 1,
+	action = function(pos, node)
+		local name = node.name
+		if string.find(name, "pumpkin") or string.find(name, "melon") then return end
+		minetest.remove_node(pos)
+		local itemstacks = minetest.get_node_drops(name)
+		for _, itemname in ipairs(itemstacks) do
+			minetest.add_item(pos, itemname)
+		end
+	end,
+})
+
+

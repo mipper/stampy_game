@@ -142,8 +142,8 @@ minetest.register_entity(":__builtin:item", {
 					physical = false
 				})
 				local p = self.object:getpos()
-				p.x = p.x + v.x / 5 * dtime
-				p.z = p.z + v.z / 5 * dtime
+				p.x = p.x + v.x / 2 * dtime
+				p.z = p.z + v.z / 2 * dtime
 				self.object:setpos(p)
 			end
 		end

@@ -285,15 +285,20 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"default:dirt"},
+	neighbors = {"air"},
 	interval = 2,
-	chance = 200,
+	chance = 20,
 	action = function(pos, node)
 		local above = {x=pos.x, y=pos.y+1, z=pos.z}
 		local name = minetest.get_node(above).name
 		local nodedef = minetest.registered_nodes[name]
+		local p2 = minetest.find_node_near(pos, 1, {"default:dirt_with_grass"})
+		if not p2 then return end
+		local above2 = {x=p2.x, y=p2.y+1, z=p2.z}
 		if nodedef and (nodedef.sunlight_propagates or nodedef.paramtype == "light")
 				and nodedef.liquidtype == "none"
-				and (minetest.get_node_light(above) or 0) >= 3 then
+				and (minetest.get_node_light(above) or 0) >= 4
+				and (minetest.get_node_light(above2) or 0) >= 9 then
 			if name == "default:snow" or name == "default:snowblock" then
 				minetest.set_node(pos, {name = "default:dirt_with_snow"})
 			else

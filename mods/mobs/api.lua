@@ -162,6 +162,17 @@ mobs.default_definition = {
 					self.animation.speed_normal, 0
 				)
 				self.animation.current = "eat"
+				if self.name == "mobs:sheep" and self.naked then
+					local pos = self.object:getpos()
+					pos.y = pos.y - 1
+					if minetest.get_node(pos).name == "default:dirt_with_grass" then
+						minetest.set_node(pos, {name = "default:dirt"})
+						self.naked = false
+						self.object:set_properties({
+						textures = {"sheep.png"},
+						})
+					end
+				end
 			end
 		elseif type == "shoot" and self.animation.current ~= "shoot" then
 			if

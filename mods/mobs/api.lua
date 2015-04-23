@@ -104,9 +104,13 @@ mobs.default_definition = {
 		local x = math.sin(yaw) * -v
 		local z = math.cos(yaw) * v
 		local v1 = {x=x, y=self.object:getvelocity().y, z=z}
-		local v = get_flowing_dir(self)
-		if v then
-			v1 = vector.add(v1, vector.multiply(v, 1.3))
+		local pos = self.object:getpos()
+		local name = minetest.get_node(pos).name
+		if name == "default:water_flowing" then
+			local v = get_flowing_dir(self)
+			if v then
+				v1 = vector.add(v1, vector.multiply(v, 1.3))
+			end
 		end
 		self.object:setvelocity(v1)
 	end,

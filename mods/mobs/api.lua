@@ -724,6 +724,9 @@ function mobs:register_spawn(name, nodes, max_light, min_light, chance, active_o
 			interval = 10,
 			chance = chance,
 			action = function(pos, node, _, active_object_count_wider)
+				if node.name == "default:ice" or node.name == "default:glass" then
+					return
+				end
 				if active_object_count_wider > active_object_count then
 					return
 				end

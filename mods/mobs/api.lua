@@ -70,13 +70,45 @@ mobs.default_definition = {
 	end,
 
 	set_velocity = function(self, v)
+		local get_flowing_dir = function(self)
+			local pos = self.object:getpos()
+			local param2 = minetest.get_node(pos).param2
+			local p4 = {
+				{x=1,y=0,z=0},
+				{x=-1,y=0,z=0},
+				{x=0,y=0,z=1},
+				{x=0,y=0,z=-1},
+			}
+			local out = {x=0,y=0,z=0}
+			local num = 0
+			for i=1,4 do
+				local p2 = vector.add(pos, p4[i])
+				local name = minetest.get_node(p2).name
+				local par2 = minetest.get_node(p2).param2
+				-- param2 == 13 means water is falling down a block
+				if (name == "default:water_flowing" and par2 < param2 and param2 < 13) or (name == "default:water_flowing" and par2 == 13) or name == "air" then
+					out = vector.add(out, p4[i])
+					num = num + 1
+				end
+			end
+			if num then
+				return out
+			else
+				return false
+			end
+		end
 		local yaw = self.object:getyaw()
 		if self.drawtype == "side" then
 			yaw = yaw+(math.pi/2)
 		end
 		local x = math.sin(yaw) * -v
 		local z = math.cos(yaw) * v
-		self.object:setvelocity({x=x, y=self.object:getvelocity().y, z=z})
+		local v1 = {x=x, y=self.object:getvelocity().y, z=z}
+		local v = get_flowing_dir(self)
+		if v then
+			v1 = vector.add(v1, vector.multiply(v, 1.3))
+		end
+		self.object:setvelocity(v1)
 	end,
 	
 	get_velocity = function(self)

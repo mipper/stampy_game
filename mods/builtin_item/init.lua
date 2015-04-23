@@ -80,63 +80,71 @@ minetest.register_entity(":__builtin:item", {
 		if not self.timer then
 			self.timer = 0
 		end
+		if not self.lastbob then
+			self.lastbob = 0
+		end
 		self.timer = self.timer + dtime
 		if time ~= 0 and (self.timer > time) then
 			self.object:remove()
 		end
-		
+
 		local p = self.object:getpos()
-		
-		local name = minetest.env:get_node(p).name
+		p.y = p.y - self.lastbob
+		local bobdiff = math.sin(self.timer)/6 + .4
+		self.lastbob = bobdiff
+		local bobpos = {x=p.x, y=p.y+bobdiff, z=p.z}
+		self.object:setpos(bobpos)
+
+		local p2 = {x=p.x, y=p.y+.5, z=p.z}
+		local name = minetest.get_node(p2).name
+
 		if name == "default:lava_flowing" or name == "default:lava_source" then
 			minetest.sound_play("builtin_item_lava", {pos=self.object:getpos()})
 			self.object:remove()
 			return
 		end
-		
+
 		if minetest.registered_nodes[name].liquidtype == "flowing" then
-			get_flowing_dir = function(self)
+			local get_flowing_dir = function(self)
 				local pos = self.object:getpos()
-				local param2 = minetest.env:get_node(pos).param2
-				for i,d in ipairs({-1, 1, -1, 1}) do
-					if i<3 then
-						pos.x = pos.x+d
-					else
-						pos.z = pos.z+d
+				local param2 = minetest.get_node(pos).param2
+				local p4 = {
+					{x=1,y=0,z=0},
+					{x=-1,y=0,z=0},
+					{x=0,y=0,z=1},
+					{x=0,y=0,z=-1},
+				}
+				local out = {x=0,y=0,z=0}
+				local num = 0
+				for i=1,4 do
+					local p2 = vector.add(pos, p4[i])
+					local name = minetest.get_node(p2).name
+					local par2 = minetest.get_node(p2).param2
+					-- param2 == 13 means water is falling down a block
+					if (name == "default:water_flowing" and par2 < param2 and param2 < 13) or (name == "default:water_flowing" and par2 == 13) or name == "air" then
+						out = vector.add(out, p4[i])
+						num = num + 1
 					end
-					
-					local name = minetest.env:get_node(pos).name
-					local par2 = minetest.env:get_node(pos).param2
-					if name == "default:water_flowing" and par2 < param2 then
-						return pos
-					end
-					
-					if i<3 then
-						pos.x = pos.x-d
-					else
-						pos.z = pos.z-d
-					end
+				end
+				if num then
+					return out
+				else
+					return false
 				end
 			end
 			
-			local vec = get_flowing_dir(self)
-			if vec then
-				local v = self.object:getvelocity()
-				if vec and vec.x-p.x > 0 then
-					self.object:setvelocity({x=0.5,y=v.y,z=0})
-				elseif vec and vec.x-p.x < 0 then
-					self.object:setvelocity({x=-0.5,y=v.y,z=0})
-				elseif vec and vec.z-p.z > 0 then
-					self.object:setvelocity({x=0,y=v.y,z=0.5})
-				elseif vec and vec.z-p.z < 0 then
-					self.object:setvelocity({x=0,y=v.y,z=-0.5})
-				end
-				self.object:setacceleration({x=0, y=-10, z=0})
-				self.physical_state = true
+			local v = get_flowing_dir(self)
+			if v then
+				self.object:setvelocity({x=0,y=0,z=0})
+				self.object:setacceleration({x=0, y=0, z=0})
+				self.physical_state = false
 				self.object:set_properties({
-					physical = true
+					physical = false
 				})
-				return
+				local p = self.object:getpos()
+				p.x = p.x + v.x / 5 * dtime
+				p.z = p.z + v.z / 5 * dtime
+				self.object:setpos(p)
 			end
 		end
 		

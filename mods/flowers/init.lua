@@ -179,9 +179,12 @@ minetest.register_abm({
 		local name = node.name
 		if string.find(name, "pumpkin") or string.find(name, "melon") then return end
 		minetest.remove_node(pos)
+		pos.y = pos.y + .5
 		local itemstacks = minetest.get_node_drops(name)
 		for _, itemname in ipairs(itemstacks) do
-			minetest.add_item(pos, itemname)
+			ref = minetest.add_item(pos, itemname)
+			ref:setvelocity({x=math.random(-20,20)/30, y=4, z=math.random(-20,20)/30})
+			ref:setacceleration({x=0, y=-10, z=0})
 		end
 	end,
 })

@@ -90,7 +90,7 @@ minetest.register_entity(":__builtin:item", {
 
 		local p = self.object:getpos()
 		p.y = p.y - self.lastbob
-		local bobdiff = math.sin(self.timer)/6 + .4
+		local bobdiff = math.sin(2*self.timer)/6 + .4
 		self.lastbob = bobdiff
 		local bobpos = {x=p.x, y=p.y+bobdiff, z=p.z}
 		self.object:setpos(bobpos)

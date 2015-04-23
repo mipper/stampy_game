@@ -72,6 +72,7 @@ minetest.register_globalstep(function(dtime)
 			if minetest.registered_nodes[nod_head]
 			and minetest.registered_nodes[nod_head].walkable
 			and nod_head:find("default:")
+			and minetest.setting_getbool("enable_damage")
 			and not minetest.check_player_privs(player:get_player_name(), {noclip=true}) then
 				if player:get_hp() > 0 then
 					minetest.sound_play("damage", {pos=pos})
@@ -81,8 +82,7 @@ minetest.register_globalstep(function(dtime)
 
 			-- am I near a cactus?
 			local near = minetest.find_node_near(pos, 1, "default:cactus")
-			if near then
-					
+			if near and minetest.setting_getbool("enable_damage") then
 				-- am I touching the cactus? if so it hurts
 				for _,object in ipairs(minetest.get_objects_inside_radius(near, 1.0)) do
 					if object:get_hp() > 0 then

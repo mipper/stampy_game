@@ -66,10 +66,30 @@ end
 
 -- Remove the cart if holding a tool or accelerate it
 function cart:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
+	-- arrow hit
+	if puncher:get_luaentity() ~= nil then
+		local name = puncher:get_luaentity().name
+		if string.find(name, "throwing:arrow") then
+			local pos = self.object:getpos()
+			self.object:remove()
+			minetest.add_item(pos, "carts:cart")
+			return
+		end
+	end
+
 	if not puncher or not puncher:is_player() then
 		return
 	end
-	
+
+	-- sword hit
+	local item = puncher:get_wielded_item():to_string()
+	if string.find(item, "default:sword") then
+		local pos = self.object:getpos()
+		self.object:remove()
+		minetest.add_item(pos, "carts:cart")
+		return
+	end
+
 	if puncher:get_player_control().sneak then
 		self.object:remove()
 		local inv = puncher:get_inventory()

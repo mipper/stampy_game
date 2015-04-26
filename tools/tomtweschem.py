@@ -373,7 +373,9 @@ def convdir(name, blockdata):
 	if "torch" in name:
 		out = name, torch.get(blockdata, 0)
 	elif "gate" in name:
-		out = name, tbl.get(blockdata & 3, 0)
+		if blockdata & 4:
+			name = name + "_open"
+		out = name, pump.get(blockdata & 3, 0)
 	elif "trapdoor" in name:
 		d = blockdata & 3
 		if blockdata & 8:

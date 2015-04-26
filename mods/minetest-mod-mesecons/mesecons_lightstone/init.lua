@@ -14,11 +14,15 @@ local lightstone_rules = {
 	{x=0,  y=-1, z=0},
 }
 
+function firstToUpper(str)
+    return (str:gsub("^%l", string.upper))
+end
+
 function mesecon.lightstone_add(name, base_item, texture_off, texture_on)
 	minetest.register_node("mesecons_lightstone:lightstone_" .. name .. "_off", {
 		tiles = {texture_off},
 		groups = {cracky=2, mesecon_effector_off = 1, mesecon = 2},
-		description=name.." Lightstone",
+		description=firstToUpper(name.." Lightstone"),
 		sounds = default.node_sound_stone_defaults(),
 		mesecons = {effector = {
 			rules = lightstone_rules,

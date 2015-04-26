@@ -1,5 +1,5 @@
 minetest.register_node("fake_fire:fake_fire", {
-    description = "fake_fire",
+    description = "Fake Fire",
 	tiles = {
 		{name="fake_fire_animated.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=1.5}},
 		},
@@ -23,7 +23,7 @@ minetest.register_node("fake_fire:fake_fire", {
 end
 })
  minetest.register_craftitem("fake_fire:old_flint_and_steel", {
-	description = "Never ending flint and steel",
+	description = "Never ending Flint and Steel",
 	inventory_image = "flint_and_steel.png",
 	stack_max = 1,
 	liquids_pointable = false,
@@ -57,7 +57,7 @@ end
 -- the flint and steel --
  
 minetest.register_tool("fake_fire:flint_and_steel", {
-	description = "Flint and steel",
+	description = "Flint and Steel",
 	inventory_image = "flint_and_steel.png",
 	liquids_pointable = false,
 	stack_max = 1,

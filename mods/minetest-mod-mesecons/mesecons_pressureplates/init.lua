@@ -18,11 +18,13 @@ pp_on_timer = function (pos, elapsed)
 
 	local objs   = minetest.get_objects_inside_radius(pos, 1)
 	local two_below = mesecon.addPosRule(pos, {x = 0, y = -2, z = 0})
+	local one_below = mesecon.addPosRule(pos, {x = 0, y = -1, z = 0})
 
 	if objs[1] == nil and node.name == basename .. "_on" then
 		minetest.add_node(pos, {name = basename .. "_off"})
 		mesecon.receptor_off(pos, mesecon.rules.pplate)
 		mesecon.turnoff(two_below)
+		mesecon.turnoff(one_below)
 	elseif node.name == basename .. "_off" then
 		for k, obj in pairs(objs) do
 			local objpos = obj:getpos()
@@ -30,6 +32,7 @@ pp_on_timer = function (pos, elapsed)
 				minetest.add_node(pos, {name = basename .. "_on"})
 				mesecon.receptor_on(pos, mesecon.rules.pplate )
 				mesecon.turnon(two_below)
+				mesecon.turnon(one_below)
 			end
 		end
 	end

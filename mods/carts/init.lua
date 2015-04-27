@@ -26,6 +26,10 @@ function cart:on_rightclick(clicker)
 		return
 	end
 	if self.driver and clicker == self.driver then
+		if self.cartsound then
+			minetest.sound_stop(self.cartsound)
+			self.cartsound = nil
+		end
 		self.driver = nil
 		clicker:set_detach()
 		default.player_attached[clicker:get_player_name()] = false
@@ -70,6 +74,11 @@ function cart:on_punch(puncher, time_from_last_punch, tool_capabilities, directi
 	if puncher:get_luaentity() ~= nil then
 		local name = puncher:get_luaentity().name
 		if string.find(name, "throwing:arrow") then
+			if self.cartsound then
+				minetest.sound_stop(self.cartsound)
+				self.cartsound = nil
+			end
+
 			local pos = self.object:getpos()
 			self.object:remove()
 			minetest.add_item(pos, "carts:cart")
@@ -84,6 +93,11 @@ function cart:on_punch(puncher, time_from_last_punch, tool_capabilities, directi
 	-- sword hit
 	local item = puncher:get_wielded_item():to_string()
 	if string.find(item, "default:sword") then
+		if self.cartsound then
+			minetest.sound_stop(self.cartsound)
+			self.cartsound = nil
+		end
+
 		local pos = self.object:getpos()
 		self.object:remove()
 		minetest.add_item(pos, "carts:cart")
@@ -91,6 +105,11 @@ function cart:on_punch(puncher, time_from_last_punch, tool_capabilities, directi
 	end
 
 	if puncher:get_player_control().sneak then
+		if self.cartsound then
+			minetest.sound_stop(self.cartsound)
+			self.cartsound = nil
+		end
+
 		self.object:remove()
 		local inv = puncher:get_inventory()
 		if minetest.setting_getbool("creative_mode") then
@@ -309,6 +328,11 @@ function cart:on_step(dtime)
 			self.object:setvelocity(self.velocity)
 			self.old_velocity = self.velocity
 			self.old_pos = self.object:getpos()
+			if self.cartsound then
+				minetest.sound_stop(self.cartsound)
+				self.cartsound = nil
+			end
+
 			return
 		end
 	end
@@ -316,7 +340,10 @@ function cart:on_step(dtime)
 	--
 	-- Set the new moving direction
 	--
-	
+	if self.driver and not self.cartsound then
+		self.cartsound = minetest.sound_play("cart", {to_player = self.driver, loop = true})
+	end
+
 	-- Recalcualte the rails that are passed since the last server step
 	local old_dir = cart_func:velocity_to_dir(self.old_velocity)
 	if old_dir.x ~= 0 then

@@ -144,12 +144,7 @@ function doors.register_door(name, def)
 	end
 
 	local function check_player_priv(pos, player)
-		if not def.only_placer_can_open then
-			return true
-		end
-		local meta = minetest.get_meta(pos)
-		local pn = player:get_player_name()
-		return meta:get_string("doors_owner") == pn
+		return true
 	end
 
 	minetest.register_node(name.."_b_1", {

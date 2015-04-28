@@ -13,7 +13,7 @@ minetest.register_globalstep(function(dtime)
 	if weather ~= "snow" then return end
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local ppos = player:getpos()
-		local desnode = {"default:desert_sand", "default:desert_stone"}
+		local desnode = {"default:desert_sand", "default:desert_stone", "default:jungletree", "default:jungleleaves", "default:junglegrass", "moreblocks:rope"}
 
 		-- Make sure player is not in a cave/house...
 		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12) or find_glass(ppos) then return end
@@ -75,7 +75,7 @@ minetest.register_abm({
 				if minetest.get_node_light(np, 0.5) == 15
 				and minetest.get_node_light(np, 0) <= 10
 				and minetest.get_node(np).name == "air" then
-					local desnode = {"default:desert_sand", "default:desert_stone"}
+					local desnode = {"default:desert_sand", "default:desert_stone", "default:jungletree", "default:jungleleaves", "default:junglegrass", "moreblocks:rope"}
 
 					if minetest.find_node_near(pos, 8, desnode) then return end
 					if find_glass(pos) then return end
@@ -91,13 +91,15 @@ minetest.register_abm({
 		end
 	end
 })
--- water freezes during snowfall
+-- water freezes during snowfall at night
 minetest.register_abm({
 	nodenames = {"default:water_source"},
 	neighbors = {"group:crumbly", "group:snappy", "group:cracky", "group:choppy", "default:ice"},
 	interval = 10.0,
 	chance = 100,
 	action = function (pos, node, active_object_count, active_object_count_wider)
+		local desnode = {"default:desert_sand", "default:desert_stone", "default:jungletree", "default:jungleleaves", "default:junglegrass", "moreblocks:rope"}
+		if minetest.find_node_near(pos, 8, desnode) then return end
 		if weather == "snow" then
 				local np = addvectors(pos, {x=0, y=1, z=0})
 				if minetest.get_node_light(np, 0.5) == 15

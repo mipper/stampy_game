@@ -81,9 +81,9 @@ slimes:register_slime ("slimes:lavasmall", {
 	spawn = "nether:rack"
 })
 
-slimes:register_spawn("slimes:lavabig", {"nether:rack"},{"air","nether:rack"}, 20, 4, 5000, 8, -5000)
-slimes:register_spawn("slimes:lavamedium", {"nether:rack"},{"air","nether:rack"}, 20, 4, 10000, 8, -5000)
-slimes:register_spawn("slimes:lavasmall", {"nether:rack"},{"air","nether:rack"}, 20, 4, 15000, 8, -5000)
+slimes:register_spawn("slimes:lavabig", {"nether:rack"},{"air","nether:rack"}, 20, 11, 5000, 4, -5000)
+slimes:register_spawn("slimes:lavamedium", {"nether:rack"},{"air","nether:rack"}, 20, 11, 10000, 4, -5000)
+slimes:register_spawn("slimes:lavasmall", {"nether:rack"},{"air","nether:rack"}, 20, 11, 15000, 4, -5000)
 
 mobs:register_egg("slimes:lavabig", "Magma Cube", "spawn_egg_magma_cube.png")
 

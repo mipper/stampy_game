@@ -637,6 +637,57 @@ mobs:register_mob("mobs:zombie", {
 mobs:register_spawn("mobs:zombie", {"group:crumbly", "group:cracky", "group:choppy", "group:snappy"}, 7, -1, 5000, 4, 31000)
 
 
+mobs:register_mob("mobs:pigman", {
+	type = "monster",
+	hp_max = 35,
+	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
+	textures = {"zombie_pigman.png"},
+	visual = "mesh",
+	mesh = "zombie.x",
+	makes_footstep_sound = true,
+	walk_velocity = .8,
+	run_velocity = 1.6,
+	damage = 2,
+	armor = 400,
+	drops = {
+		{name = "mobs:rotten_flesh",
+		chance = 1,
+		min = 1,
+		max = 1,},
+		{name = "default:gold_ingot",
+		chance = 13,
+		min = 0,
+		max = 2,},
+		{name = "default:sword_gold",
+		chance = 8,
+		min = 1,
+		max = 1,},
+	},
+	animation = {
+		speed_normal = 24,
+		speed_run = 48,
+		stand_start = 0,
+		stand_end = 23,
+		walk_start = 24,
+		walk_end = 47,
+		run_start = 48,
+		run_end = 62,
+		hurt_start = 64,
+		hurt_end = 86,
+		death_start = 88,
+		death_end = 118,
+	},
+	drawtype = "front",
+	water_damage = 1,
+	lava_damage = 5,
+	light_damage = 1,
+	view_range = 16,
+	attack_type = "dogfight",
+})
+mobs:register_spawn("mobs:pigman", {"nether:rack"}, 15, -1, 5000, 4, -5000)
+mobs:register_spawn("mobs:pigman", {"nether:portal"}, 15, -1, 15000, 4, 31000)
+
+
 
 
 
@@ -998,6 +1049,7 @@ mobs:register_egg("mobs:pig", "Pig", "spawn_egg_pig.png")
 mobs:register_egg("mobs:sheep", "Sheep", "spawn_egg_sheep.png")
 mobs:register_egg("mobs:skeleton", "Skeleton", "spawn_egg_skeleton.png")
 mobs:register_egg("mobs:zombie", "Zombie", "spawn_egg_zombie.png")
+mobs:register_egg("mobs:pigman", "Zombie Pigman", "spawn_egg_zombie_pigman.png")
 
 if minetest.setting_get("log_mods") then
 	minetest.log("action", "mobs loaded")

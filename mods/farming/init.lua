@@ -6,6 +6,7 @@ farming.path = minetest.get_modpath("farming")
 dofile(farming.path .. "/api.lua")
 dofile(farming.path .. "/nodes.lua")
 dofile(farming.path .. "/hoes.lua")
+dofile(farming.path .. "/cocoa.lua")
 
 -- WHEAT
 farming.register_plant("farming:wheat", {
@@ -76,3 +77,46 @@ minetest.register_craft({
 		{"farming:straw"},
 	}
 })
+
+-- Single ABM Handles Growing of All Plants (from farming redo by Tenplus1)
+
+minetest.register_abm({
+	nodenames = {"group:growing"},
+	neighbors = {"farming:soil_wet", "default:jungletree"},
+	interval = 80,
+	chance = 2,
+
+	action = function(pos, node)
+
+		-- get node type (e.g. farming:wheat_1)
+		local plant = node.name:split("_")[1].."_"
+		local numb = node.name:split("_")[2]
+
+		-- check if fully grown
+		if not minetest.registered_nodes[plant..(numb + 1)] then return end
+		
+		-- Check for Cocoa Pod
+		if plant == "farming:cocoa_"
+		and minetest.find_node_near(pos, 1, {"default:jungletree", "moretrees:jungletree_leaves_green"}) then
+
+			if minetest.get_node_light(pos) < 13 then return end
+
+		else
+		
+			-- check if on wet soil
+			pos.y = pos.y-1
+			if minetest.get_node(pos).name ~= "farming:soil_wet" then return end
+			pos.y = pos.y+1
+		
+			-- check light
+			if minetest.get_node_light(pos) < 13 then return end
+		
+		end
+		
+		-- grow
+		minetest.set_node(pos, {name=plant..(numb + 1)})
+
+	end
+})
+
+

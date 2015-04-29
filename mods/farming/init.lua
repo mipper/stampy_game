@@ -7,6 +7,7 @@ dofile(farming.path .. "/api.lua")
 dofile(farming.path .. "/nodes.lua")
 dofile(farming.path .. "/hoes.lua")
 dofile(farming.path .. "/cocoa.lua")
+dofile(farming.path .. "/mushrooms.lua")
 
 -- WHEAT
 farming.register_plant("farming:wheat", {

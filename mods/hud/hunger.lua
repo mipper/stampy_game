@@ -421,6 +421,7 @@ end
 if minetest.get_modpath("farming_plus") ~= nil then
 	overwrite("farming_plus:poisonous_potato_item", 2, "", 4, false, .6)
 end
+overwrite("farming:mushroom_stew", 6, "food:bowl")
 
 -- player-action based hunger changes
 function hud.handle_node_actions(pos, oldnode, player, ext)

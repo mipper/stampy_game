@@ -138,7 +138,7 @@ conversionTable = [
 	(108, -4, "stairs:stair_brick"),
 	(109, -4, "stairs:stair_stonebrick"),
 	(110, -1, "default:dirt"),
-	(111 ,  -1, "wool:green"),
+	(111 ,  -1, "lilypad:waterlily"),
 
 	(113 , -1, "default:fence_wood"),
 	(116 , -1, "wool:red"),

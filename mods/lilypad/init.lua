@@ -11,7 +11,7 @@ minetest.register_node("lilypad:waterlily", {
 	sunlight_propagates = true,
 	paramtype = "light",
 	walkable = true,
-	groups = {snappy = 3,flammable=2},
+	groups = {snappy = 3,flammable=2, level=0, dig_immediate=3, oddly_breakable_by_hand=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",

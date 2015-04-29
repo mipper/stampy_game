@@ -259,6 +259,7 @@ conversionTable = [
 	(88 , -1, "nether:sand", "nether"),
 	(89 , -1, "nether:glowstone", "nether"),
 	(90 , -3, "nether:portal", "nether"),
+	(112,  -1, "nether:brick", "nether"),
 
 	#Riesenpilz Section
 	# Reference: https://github.com/HybridDog/riesenpilz/blob/master/init.lua
@@ -496,7 +497,7 @@ def perform(level, box, options):
 						if tt not in notfound:
 							notfound.append(tt)
 					continue
-				calcpos = (origin[0] - x, y - origin[1], z - origin[2])
+				calcpos = (x - origin[0], y - origin[1], origin[2] - z)
 				fmttpl = calcpos + (c[0], level.blockLightAt(x, y, z), c[1])
 				f.write("%d %d %d %s %d %d\n" % fmttpl)
 

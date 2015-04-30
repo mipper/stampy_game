@@ -36,7 +36,7 @@ minetest.register_node("moremesecons_dispenser:dropper", {
 			for n=1,100 do
 				local i = math.random(1, #invlist)
 				local stack = invlist[i]
-				if stack:get_name() ~= nil and stack:get_name() ~= "" then --obtain the first non-empty item slot
+				if stack:get_name() ~= nil and stack:get_name() ~= "" then
 					minetest.env:add_item(pos_under, stack:take_item())
 					inv:set_stack("main", i, stack)
 					return
@@ -86,8 +86,20 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 			for n=1,100 do
 				local i = math.random(1, #invlist)
 				local stack = invlist[i]
-				if stack:get_name() ~= nil and stack:get_name() ~= "" then --obtain the first non-empty item slot
+				if stack:get_name() ~= nil and stack:get_name() ~= "" then
 					minetest.sound_play("click1", {pos = pos})
+					if stack:get_name() == "bucket:bucket_empty" then
+						if minetest.get_node(pos_under).name == "default:water_source" then
+							minetest.remove_node(pos_under)
+							inv:set_stack("main", i, "bucket:bucket_water")
+							return
+						end
+						if minetest.get_node(pos_under).name == "default:lava_source" then
+							minetest.remove_node(pos_under)
+							inv:set_stack("main", i, "bucket:bucket_lava")
+							return
+						end
+					end
 					if stack:get_name() == "bucket:bucket_water" then
 						minetest.set_node(pos_under, {name="default:water_source"})
 						inv:set_stack("main", i, "bucket:bucket_empty")

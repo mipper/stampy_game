@@ -246,10 +246,33 @@ mobs:register_mob("mobs:sheep", {
 			local pos = self.object:getpos()
 			minetest.sound_play("shears", {pos = pos})
 			pos.y = pos.y + 0.5
-			minetest.add_item(pos, ItemStack("wool:white "..math.random(1,3)))
+			if not self.color then
+				minetest.add_item(pos, ItemStack("wool:white "..math.random(1,3)))
+			else
+				minetest.add_item(pos, ItemStack("wool:"..self.color.." "..math.random(1,3)))
+			end
 			self.object:set_properties({
 				textures = {"sheep_sheared.png"},
 			})
+		end
+		if minetest.get_item_group(item:get_name(), "dye") and not self.naked then
+			local name = item:get_name()
+			local pname = name:split(":")[2]
+
+			self.object:set_properties({
+				textures = {"sheep_"..pname..".png"},
+			})
+			self.color = pname
+			self.drops = {
+				{name = "mobs:mutton_raw",
+				chance = 1,
+				min = 1,
+				max = 2,},
+				{name = "wool:"..self.color,
+				chance = 1,
+				min = 1,
+				max = 1,},
+			}
 		end
 	end,
 })

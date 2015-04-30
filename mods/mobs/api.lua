@@ -168,9 +168,15 @@ mobs.default_definition = {
 					if minetest.get_node(pos).name == "default:dirt_with_grass" then
 						minetest.set_node(pos, {name = "default:dirt"})
 						self.naked = false
-						self.object:set_properties({
-						textures = {"sheep.png"},
-						})
+						if not self.color then
+							self.object:set_properties({
+							textures = {"sheep.png"},
+							})
+						else
+							self.object:set_properties({
+							textures = {"sheep_"..self.color..".png"},
+							})
+						end
 					end
 				end
 			end
@@ -628,7 +634,35 @@ mobs.default_definition = {
 			if tmp and tmp.tamed then
 				self.tamed = tmp.tamed
 			end
+			if tmp and tmp.color then
+				self.color = tmp.color
+			end
+			if tmp and tmp.naked then
+				self.naked = tmp.naked
+			end
 		end
+		if self.name == "mobs:sheep" and self.color and not self.naked then
+			self.object:set_properties({
+			textures = {"sheep_"..self.color..".png"},
+			})
+		end
+		if self.name == "mobs:sheep" and not self.color then
+			local col = "white"
+			local cols = {"dark_grey", "grey", "black", "brown", "pink"}
+			if math.random(100) > 80 then
+				col = cols[math.random(1,5)]
+			end
+			self.color = col
+			self.object:set_properties({
+			textures = {"sheep_"..self.color..".png"},
+			})
+		end
+		if self.name == "mobs:sheep" and self.naked then
+			self.object:set_properties({
+			textures = {"sheep_sheared.png"},
+			})
+		end
+
 		if self.lifetimer <= 0 and not self.tamed then
 			self.object:remove()
 		end
@@ -638,6 +672,8 @@ mobs.default_definition = {
 		local tmp = {
 			lifetimer = self.lifetimer,
 			tamed = self.tamed,
+			color = self.color,
+			naked = self.naked,
 		}
 		return minetest.serialize(tmp)
 	end,

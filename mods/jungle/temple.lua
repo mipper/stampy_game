@@ -8,6 +8,7 @@ local chest_stuff = {
 	{name="default:book", max = 3},
 	{name="mobs:rotten_flesh", max = 7},
 	{name="bones:single_bone", max = 6},
+	{name="mobs:saddle", max = 3},
 }
 
 -- get some random content for a chest

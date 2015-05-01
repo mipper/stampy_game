@@ -11,8 +11,8 @@ local chest_stuff = {
 	{name="default:diamond", max = 1},
 	{name="default:emerald", max = 5},
 	{name="default:pick_steel", max = 1},
-	{name="default:pick_diamond", max = 1}
-
+	{name="default:pick_diamond", max = 1},
+	{name="mobs:saddle", max = 3},
 }
 
 function pyramids.fill_chest(pos)

@@ -22,6 +22,7 @@ local chest_stuff = {
 	{name="quartz:quartz_crystal", max = 5},
 	{name="shears:shears", max = 1},
 	{name="crops:melon_seed", max = 18},
+	{name="mobs:saddle", max = 3},
 }
 
 -- get some random content for a chest

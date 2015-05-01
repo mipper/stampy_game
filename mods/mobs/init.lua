@@ -321,6 +321,52 @@ mobs:register_mob("mobs:pig", {
 	},
 	follow = "farming_plus:carrot_item",
 	view_range = 5,
+	on_rightclick = function(self, clicker)
+		if not clicker or not clicker:is_player() then
+			return
+		end
+		local item = clicker:get_wielded_item()
+		if item:get_name() == "mobs:saddle" and self.saddle ~= "yes" then
+			self.object:set_properties({
+				textures = {"pig_with_saddle.png"},
+			})
+			self.saddle = "yes"
+			self.tamed = true
+			self.drops = {
+				{name = "mobs:porkchop_raw",
+				chance = 1,
+				min = 1,
+				max = 3,},
+				{name = "mobs:saddle",
+				chance = 1,
+				min = 1,
+				max = 1,},
+			}
+			if not minetest.setting_getbool("creative_mode") then
+				local inv = clicker:get_inventory()
+				local stack = inv:get_stack("main", clicker:get_wield_index())
+				stack:take_item()
+				inv:set_stack("main", clicker:get_wield_index(), stack)
+			end
+			return
+		end
+	-- from boats mod
+	local name = clicker:get_player_name()
+	if self.driver and clicker == self.driver then
+		self.driver = nil
+		clicker:set_detach()
+		default.player_attached[name] = false
+		default.player_set_animation(clicker, "stand" , 30)
+	elseif not self.driver and self.saddle == "yes" then
+		self.driver = clicker
+		clicker:set_attach(self.object, "", {x = 0, y = 19, z = 0}, {x = 0, y = 0, z = 0})
+		default.player_attached[name] = true
+		minetest.after(0.2, function()
+			default.player_set_animation(clicker, "sit" , 30)
+		end)
+		--self.object:setyaw(clicker:get_look_yaw() - math.pi / 2)
+	end
+	end,
 })
 mobs:register_spawn("mobs:pig", {"default:dirt_with_grass"}, 20, 12, 5000, 8, 31000)
 
@@ -858,6 +904,24 @@ minetest.register_craftitem("mobs:feather", {
 	description = "Feather",
 	inventory_image = "mobs_feather.png",
 })
+
+minetest.register_craftitem("mobs:saddle", {
+	description = "Saddle",
+	inventory_image = "saddle.png",
+})
+
+minetest.register_tool("mobs:carrotstick", {
+	description = "Carrot on a Stick",
+	inventory_image = "carrot_on_a_stick.png",
+	stack_max = 1,
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "mobs:carrotstick",
+	recipe = {"fishing:pole", "farming_plus:carrot_item"},
+})
+
 
 mobs:register_mob("mobs:rat", {
 	type = "animal",

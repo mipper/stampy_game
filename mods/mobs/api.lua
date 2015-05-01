@@ -366,7 +366,27 @@ mobs.default_definition = {
 				end
 			end
 		end
-		
+
+		-- ridable pigs
+		if self.name == "mobs:pig" and self.saddle == "yes" and self.driver then
+			local item = self.driver:get_wielded_item()
+			if item:get_name() == "mobs:carrotstick" then
+				local yaw = self.driver:get_look_yaw() - math.pi / 2
+				local velo = self.object:getvelocity()
+				local v = 1.5
+				if math.abs(velo.x) + math.abs(velo.z) < .6 then velo.y = 5 end
+				self.set_animation("walk")
+				self.object:setyaw(yaw)
+				self.object:setvelocity({x = -math.sin(yaw) * v, y = velo.y, z = math.cos(yaw) * v})
+
+				local inv = self.driver:get_inventory()
+				local stack = inv:get_stack("main", self.driver:get_wield_index())
+				stack:add_wear(100)
+				inv:set_stack("main", self.driver:get_wield_index(), stack)
+				return
+			end
+		end
+
 		self.env_damage_timer = self.env_damage_timer + dtime
 		if self.state == "attack" and self.env_damage_timer > 1 then
 			self.env_damage_timer = 0
@@ -640,6 +660,9 @@ mobs.default_definition = {
 			if tmp and tmp.naked then
 				self.naked = tmp.naked
 			end
+			if tmp and tmp.saddle then
+				self.saddle = tmp.saddle
+			end
 		end
 		if self.name == "mobs:sheep" and self.color and not self.naked then
 			self.object:set_properties({
@@ -662,6 +685,11 @@ mobs.default_definition = {
 			textures = {"sheep_sheared.png"},
 			})
 		end
+		if self.name == "mobs:pig" and self.saddle == "yes" then
+			self.object:set_properties({
+			textures = {"pig_with_saddle.png"},
+			})
+		end
 
 		if self.lifetimer <= 0 and not self.tamed then
 			self.object:remove()
@@ -674,6 +702,7 @@ mobs.default_definition = {
 			tamed = self.tamed,
 			color = self.color,
 			naked = self.naked,
+			saddle = self.saddle,
 		}
 		return minetest.serialize(tmp)
 	end,

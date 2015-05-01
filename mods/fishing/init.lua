@@ -45,7 +45,7 @@ end
 
 minetest.register_tool("fishing:pole", {
 
-	description = "Fishing Pole",
+	description = "Fishing Rod",
 	groups = {},
 	inventory_image = "fishing_pole.png",
 	wield_image = "fishing_pole.png^[transformFXR270",

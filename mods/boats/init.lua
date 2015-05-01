@@ -32,7 +32,7 @@ end
 
 local boat = {
 	physical = true,
-	collisionbox = {-0.5, -0.4, -0.5, 0.5, 0.3, 0.5},
+	collisionbox = {-0.5, -0.7, -0.5, 0.5, 0.3, 0.5},
 	visual = "mesh",
 	mesh = "boat.obj",
 	textures = {"default_wood.png"},
@@ -98,87 +98,47 @@ function boat.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 end
 
 function boat.on_step(self, dtime)
+	local b = -.1
 	self.v = get_v(self.object:getvelocity()) * get_sign(self.v)
+	local pos = self.object:getpos()
+	local velo = self.object:getvelocity()
 	if self.driver then
 		local ctrl = self.driver:get_player_control()
-		local yaw = self.object:getyaw()
+		local yaw = self.driver:get_look_yaw() - math.pi / 2
+		local v = 1.
 		if ctrl.up then
-			self.v = self.v + 0.1
-		elseif ctrl.down then
-			self.v = self.v - 0.1
-		end
-		if ctrl.left then
-			if self.v < 0 then
-				self.object:setyaw(yaw - (1 + dtime) * 0.03)
-			else
-				self.object:setyaw(yaw + (1 + dtime) * 0.03)
+			self.object:setyaw(yaw)
+			if math.abs(velo.x) + math.abs(velo.z) < 5 then
+				self.object:setacceleration({x = -math.sin(yaw) * v, y = velo.y, z = math.cos(yaw) * v})
 			end
-		elseif ctrl.right then
-			if self.v < 0 then
-				self.object:setyaw(yaw + (1 + dtime) * 0.03)
-			else
-				self.object:setyaw(yaw - (1 + dtime) * 0.03)
-			end
+			return
 		end
-	end
-	local velo = self.object:getvelocity()
-	if self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
-		self.object:setpos(self.object:getpos())
-		return
-	end
-	local s = get_sign(self.v)
-	self.v = self.v - 0.02 * s
-	if s ~= get_sign(self.v) then
-		self.object:setvelocity({x = 0, y = 0, z = 0})
-		self.v = 0
-		return
-	end
-	if math.abs(self.v) > 4.5 then
-		self.v = 4.5 * get_sign(self.v)
+		if ctrl.down then
+			self.object:setyaw(yaw)
+			if math.abs(velo.x) + math.abs(velo.z) < 5 then
+				self.object:setacceleration({x = -math.sin(yaw) * -v, y = velo.y, z = math.cos(yaw) * -v})
+			end
+			return
+		end
 	end
 
-	local p = self.object:getpos()
-	p.y = p.y - 0.5
-	local new_velo = {x = 0, y = 0, z = 0}
-	local new_acce = {x = 0, y = 0, z = 0}
-	if not is_water(p) then
-		local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
-		if (not nodedef) or nodedef.walkable then
-			self.v = 0
-			new_acce = {x = 0, y = 1, z = 0}
-		else
-			new_acce = {x = 0, y = -9.8, z = 0}
-		end
-		new_velo = get_velocity(self.v, self.object:getyaw(), self.object:getvelocity().y)
-		self.object:setpos(self.object:getpos())
-	else
-		p.y = p.y + 1
-		if is_water(p) then
-			local y = self.object:getvelocity().y
-			if y >= 4.5 then
-				y = 4.5
-			elseif y < 0 then
-				new_acce = {x = 0, y = 20, z = 0}
-			else
-				new_acce = {x = 0, y = 5, z = 0}
-			end
-			new_velo = get_velocity(self.v, self.object:getyaw(), y)
-			self.object:setpos(self.object:getpos())
-		else
-			new_acce = {x = 0, y = 0, z = 0}
-			if math.abs(self.object:getvelocity().y) < 1 then
-				local pos = self.object:getpos()
-				pos.y = math.floor(pos.y) + 0.5
-				self.object:setpos(pos)
-				new_velo = get_velocity(self.v, self.object:getyaw(), 0)
-			else
-				new_velo = get_velocity(self.v, self.object:getyaw(), self.object:getvelocity().y)
-				self.object:setpos(self.object:getpos())
-			end
-		end
+	local name1 = minetest.get_node({x=pos.x, y=pos.y+.3, z=pos.z}).name
+	local name2 = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name
+	local name3 = minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name
+	local vert = 0
+	if (string.find(name1, "default:water") or string.find(name2, "default:water")) and velo.y < 8 then
+		vert = 3
+		self.object:setacceleration({x = velo.x * b, y = vert, z = velo.z * b})
+		return
 	end
-	self.object:setvelocity(new_velo)
-	self.object:setacceleration(new_acce)
+	if name1 == "air" and name2 == "air" and string.find(name3, "default:water") and math.abs(velo.y) > .1 then
+		self.object:setacceleration({x = velo.x * b, y = 0, z = velo.z * b})
+		self.object:setvelocity({x = velo.x * b, y = 0, z = velo.z * b})
+		self.object:setpos({x=pos.x, y=.5 + math.floor(pos.y), z=pos.z})
+		return
+	end
+	if name3 == "air" then vert = -9.81 end
+	self.object:setacceleration({x = velo.x * b, y = vert, z = velo.z * b})
 end
 
 minetest.register_entity("boats:boat", boat)

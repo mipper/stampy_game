@@ -1,3 +1,7 @@
+Boat controls are now like in MC: W and S and accelerate forwards or backwards, player look direction is direction to turn to.
+
+
+
 Minetest 0.4 mod: boats
 =======================
 by PilzAdam, slightly modified for NeXt

@@ -730,6 +730,13 @@ minetest.add_particlespawner({
 })
 			self:set_animation("death")
 			self.object:set_hp(1000)
+			if self.name == "mobs:pig" and self.driver then
+				local name = self.driver:get_player_name()
+				self.driver:set_detach()
+				default.player_attached[name] = false
+				default.player_set_animation(self.driver, "stand" , 30)
+				self.driver = nil
+			end
 			minetest.after(self.animation.deathdur, function()
 				self.object:remove()
 			end)

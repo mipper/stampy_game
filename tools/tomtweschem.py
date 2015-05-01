@@ -246,7 +246,7 @@ conversionTable = [
 	(123, -1, "mesecons_lightstone_red_off", "mesecons"),
 	(124, -1, "mesecons_lightstone_red_on", "mesecons"),
 	(137, -1, "mesecons_commandblock:commandblock_off", "mesecons"),
-	(143 , -3, "mesecons_button:button_off", "mesecons"),
+	(143 , -3, "mesecons_button:button_wood_off", "mesecons"),
 	(151, -1, "mesecons_solarpanel:solar_panel_off", "mesecons"),
 	(152, -1, "default:mese", "mesecons"),
 	(154, -1, "hopper:hopper"),

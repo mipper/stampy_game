@@ -383,6 +383,9 @@ mobs.default_definition = {
 				local inv = self.driver:get_inventory()
 				local stack = inv:get_stack("main", self.driver:get_wield_index())
 				stack:add_wear(100)
+				if stack:get_wear() > 65400 then
+					stack = {name = "fishing:pole", count = 1}
+				end
 				inv:set_stack("main", self.driver:get_wield_index(), stack)
 				return
 			end

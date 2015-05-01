@@ -375,7 +375,8 @@ mobs.default_definition = {
 				local velo = self.object:getvelocity()
 				local v = 1.5
 				if math.abs(velo.x) + math.abs(velo.z) < .6 then velo.y = 5 end
-				self.set_animation("walk")
+				self.state = "walk"
+				self:set_animation("walk")
 				self.object:setyaw(yaw)
 				self.object:setvelocity({x = -math.sin(yaw) * v, y = velo.y, z = math.cos(yaw) * v})
 

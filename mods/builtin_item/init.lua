@@ -89,6 +89,11 @@ minetest.register_entity(":__builtin:item", {
 		end
 
 		local p = self.object:getpos()
+		-- items get pushed up inside solid blocks
+		if minetest.registered_nodes[minetest.get_node(p).name].walkable and math.abs(self.object:getvelocity().y) < .1 then
+			p.y = p.y + 1
+		end
+
 		p.y = p.y - self.lastbob
 		local bobdiff = math.sin(2*self.timer)/6 + .4
 		self.lastbob = bobdiff
@@ -104,9 +109,10 @@ minetest.register_entity(":__builtin:item", {
 			return
 		end
 
-		if minetest.registered_nodes[name].liquidtype == "flowing" then
+		if string.find(name, "default:water") then
 			local get_flowing_dir = function(self)
 				local pos = self.object:getpos()
+				local posname = minetest.get_node(pos).name
 				local param2 = minetest.get_node(pos).param2
 				local p4 = {
 					{x=1,y=0,z=0},
@@ -121,7 +127,7 @@ minetest.register_entity(":__builtin:item", {
 					local name = minetest.get_node(p2).name
 					local par2 = minetest.get_node(p2).param2
 					-- param2 == 13 means water is falling down a block
-					if (name == "default:water_flowing" and par2 < param2 and param2 < 13) or (name == "default:water_flowing" and par2 == 13) or name == "air" then
+					if (name == "default:water_flowing" and par2 <= param2 and param2 < 13) or (name == "default:water_flowing" and par2 == 13) or name == "air" or (posname == "default:water_source" and name == "default:water_flowing") then
 						out = vector.add(out, p4[i])
 						num = num + 1
 					end

@@ -255,7 +255,8 @@ mobs:register_mob("mobs:sheep", {
 				textures = {"sheep_sheared.png"},
 			})
 		end
-		if minetest.get_item_group(item:get_name(), "dye") and not self.naked then
+		if minetest.get_item_group(item:get_name(), "dye") == 1 and not self.naked then
+print(item:get_name(), minetest.get_item_group(item:get_name(), "dye"))
 			local name = item:get_name()
 			local pname = name:split(":")[2]
 

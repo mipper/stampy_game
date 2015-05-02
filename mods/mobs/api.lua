@@ -672,6 +672,16 @@ mobs.default_definition = {
 			self.object:set_properties({
 			textures = {"sheep_"..self.color..".png"},
 			})
+			self.drops = {
+				{name = "mobs:mutton_raw",
+				chance = 1,
+				min = 1,
+				max = 2,},
+				{name = "wool:"..self.color,
+				chance = 1,
+				min = 1,
+				max = 1,},
+			}
 		end
 		if self.name == "mobs:sheep" and not self.color then
 			local col = "white"
@@ -683,6 +693,16 @@ mobs.default_definition = {
 			self.object:set_properties({
 			textures = {"sheep_"..self.color..".png"},
 			})
+			self.drops = {
+				{name = "mobs:mutton_raw",
+				chance = 1,
+				min = 1,
+				max = 2,},
+				{name = "wool:"..self.color,
+				chance = 1,
+				min = 1,
+				max = 1,},
+			}
 		end
 		if self.name == "mobs:sheep" and self.naked then
 			self.object:set_properties({

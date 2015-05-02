@@ -1,4 +1,5 @@
 default
 fire
+tnt
 throwing?
 fertiliser?

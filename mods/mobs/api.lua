@@ -19,54 +19,10 @@ mobs.default_definition = {
 	lifetimer = 600,
 	tamed = false,
 	
-	-- lifted from better TNT mod
 	boom = function(self, tnt_range)
 		local pos = self.object:getpos()
-		minetest.sound_play("explo", {pos = pos})
-		for dx=-tnt_range,tnt_range do
-			for dz=-tnt_range,tnt_range do
-				for dy=-tnt_range,tnt_range do
-					local npos = {x=pos.x + dx, y=pos.y + dy, z=pos.z + dz}
-					if ((dx)^2 + (dy)^2 + (dz)^2)^0.5 + math.random(0,2) <= tnt_range then
-						local node = minetest.get_node(npos)
-						if node.name ~= "bedrock:bedrock" and node.name ~= "default:obsidian" then
-							minetest.remove_node(npos)
-						end
-					end
-				end
-			end
-		end
 		self.object:remove()
-		minetest.add_particlespawner(
-			40, --amount
-			1, --time
-			{x=pos.x-(tnt_range / 2), y=pos.y-(tnt_range / 2), z=pos.z-(tnt_range / 2)}, --minpos
-			{x=pos.x+(tnt_range / 2), y=pos.y+(tnt_range / 2), z=pos.z+(tnt_range / 2)}, --maxpos
-			{x=-0, y=-0, z=-0}, --minvel
-			{x=0, y=0, z=0}, --maxvel
-			{x=-0.5,y=5,z=-0.5}, --minacc
-			{x=0.5,y=5,z=0.5}, --maxacc
-			0.1, --minexptime
-			2, --maxexptime
-			8, --minsize
-			15, --maxsize
-			true, --collisiondetection
-			"bettertnt_smoke.png" --texture
-		)
-		local objects = minetest.get_objects_inside_radius(pos, tnt_range/2)
-		for _,obj in ipairs(objects) do
-			if obj:is_player() or (obj:get_luaentity() and obj:get_luaentity().name ~= "__builtin:item") then
-				local obj_p = obj:getpos()
-				local vec = {x=obj_p.x-pos.x, y=obj_p.y-pos.y, z=obj_p.z-pos.z}
-				local dist = (vec.x^2+vec.y^2+vec.z^2)^0.5
-				local damage = (80*0.5^(tnt_range - dist))/2
-				obj:punch(obj, 1.0, {
-					full_punch_interval=1.0,
-					damage_groups={fleshy=damage},
-				}, vec)
-			end
-		end
-
+		tnt:boom(pos)
 	end,
 
 	set_velocity = function(self, v)

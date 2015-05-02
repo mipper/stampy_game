@@ -66,10 +66,9 @@ mesecon.register_node("mesecons_walllever:wall_lever", {
 })
 
 minetest.register_craft({
-	output = "mesecons_walllever:wall_lever_off 2",
+	output = "mesecons_walllever:wall_lever_off",
 	recipe = {
-	    {"group:mesecon_conductor_craftable"},
-		{"default:stone"},
-		{"default:stick"},
+		{"group:stick"},
+		{"default:cobble"},
 	}
 })

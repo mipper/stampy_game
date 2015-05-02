@@ -10,6 +10,7 @@ minetest.register_node("lilypad:waterlily", {
 	wield_image  = "waterlily.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "facedir",
 	walkable = true,
 	groups = {snappy = 3,flammable=2, level=0, dig_immediate=3, oddly_breakable_by_hand=1},
 	sounds = default.node_sound_leaves_defaults(),
@@ -30,7 +31,9 @@ minetest.register_node("lilypad:waterlily", {
 
 		if under_node.name ~= "default:water_source" then return end
 
-		minetest.set_node(top_pos, {name = "lilypad:waterlily"})
+		math.randomseed(top_pos.x + top_pos.y + top_pos.z)
+		minetest.set_node(top_pos, {name = "lilypad:waterlily", param2 = math.random(0,3)})
+		math.randomseed(os.time())
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end

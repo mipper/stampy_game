@@ -37,14 +37,6 @@ local FISHING_BOBBER_ENTITY={
 	textures = {"fishing:bobber_box"},
 	collisionbox = {-2/16, -4/16, -2/16,  2/16, 0/16,  2/16},
 	view_range = 30,
-	on_punch = function (self, puncher, time_from_last_punch, tool_capabilities, dir)
-		if MESSAGES == true then minetest.chat_send_player(player, "You didn't catch anything.", false) end -- fish escaped
-		minetest.sound_play("fishing_bobber1", {
-			pos = self.object:getpos(),
-			gain = 0.5,
-		})
-		self.object:remove()
-	end,
 	on_step = function(self, dtime)
 		local pos = self.object:getpos()
 		if BOBBER_CHECK_RADIUS > 0 then

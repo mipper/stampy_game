@@ -605,9 +605,9 @@ mobs:register_mob("mobs:skeleton", {
 		min = 1,
 		max = 1,},
 		{name = "bones:single_bone",
-		chance = 2,
-		min = 1,
-		max = 1,},
+		chance = 1,
+		min = 0,
+		max = 2,},
 	},
 	animation = {
 		speed_normal = 30,

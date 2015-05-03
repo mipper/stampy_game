@@ -152,6 +152,7 @@ conversionTable = [
 	(127, -1, "farming:cocoa_3"),
 	(128, -4, "stairs:stair_sandstone"),
 	(129, -1, "default:stone_with_emerald"),
+	(130, -3, "default:enderchest"),
 	(132, -1, "jungle:tripwire"),
 	(133, -1, "default:emeraldblock"),
 	(134, -4, "stairs:stair_wood"),

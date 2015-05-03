@@ -64,6 +64,7 @@ local function set_inventory(player)
 	player:get_inventory():set_width("craft", 3)
 	player:get_inventory():set_size("craft", 9)
 	player:get_inventory():set_size("main", 9*4)
+	player:get_inventory():set_size("ender", 9*4)
 
 	local player_name = player:get_player_name()
 	local img = "crafting_inventory_player.png"

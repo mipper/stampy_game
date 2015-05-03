@@ -1424,6 +1424,30 @@ minetest.register_node("default:chest_locked", {
 	end,
 })
 
+local enderchest_formspec =
+	"size[9,9.75]"..
+	"background[-0.19,-0.25;9.41,10.48;crafting_inventory_chest.png]"..
+	"bgcolor[#080808BB;true]"..
+	"listcolors[#9990;#FFF7;#FFF0;#160816;#D4D2FF]"..
+	"list[current_player;ender;0,0.5;9,4;]"..
+	"list[current_player;main;0,5.5;9,3;9]"..
+	"list[current_player;main;0,8.74;9,1;]"
+
+minetest.register_node("default:enderchest", {
+	description = "Ender Chest",
+	tiles = {"ender_top.png", "ender_top.png", "ender_side.png",
+		"ender_side.png", "ender_side.png", "ender_front.png"},
+	paramtype2 = "facedir",
+	legacy_facedir_simple = true,
+	is_ground_content = false,
+	sounds = default.node_sound_wood_defaults(),
+
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", enderchest_formspec)
+		meta:set_string("infotext", "Ender Chest")
+	end,
+})
 
 minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",

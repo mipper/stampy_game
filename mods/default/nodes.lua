@@ -1449,6 +1449,30 @@ minetest.register_node("default:enderchest", {
 	end,
 })
 
+minetest.register_abm({
+	nodenames = {"default:enderchest"},
+	interval = 1,
+	chance = 2,
+	action = function(pos, node)
+		minetest.add_particlespawner(
+			16, --amount
+			4, --time
+			{x=pos.x-0.5, y=pos.y-0.5, z=pos.z-0.5}, --minpos
+			{x=pos.x+0.5, y=pos.y+0.5, z=pos.z+0.5}, --maxpos
+			{x=-0.5, y=-0.5, z=-0.5}, --minvel
+			{x=0.5, y=0.5, z=0.5}, --maxvel
+			{x=0,y=0,z=0}, --minacc
+			{x=0,y=0,z=0}, --maxacc
+			0.5, --minexptime
+			3, --maxexptime
+			1, --minsize
+			2, --maxsize
+			false, --collisiondetection
+			"nether_particle.png" --texture
+		)
+	end,
+})
+
 minetest.register_node("default:bookshelf", {
 	description = "Bookshelf",
 	tiles = {"default_wood.png", "default_wood.png", "default_bookshelf.png"},

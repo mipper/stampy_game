@@ -1438,6 +1438,8 @@ minetest.register_node("default:enderchest", {
 	tiles = {"ender_top.png", "ender_top.png", "ender_side.png",
 		"ender_side.png", "ender_side.png", "ender_front.png"},
 	paramtype2 = "facedir",
+	groups = {cracky=1,level=2},
+	drop = "default:obsidian 8",
 	legacy_facedir_simple = true,
 	is_ground_content = false,
 	sounds = default.node_sound_wood_defaults(),

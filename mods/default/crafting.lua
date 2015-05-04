@@ -573,6 +573,14 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'default:writablebook',
+	type = "shapeless",
+	recipe = {
+		'default:book', 'dye:black', 'mobs:feather',
+	}
+})
+
+minetest.register_craft({
 	output = 'default:bookshelf',
 	recipe = {
 		{'group:wood', 'group:wood', 'group:wood'},

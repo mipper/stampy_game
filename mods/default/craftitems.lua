@@ -17,6 +17,52 @@ minetest.register_craftitem("default:book", {
 	groups = {book=1},
 })
 
+-- from https://github.com/ShadowNinja/minetest_game/blob/writable-books/mods/default/craftitems.lua
+minetest.register_craftitem("default:writablebook", {
+	description = "Book and Quill",
+	inventory_image = "book_writable.png",
+	groups = {book=1},
+	stack_max = 1,
+	on_use = function(itemstack, user, pointed_thing)
+		local player_name = user:get_player_name()
+		local data = minetest.deserialize(itemstack:get_metadata())
+		local title, text, owner = "", "", player_name
+		if data then
+			title, text, owner = data.title, data.text, data.owner
+		end
+		local formspec
+		if owner == player_name then
+			formspec = "size[8,8]"..default.gui_bg..default.gui_bg_img..
+				"field[0.5,1;7.5,0;title;Title:;"..
+					minetest.formspec_escape(title).."]"..
+				"textarea[0.5,1.5;7.5,7;text;Contents:;"..
+					minetest.formspec_escape(text).."]"..
+				"button_exit[2.5,7.5;3,1;save;Save]"
+		else
+			formspec = "size[8,8]"..default.gui_bg..default.gui_bg_img..
+				"label[1,0.5;"..minetest.formspec_escape(title).."]"..
+				"label[0.5,1.5;"..minetest.formspec_escape(text).."]"
+		end
+		minetest.show_formspec(user:get_player_name(), "default:writablebook", formspec)
+	end,
+})
+
+minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	if form_name ~= "default:writablebook" or not fields.save then
+		return
+	end
+	local stack = player:get_wielded_item()
+	if minetest.get_item_group(stack:get_name(), "book") == 0 then
+		return
+	end
+	local data = minetest.deserialize(stack:get_metadata())
+	if not data then data = {} end
+	data.title, data.text, data.owner =
+		fields.title, fields.text, player:get_player_name()
+	stack:set_metadata(minetest.serialize(data))
+	player:set_wielded_item(stack)
+end)
+
 minetest.register_craftitem("default:coal_lump", {
 	description = "Coal",
 	inventory_image = "default_coal_lump.png",

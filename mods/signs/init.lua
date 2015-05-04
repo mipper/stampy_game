@@ -125,8 +125,8 @@ minetest.register_abm({
 
 minetest.register_craftitem(":default:sign_wall", {
     description = "Sign",
-    inventory_image = "default_sign_wall.png",
-    wield_image = "default_sign_wall.png",
+    inventory_image = "sign.png",
+    wield_image = "sign.png",
     on_place = function(itemstack, placer, pointed_thing)
         local above = pointed_thing.above
         local under = pointed_thing.under
@@ -182,6 +182,7 @@ minetest.register_node("signs:sign_wall", {
     sunlight_propagates = true,
     paramtype2 = "facedir",
     walkable = false,
+    drop = "default:sign_wall",
     drawtype = "nodebox",
     node_box = {type = "fixed", fixed = {-0.45, -0.15, 0.4, 0.45, 0.45, 0.498}},
     selection_box = {type = "fixed", fixed = {-0.45, -0.15, 0.4, 0.45, 0.45, 0.498}},

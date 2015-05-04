@@ -254,6 +254,10 @@ mobs:register_mob("mobs:sheep", {
 			self.object:set_properties({
 				textures = {"sheep_sheared.png"},
 			})
+			if not minetest.setting_getbool("creative_mode") then
+				item:add_wear(300)
+				clicker:get_inventory():set_stack("main", clicker:get_wield_index(), item)
+			end
 		end
 		if minetest.get_item_group(item:get_name(), "dye") == 1 and not self.naked then
 print(item:get_name(), minetest.get_item_group(item:get_name(), "dye"))

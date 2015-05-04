@@ -103,9 +103,8 @@ local throw_rod = function( itemstack, user, pointed )
 		})
 	end
 	if not minetest.setting_getbool("creative_mode") then
-		itemstack:take_item()
+		itemstack:add_wear(500)
 	end
-	itemstack:add_wear(500)
 	return itemstack
 end
 

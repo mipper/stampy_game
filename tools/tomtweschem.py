@@ -140,7 +140,7 @@ conversionTable = [
 	(110, -1, "default:dirt"),
 	(111 ,  -1, "lilypad:waterlily"),
 
-	(113 , -1, "default:fence_wood"),
+	(113 , -1, "nether:fence"),
 	(116 , -1, "wool:red"),
 	(117 , -1, "vessels:glass_bottle"),
 	(118 , -1, "mesecons_lightstone:lightstone_darkgray_off"),

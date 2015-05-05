@@ -55,7 +55,7 @@ minetest.register_node("gate:fencegate_open", {
 	paramtype2 = "facedir",
 	sunlight_propagates = true,
 	walkable = true,
-	groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_inventory = 1},
+	groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_inventory = 1, door = 1},
 	drop = 'gate:fencegate',
 	drawtype = "nodebox",
 	node_box = {
@@ -81,6 +81,9 @@ minetest.register_node("gate:fencegate_open", {
 			}
 	},
 	on_rightclick = gate_rightclick,
+	mesecons = {effector = {
+		action_off  = gate_rightclick
+	}},
 })
 
 minetest.register_node("gate:fencegate", {
@@ -93,7 +96,7 @@ minetest.register_node("gate:fencegate", {
 	paramtype2 = "facedir",
 	sunlight_propagates = true,
 	walkable = true,
-	groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, door = 1},
 	drawtype = "nodebox",
 	node_box = {
 		type = "fixed",
@@ -115,6 +118,9 @@ minetest.register_node("gate:fencegate", {
 			{-0.5, -0.5, -0.2, 0.5, 1.0, 0.2}}
 	},
 	on_rightclick = gate_rightclick,
+	mesecons = {effector = {
+		action_on  = gate_rightclick
+	}},
 })
 
 minetest.override_item("default:fence_wood", {node_box = {

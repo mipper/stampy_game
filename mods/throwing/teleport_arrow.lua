@@ -47,7 +47,7 @@ THROWING_ARROW_ENTITY.on_step = function(self, dtime)
 	self.timer=self.timer+dtime
 	local pos = self.object:getpos()
 	local v = self.object:getvelocity()
-	local node = minetest.env:get_node(pos)
+	local node = minetest.get_node(pos)
 	local d = {}
 	local dv = {x=math.sign(v.x), y=math.sign(v.y), z=math.sign(v.z)}
 	d.x = pos.x + dv.x
@@ -55,8 +55,8 @@ THROWING_ARROW_ENTITY.on_step = function(self, dtime)
 	d.z = pos.z + dv.z
 
 	if self.timer > 0 then
-		local objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)
-		local n = minetest.env:get_node({x=d.x,y=d.y,z=d.z}).name
+		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)
+		local n = minetest.get_node({x=d.x,y=d.y,z=d.z}).name
 		local i
 
 		if n ~= "air" and n ~= "ignore" then
@@ -66,7 +66,7 @@ THROWING_ARROW_ENTITY.on_step = function(self, dtime)
 					d.x = d.x - dv.x
 					d.y = d.y - dv.y
 					d.z = d.z - dv.z
-					n = minetest.env:get_node({x=d.x,y=d.y,z=d.z}).name
+					n = minetest.get_node({x=d.x,y=d.y,z=d.z}).name
 					if n == "air" then
 						i = 100
 					end

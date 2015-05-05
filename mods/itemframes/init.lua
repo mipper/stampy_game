@@ -47,9 +47,9 @@ facedir[3] = {x=-1,y=0,z=0}
 local remove_item = function(pos, node)
 	local objs = nil
 	if node.name == "itemframes:frame" then
-		objs = minetest.env:get_objects_inside_radius(pos, .5)
+		objs = minetest.get_objects_inside_radius(pos, .5)
 	elseif node.name == "itemframes:pedestal" then
-		objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y+1,z=pos.z}, .5)
+		objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y+1,z=pos.z}, .5)
 	end
 	if objs then
 		for _, obj in ipairs(objs) do
@@ -62,7 +62,7 @@ end
 
 local update_item = function(pos, node)
 	remove_item(pos, node)
-	local meta = minetest.env:get_meta(pos)
+	local meta = minetest.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		if node.name == "itemframes:frame" then
 			local posad = facedir[node.param2]
@@ -75,7 +75,7 @@ local update_item = function(pos, node)
 		end
 		tmp.nodename = node.name
 		tmp.texture = ItemStack(meta:get_string("item")):get_name()
-		local e = minetest.env:add_entity(pos,"itemframes:item")
+		local e = minetest.add_entity(pos,"itemframes:item")
 		if node.name == "itemframes:frame" then
 			local yaw = math.pi*2 - node.param2 * math.pi/2
 			e:setyaw(yaw)
@@ -84,12 +84,12 @@ local update_item = function(pos, node)
 end
 
 local drop_item = function(pos, node)
-	local meta = minetest.env:get_meta(pos)
+	local meta = minetest.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		if node.name == "itemframes:frame" then
-			minetest.env:add_item(pos, meta:get_string("item"))
+			minetest.add_item(pos, meta:get_string("item"))
 		elseif node.name == "itemframes:pedestal" then
-			minetest.env:add_item({x=pos.x,y=pos.y+1,z=pos.z}, meta:get_string("item"))
+			minetest.add_item({x=pos.x,y=pos.y+1,z=pos.z}, meta:get_string("item"))
 		end
 		meta:set_string("item","")
 	end
@@ -113,7 +113,7 @@ minetest.register_node("itemframes:frame",{
 	sounds = default.node_sound_defaults(),
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		drop_item(pos,node)
 		local s = itemstack:peek_item()
 		if not minetest.setting_getbool("creative_mode") then
@@ -124,7 +124,7 @@ minetest.register_node("itemframes:frame",{
 		return itemstack
 	end,
 	on_punch = function(pos,node,puncher)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if meta:get_string("item") ~= "" then
 			drop_item(pos, node)
 			return
@@ -151,7 +151,7 @@ minetest.register_node("itemframes:pedestal",{
 	sounds = default.node_sound_defaults(),
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		drop_item(pos,node)
 		local s = itemstack:take_item()
 		meta:set_string("item",s:to_string())
@@ -159,7 +159,7 @@ minetest.register_node("itemframes:pedestal",{
 		return itemstack
 	end,
 	on_punch = function(pos,node,puncher)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		drop_item(pos,node)
 	end,
 })
@@ -172,7 +172,7 @@ minetest.register_abm({
 	interval = 15,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		meta:set_string("infotext", "")
 		local item = meta:get_string("item")
 		if minetest.get_item_group(item, "clock") ~= 0 and minetest.get_item_group(item, "clock") ~= time then

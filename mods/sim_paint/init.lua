@@ -109,8 +109,8 @@ minetest.register_on_placenode(function(pos, newnode, placer)
     local i = math.random(1, AMOUNT_OF_PAINTING_TYPES)
 
     --removes the painting_canvas
-    if minetest.env:remove_node(pos) then
-      minetest.env:add_node(pos, {name="sim_paint:id_" .. tostring(i),param2=state})
+    if minetest.remove_node(pos) then
+      minetest.add_node(pos, {name="sim_paint:id_" .. tostring(i),param2=state})
     end
  end
 end)

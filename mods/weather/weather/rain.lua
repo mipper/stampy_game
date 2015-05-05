@@ -30,7 +30,7 @@ minetest.register_globalstep(function(dtime)
 
 		-- Make sure player is not in a cave/house...
 		local ppos2 = addvectors(ppos, {x=0, y=12, z=0})
-		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 3) or ppos.y < -5 then
+		if minetest.find_node_near(ppos, 14, desnode) or (minetest.get_node_light(ppos, 0.5) and minetest.get_node_light(ppos, 0.5) < 3) or ppos.y < -5 then
 			if rain_sounds[name] then
 				minetest.sound_stop(rain_sounds[name])
 				rain_sounds[name] = nil

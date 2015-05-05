@@ -48,7 +48,7 @@ minetest.register_node("cake:cake", {
 				if h > 30 then h = 30 end
 				hud.hunger[name] = h
 				hud.set_hunger(clicker)
-				minetest.env:add_node(pos,{type="node",name="cake:cake_5",param2=param2})
+				minetest.add_node(pos,{type="node",name="cake:cake_5",param2=param2})
 			end
 	end,
 })
@@ -78,7 +78,7 @@ minetest.register_node("cake:cake_5", {
 				if h > 30 then h = 30 end
 				hud.hunger[name] = h
 				hud.set_hunger(clicker)
-				minetest.env:add_node(pos,{type="node",name="cake:cake_4",param2=param2})
+				minetest.add_node(pos,{type="node",name="cake:cake_4",param2=param2})
 			end
 	end,
 })
@@ -108,7 +108,7 @@ minetest.register_node("cake:cake_4", {
 				if h > 30 then h = 30 end
 				hud.hunger[name] = h
 				hud.set_hunger(clicker)
-				minetest.env:add_node(pos,{type="node",name="cake:cake_3",param2=param2})
+				minetest.add_node(pos,{type="node",name="cake:cake_3",param2=param2})
 			end
 	end,
 })
@@ -138,7 +138,7 @@ minetest.register_node("cake:cake_3", {
 				if h > 30 then h = 30 end
 				hud.hunger[name] = h
 				hud.set_hunger(clicker)
-				minetest.env:add_node(pos,{type="node",name="cake:cake_2",param2=param2})
+				minetest.add_node(pos,{type="node",name="cake:cake_2",param2=param2})
 			end
 	end,
 })
@@ -168,7 +168,7 @@ minetest.register_node("cake:cake_2", {
 				if h > 30 then h = 30 end
 				hud.hunger[name] = h
 				hud.set_hunger(clicker)
-				minetest.env:add_node(pos,{type="node",name="cake:cake_1",param2=param2})
+				minetest.add_node(pos,{type="node",name="cake:cake_1",param2=param2})
 			end
 	end,
 })
@@ -198,7 +198,7 @@ minetest.register_node("cake:cake_1", {
 				if h > 30 then h = 30 end
 				hud.hunger[name] = h
 				hud.set_hunger(clicker)
-				minetest.env:remove_node(pos)
+				minetest.remove_node(pos)
 			end
 	end,
 })

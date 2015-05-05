@@ -21,7 +21,7 @@ local throw_orb = function( itemstack, user, pointed )
 	if itemstack:peek_item() ~= nil then
 		local dir = user:get_look_dir()
 		local pos = user:getpos()
-		local obj = minetest.env:add_entity( {
+		local obj = minetest.add_entity( {
 			x = pos.x,
 			y = pos.y + 1.5,
 			z = pos.z
@@ -57,10 +57,10 @@ farorb_ent.on_step = function( self, dtime )
 	if self.launcher == nil then self.object:remove(); return end
 
 	local pos = self.object:getpos()
-	local node = minetest.env:get_node(pos)
+	local node = minetest.get_node(pos)
 
 	if node.name ~= 'air' then
-		pos = minetest.env:find_node_near( pos, 3, 'air' )
+		pos = minetest.find_node_near( pos, 3, 'air' )
 		if pos == nil then
 			minetest.chat_send_player(
 				self.launcher:get_player_name(),
@@ -74,7 +74,7 @@ farorb_ent.on_step = function( self, dtime )
 		self.object:remove()
 	end
 
-	--minetest.env:add_node( pos, { name="fire:basic_flame" } )
+	--minetest.add_node( pos, { name="fire:basic_flame" } )
 
 end
 

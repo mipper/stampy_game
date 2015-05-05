@@ -46,12 +46,12 @@ function slimes:register_slime (name, def)
 				self.status = 1
 
 				-- FIXME
-				if slime_lonely(pos) and not minetest.env:find_node_near(pos, 24, def.spawn) then
+				if slime_lonely(pos) and not minetest.find_node_near(pos, 24, def.spawn) then
 					self.object:remove()
 				end
 
 				-- FIXME improve IA
-				local objs = minetest.env:get_objects_inside_radius(pos, 24)
+				local objs = minetest.get_objects_inside_radius(pos, 24)
 				local ppos = {}
 				self.found_target = false
 				self.yaw = math.random() * 360
@@ -156,7 +156,7 @@ function slimes:register_slime (name, def)
 
 					check_for_slime_death (self,def)
 
-					local objs = minetest.env:get_objects_inside_radius(pos, def.size*1.75)
+					local objs = minetest.get_objects_inside_radius(pos, def.size*1.75)
 					for i, obj in ipairs(objs) do
 						if obj:is_player() and not def.passive then
 							obj:punch(self.object, 1.0, {full_punch_interval=1.0,damage_groups = {fleshy=def.damage}})
@@ -182,7 +182,7 @@ end
 
 -- check if slime is alone
 function slime_lonely (pos)
-	local objs = minetest.env:get_objects_inside_radius(pos, 32)
+	local objs = minetest.get_objects_inside_radius(pos, 32)
 	for i, obj in pairs(objs) do
 		if obj:is_player() then return false end
 	end
@@ -206,10 +206,10 @@ function check_for_slime_death(self,def)
 		local max = def.drops.max
 		local num = math.floor(math.random(min, max+1))
 		if def.drops.type == "item" then
-			for i=1,num do	minetest.env:add_item(pos, def.drop) end
+			for i=1,num do	minetest.add_item(pos, def.drop) end
 		end
 		if def.drops.type == "entity" then
-			for i=1,num do	minetest.env:add_entity({x=pos.x, y=pos.y + (def.size*math.random()), z=pos.z + (def.size*math.random())}, def.drops.name)	end
+			for i=1,num do	minetest.add_entity({x=pos.x, y=pos.y + (def.size*math.random()), z=pos.z + (def.size*math.random())}, def.drops.name)	end
 		end
 	end
 end

@@ -16,7 +16,7 @@ minetest.register_globalstep(function(dtime)
 		local desnode = {"default:desert_sand", "default:desert_stone", "default:jungletree", "default:jungleleaves", "default:junglegrass", "moreblocks:rope"}
 
 		-- Make sure player is not in a cave/house...
-		if minetest.find_node_near(ppos, 14, desnode) or (minetest.env:get_node_light(ppos, 0.5) and minetest.env:get_node_light(ppos, 0.5) < 12) or find_glass(ppos) then return end
+		if minetest.find_node_near(ppos, 14, desnode) or (minetest.get_node_light(ppos, 0.5) and minetest.get_node_light(ppos, 0.5) < 12) or find_glass(ppos) then return end
 
 		local minp = addvectors(ppos, {x=-9, y=7, z=-9})
 		local maxp = addvectors(ppos, {x= 9, y=7, z= 9})

@@ -51,10 +51,10 @@ function ocean:register_guardian (name, def)
 				self.timer2 = 1.2
 				self.status = 1
 
-				if guardian_lonely(self, pos) and not minetest.env:find_node_near(pos, 24, def.spawn) then
+				if guardian_lonely(self, pos) and not minetest.find_node_near(pos, 24, def.spawn) then
 					self.object:remove()
 				end
-				local objs = minetest.env:get_objects_inside_radius(pos, 24)
+				local objs = minetest.get_objects_inside_radius(pos, 24)
 				local ppos = {}
 				local attack_player
 				self.found_target = false
@@ -129,7 +129,7 @@ function ocean:register_guardian (name, def)
 				if damage_enabled then
 					check_for_guardian_death (self,def)
 
-					local objs = minetest.env:get_objects_inside_radius(pos, def.size*1.75)
+					local objs = minetest.get_objects_inside_radius(pos, def.size*1.75)
 					for i, obj in ipairs(objs) do
 						if obj:is_player() and not def.passive then
 							obj:punch(self.object, 1.0, {full_punch_interval=1.0,damage_groups = {fleshy=def.damage}})
@@ -145,7 +145,7 @@ function ocean:register_guardian (name, def)
 end
 
 function too_close (self, pos)
-	local objs = minetest.env:get_objects_inside_radius(pos, 2)
+	local objs = minetest.get_objects_inside_radius(pos, 2)
 	local count = 0
 	for i, obj in pairs(objs) do
 		if obj:get_luaentity() and (obj:get_luaentity().name == "ocean:guardian") then
@@ -158,7 +158,7 @@ end
 
 -- check if guardian is alone
 function guardian_lonely (self, pos)
-	local objs = minetest.env:get_objects_inside_radius(pos, 32)
+	local objs = minetest.get_objects_inside_radius(pos, 32)
 	local count = 0
 	local playernear = false
 	for i, obj in pairs(objs) do

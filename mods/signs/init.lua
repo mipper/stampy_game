@@ -37,13 +37,13 @@ local signs_yard = {
 local sign_groups = {choppy=2, dig_immediate=2,not_in_creative_inventory=1}
 
 local construct_sign = function(pos)
-    local meta = minetest.env:get_meta(pos)
+    local meta = minetest.get_meta(pos)
 	meta:set_string("formspec", "field[text;;${text}]")
 	meta:set_string("infotext", "")
 end
 
 local destruct_sign = function(pos)
-    local objects = minetest.env:get_objects_inside_radius(pos, 0.5)
+    local objects = minetest.get_objects_inside_radius(pos, 0.5)
     for _, v in ipairs(objects) do
         if v:get_entity_name() == "signs:text" then
             v:remove()
@@ -52,13 +52,13 @@ local destruct_sign = function(pos)
 end
 
 local update_sign = function(pos, fields)
-    local meta = minetest.env:get_meta(pos)
+    local meta = minetest.get_meta(pos)
 	if fields then
 		meta:set_string("text", fields.text)
 	end
 	meta:set_string("infotext", "")
     local text = meta:get_string("text")
-    local objects = minetest.env:get_objects_inside_radius(pos, 0.5)
+    local objects = minetest.get_objects_inside_radius(pos, 0.5)
     for _, v in ipairs(objects) do
         if v:get_entity_name() == "signs:text" then
             v:set_properties({textures={generate_texture(create_lines(text))}})
@@ -68,15 +68,15 @@ local update_sign = function(pos, fields)
 	
 	-- if there is no entity
 	local sign_info
-	if minetest.env:get_node(pos).name == "signs:sign_yard" then
-		sign_info = signs_yard[minetest.env:get_node(pos).param2 + 1]
-	elseif minetest.env:get_node(pos).name == "signs:sign_wall" then
-		sign_info = signs[minetest.env:get_node(pos).param2 + 1]
+	if minetest.get_node(pos).name == "signs:sign_yard" then
+		sign_info = signs_yard[minetest.get_node(pos).param2 + 1]
+	elseif minetest.get_node(pos).name == "signs:sign_wall" then
+		sign_info = signs[minetest.get_node(pos).param2 + 1]
 	end
 	if sign_info == nil then
 		return
 	end
-	local text = minetest.env:add_entity({x = pos.x + sign_info.delta.x,
+	local text = minetest.add_entity({x = pos.x + sign_info.delta.x,
 										y = pos.y + sign_info.delta.y,
 										z = pos.z + sign_info.delta.z}, "signs:text")
 	text:setyaw(sign_info.yaw)
@@ -106,7 +106,7 @@ minetest.register_abm({
 		local def = minetest.registered_nodes[n.name]
 		if def then
 			local wdir = n.param2
-    local meta = minetest.env:get_meta(pos)
+    local meta = minetest.get_meta(pos)
     local text = meta:get_string("text")
 
 			if wdir == 0 then
@@ -116,7 +116,7 @@ minetest.register_abm({
 			else
 				minetest.set_node(pos, {name = "signs:sign_wall", param2 = is_wall(wdir)})
 			end
-	    local meta = minetest.env:get_meta(pos)
+	    local meta = minetest.get_meta(pos)
 		meta:set_string("text", text)
 			update_sign(pos)
 		end
@@ -150,18 +150,18 @@ minetest.register_craftitem(":default:sign_wall", {
         local sign_info
         if wdir == 0 then
             --how would you add sign to ceiling?
-            minetest.env:add_item(above, "signs:sign_wall")
+            minetest.add_item(above, "signs:sign_wall")
 			itemstack:take_item()
 			return itemstack
         elseif wdir == 1 then
-            minetest.env:add_node(above, {name = "signs:sign_yard", param2 = fdir})
+            minetest.add_node(above, {name = "signs:sign_yard", param2 = fdir})
             sign_info = signs_yard[fdir + 1]
         else
-            minetest.env:add_node(above, {name = "signs:sign_wall", param2 = fdir})
+            minetest.add_node(above, {name = "signs:sign_wall", param2 = fdir})
             sign_info = signs[fdir + 1]
         end
 
-        local text = minetest.env:add_entity({x = above.x + sign_info.delta.x,
+        local text = minetest.add_entity({x = above.x + sign_info.delta.x,
                                               y = above.y + sign_info.delta.y,
                                               z = above.z + sign_info.delta.z}, "signs:text")
         text:setyaw(sign_info.yaw)
@@ -237,7 +237,7 @@ minetest.register_entity("signs:text", {
     textures = {},
 
     on_activate = function(self)
-        local meta = minetest.env:get_meta(self.object:getpos())
+        local meta = minetest.get_meta(self.object:getpos())
         local text = meta:get_string("text")
         self.object:set_properties({textures={generate_texture(create_lines(text))}})
     end

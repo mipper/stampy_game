@@ -25,7 +25,7 @@ minetest.register_node("jdukebox:box", {
 	tiles = {"jdukebox_top.png", "jdukebox_side.png"},
 	groups = {oddly_breakable_by_hand=1, flammable=1, choppy=3},
 	on_rightclick = function(pos, node, clicker, itemstack)	
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		local wield = clicker:get_wielded_item():get_name()
 		if inv:is_empty("main") then
@@ -35,26 +35,26 @@ minetest.register_node("jdukebox:box", {
 				meta:set_string("hwnd", minetest.sound_play("jukebox_track_"..discid, {pos = pos, loop = true, gain = 10, max_hear_distance = 100}))
 			end
 		else
-			local drop_pos = minetest.env:find_node_near(pos, 1, "air")
+			local drop_pos = minetest.find_node_near(pos, 1, "air")
 			if drop_pos == nil then drop_pos = {x=pos.x, y=pos.y+1, z=pos.z} end
-			minetest.env:add_item(drop_pos, inv:get_stack("main", 1))
+			minetest.add_item(drop_pos, inv:get_stack("main", 1))
 			if meta:get_string("hwnd") then minetest.sound_stop(meta:get_string("hwnd")) end
 			inv:remove_item("main", inv:get_stack("main", 1))
 		end
 
 	end,
 	on_construct = function(pos)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		inv:set_size("main", 1)
 	end,	
 	on_destruct = function(pos)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		if not inv:is_empty("main") then
-			local drop_pos = minetest.env:find_node_near(pos, 1, "air")
+			local drop_pos = minetest.find_node_near(pos, 1, "air")
 			if drop_pos == nil then drop_pos = {x=pos.x, y=pos.y+1,z=pos.z} end
-			minetest.env:add_item(drop_pos, inv:get_stack("main", 1))
+			minetest.add_item(drop_pos, inv:get_stack("main", 1))
 			if meta:get_string("hwnd") then minetest.sound_stop(meta:get_string("hwnd")) end
 		end
 	end,

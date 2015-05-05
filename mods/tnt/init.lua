@@ -219,8 +219,8 @@ function tnt:explode(pos, radius)
 end
 
 function tnt:lit( p, n )
-	minetest.env:remove_node( p )
-	minetest.env:add_entity( p, 'tnt:tnt_ent' )
+	minetest.remove_node( p )
+	minetest.add_entity( p, 'tnt:tnt_ent' )
 end
 
 function tnt:boom(pos)
@@ -391,7 +391,7 @@ tnt.ent_proto = {
 		if sf.timer > 0.5 then
 			local p = sf.object:getpos()
 			p.y = p.y - 0.501
-			local nn = minetest.env:get_node(p).name
+			local nn = minetest.get_node(p).name
 			if not minetest.registered_nodes[nn] or
 				minetest.registered_nodes[nn].walkable then
 				sf.object:setvelocity({x=0,y=0,z=0})

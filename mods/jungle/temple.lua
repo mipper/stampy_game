@@ -13,7 +13,7 @@ local chest_stuff = {
 
 -- get some random content for a chest
 local function chest(pos)
-	local meta = minetest.env:get_meta(pos)
+	local meta = minetest.get_meta(pos)
 	local inv  = meta:get_inventory()
 	inv:set_size("main", 8*4)
 	for i=0,math.random(2,6),1 do
@@ -26,7 +26,7 @@ local function chest(pos)
 end
 
 local function disp(pos)
-	local meta = minetest.env:get_meta(pos)
+	local meta = minetest.get_meta(pos)
 	local inv  = meta:get_inventory()
 	inv:set_size("main", 3*3)
 	local stack = {name="throwing:arrow", count = 16}

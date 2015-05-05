@@ -5,7 +5,7 @@ minetest.register_globalstep(function(dtime)
 			pos.y = pos.y+0.5
 			local inv = player:get_inventory()
 			
-			for _,object in ipairs(minetest.env:get_objects_inside_radius(pos, 1)) do
+			for _,object in ipairs(minetest.get_objects_inside_radius(pos, 1)) do
 				if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" then
 					-- only pick up resting objects, so "q" can be used to drop without immediately picking an item up again
 					local vel = object:getvelocity()
@@ -42,7 +42,7 @@ function minetest.handle_node_drops(pos, drops, digger)
 		end
 		if not inv or not inv:contains_item("main", ItemStack(name)) then
 			for i=1,count do
-				local obj = minetest.env:add_item(pos, name)
+				local obj = minetest.add_item(pos, name)
 				if obj ~= nil then
 					obj:get_luaentity().collect = true
 					local x = math.random(1, 5)

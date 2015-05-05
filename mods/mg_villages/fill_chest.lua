@@ -27,7 +27,7 @@ local chest_stuff = {
 
 -- get some random content for a chest
 mg_villages.fill_chest_random = function( pos, pr, building_nr, building_typ )
-	local meta = minetest.env:get_meta( pos )
+	local meta = minetest.get_meta( pos )
 	local inv  = meta:get_inventory()
 	inv:set_size("main", 8*4)
 	for i=0,pr:next(1,6),1 do

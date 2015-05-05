@@ -1,6 +1,6 @@
 local function drop_chest_stuff()
 	return function(pos, oldnode, oldmetadata, digger)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		meta:from_table(oldmetadata)
 		local inv = meta:get_inventory()
 		for i=1,inv:get_size("main") do
@@ -37,7 +37,7 @@ minetest.register_node("moremesecons_dispenser:dropper", {
 				local i = math.random(1, #invlist)
 				local stack = invlist[i]
 				if stack:get_name() ~= nil and stack:get_name() ~= "" then
-					minetest.env:add_item(pos_under, stack:take_item())
+					minetest.add_item(pos_under, stack:take_item())
 					inv:set_stack("main", i, stack)
 					return
 				end
@@ -111,7 +111,7 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 						return
 					end
 					if stack:get_name() == "throwing:arrow" then
-						local obj = minetest.env:add_entity(pos_under, "throwing:arrow_entity")
+						local obj = minetest.add_entity(pos_under, "throwing:arrow_entity")
 						obj:setvelocity({x=-dir.x*22, y=0, z=-dir.z*22})
 						obj:setacceleration({x=-dir.x*-3, y=-4, z=-dir.z*-3})
 						obj:setyaw(math.atan(dir.x/dir.z) - math.pi/2)
@@ -121,14 +121,14 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 						return
 					end
 					if stack:get_name() == "snowball:snowball" then
-						local obj = minetest.env:add_entity(pos_under, "snowball:snowball_ent")
+						local obj = minetest.add_entity(pos_under, "snowball:snowball_ent")
 						obj:setvelocity({x=-dir.x*22, y=0, z=-dir.z*22})
 						obj:setacceleration({x=-dir.x*-3, y=-4, z=-dir.z*-3})
 						stack:take_item()
 						inv:set_stack("main", i, stack)
 						return
 					end
-					minetest.env:add_item(pos_under, stack:take_item())
+					minetest.add_item(pos_under, stack:take_item())
 					inv:set_stack("main", i, stack)
 					return
 				end

@@ -63,7 +63,7 @@ function check_attached_node_fdir(p, n)
 		end
 	end
 	local p2 = {x=p.x+d.x, y=p.y+d.y, z=p.z+d.z}
-	local nn = minetest.env:get_node(p2).name
+	local nn = minetest.get_node(p2).name
 	local def2 = minetest.registered_nodes[nn]
 	if def2 and not def2.walkable then
 		return false
@@ -87,7 +87,7 @@ local function is_wall(wallparam)
 end
 
 local function player_near(pos)
-	for  _,object in ipairs(minetest.env:get_objects_inside_radius(pos, VIEW_DISTANCE)) do
+	for  _,object in ipairs(minetest.get_objects_inside_radius(pos, VIEW_DISTANCE)) do
 		if object:is_player() then
 			return true
 		end
@@ -229,7 +229,7 @@ minetest.register_craftitem(":default:torch", {
 		if string.find(minetest.get_node(pointed_thing.above).name, "signs:sign") then return end
 		if string.find(minetest.get_node(pointed_thing.above).name, "pressure_plate") or string.find(minetest.get_node(pointed_thing.under).name, "pressure_plate") then return end
 		if minetest.get_node(pointed_thing.under).name == "default:ice" then return end
-		if pointed_thing.type ~= "node" or string.find(minetest.env:get_node(pointed_thing.above).name, "torch") then
+		if pointed_thing.type ~= "node" or string.find(minetest.get_node(pointed_thing.above).name, "torch") then
 			return itemstack
 		end
 		local above = pointed_thing.above
@@ -242,9 +242,9 @@ minetest.register_craftitem(":default:torch", {
 		udef = minetest.registered_nodes[u_n.name]
 		if u_n and udef and udef.walkable then return itemstack end
 		if wdir == 1 then
-			minetest.env:add_node(above, {name = "torches:floor"})		
+			minetest.add_node(above, {name = "torches:floor"})		
 		else
-			minetest.env:add_node(above, {name = "torches:wall", param2 = wdir})
+			minetest.add_node(above, {name = "torches:wall", param2 = wdir})
 		end
 		if not wdir == 0 or not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()

@@ -41,7 +41,6 @@ function map_handler (itemstack, user, pointed_thing)
         end
 
 		--Localise some global minetest variables for speed.
-		local env = minetest.env
 		local registered_nodes = minetest.registered_nodes
 
 		for i = -35,35,1 do
@@ -49,25 +48,25 @@ function map_handler (itemstack, user, pointed_thing)
 			for j = -35,35,1 do
 				mapar[i+35][j+35] = {}
 				po.x, po.y, po.z = pos.x+i, pos.y, pos.z+j
-				local no = env:get_node(po)
+				local no = minetest.get_node(po)
 				local k=po.y
 				if no.name == "air" then
 					while no.name == "air" do
 						k=k-1
 						po.x, po.y, po.z = pos.x+i, k, pos.z+j
-						no = env:get_node(po)
+						no = minetest.get_node(po)
 					end
 				elseif no.name ~= "air" and (no.name ~= "ignore")  then
 						while (no.name ~= "air") and (no.name ~= "ignore") do
 							k=k+1
 							po.x, po.y, po.z  = pos.x+i, k, pos.z+j
-							no = env:get_node(po)
+							no = minetest.get_node(po)
 						end
 				  k=k-1
 				  po.x, po.y, po.z = pos.x+i, k, pos.z+j
 				end
 
-				local node = env:get_node(po)
+				local node = minetest.get_node(po)
 				local tiles
 				local def = registered_nodes[node.name]
 				if def then tiles = def["tiles"] end

@@ -22,7 +22,7 @@ local throw_orb = function( itemstack, user, pointed )
 	if itemstack:peek_item() ~= nil then
 		local dir = user:get_look_dir()
 		local pos = user:getpos()
-		local obj = minetest.env:add_entity( {
+		local obj = minetest.add_entity( {
 			x = pos.x,
 			y = pos.y + 1.5,
 			z = pos.z
@@ -55,8 +55,8 @@ local snowball_ent = {
 
 snowball_ent.on_step = function( self, dtime )
 	local pos = self.object:getpos()
-	local node = minetest.env:get_node(pos)
-		local objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 1.5)
+	local node = minetest.get_node(pos)
+		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 1.5)
 		for k, obj in pairs(objs) do
 			if obj:get_luaentity() ~= nil then
 				if obj:get_luaentity().name ~= "snowball:snowball_ent" and obj:get_luaentity().name ~= "__builtin:item" and obj:get_luaentity() ~= self.launcher then

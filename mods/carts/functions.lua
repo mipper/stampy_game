@@ -26,7 +26,7 @@ function cart_func:velocity_to_dir(v)
 end
 
 function cart_func:is_rail(p)
-	local nn = minetest.env:get_node(p).name
+	local nn = minetest.get_node(p).name
 	if nn=="ignore" then
 		print("oops")
 		nn=cart_func:get_content_voxel(p)

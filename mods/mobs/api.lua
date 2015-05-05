@@ -236,7 +236,7 @@ mobs.default_definition = {
 		self.lifetimer = self.lifetimer - dtime
 		if self.lifetimer <= 0 and not self.tamed then
 			local player_count = 0
-			for _,obj in ipairs(minetest.env:get_objects_inside_radius(self.object:getpos(), 30)) do
+			for _,obj in ipairs(minetest.get_objects_inside_radius(self.object:getpos(), 30)) do
 				if obj:is_player() then
 					player_count = player_count+1
 				end
@@ -289,14 +289,14 @@ mobs.default_definition = {
 		
 		local do_env_damage = function(self)
 			local pos = self.object:getpos()
-			local n = minetest.env:get_node(pos)
+			local n = minetest.get_node(pos)
 			
 			if self.light_damage and self.light_damage ~= 0
 				and pos.y>0
-				and minetest.env:get_node_light(pos)
-				and minetest.env:get_node_light(pos) > 4
-				and minetest.env:get_timeofday() > 0.2
-				and minetest.env:get_timeofday() < 0.8
+				and minetest.get_node_light(pos)
+				and minetest.get_node_light(pos) > 4
+				and minetest.get_timeofday() > 0.2
+				and minetest.get_timeofday() < 0.8
 			then
 				self.object:set_hp(self.object:get_hp()-self.light_damage)
 				if self.object:get_hp() == 0 then
@@ -583,7 +583,7 @@ mobs.default_definition = {
 				
 				local p = self.object:getpos()
 				p.y = p.y + (self.collisionbox[2]+self.collisionbox[5])/2
-				local obj = minetest.env:add_entity(p, self.arrow)
+				local obj = minetest.add_entity(p, self.arrow)
 				local amount = (vec.x^2+vec.y^2+vec.z^2)^0.5
 				local v = 15
 				vec.y = vec.y+1
@@ -786,23 +786,23 @@ function mobs:register_spawn(name, nodes, max_light, min_light, chance, active_o
 					return
 				end
 				pos.y = pos.y+1
-				if not minetest.env:get_node_light(pos) then
+				if not minetest.get_node_light(pos) then
 					return
 				end
-				if minetest.env:get_node_light(pos) > max_light then
+				if minetest.get_node_light(pos) > max_light then
 					return
 				end
-				if minetest.env:get_node_light(pos) < min_light then
+				if minetest.get_node_light(pos) < min_light then
 					return
 				end
 				if pos.y > max_height then
 					return
 				end
-				if minetest.env:get_node(pos).name ~= "air" then
+				if minetest.get_node(pos).name ~= "air" then
 					return
 				end
 				pos.y = pos.y+1
-				if minetest.env:get_node(pos).name ~= "air" then
+				if minetest.get_node(pos).name ~= "air" then
 					return
 				end
 				if spawn_func and not spawn_func(pos, node) then
@@ -814,7 +814,7 @@ function mobs:register_spawn(name, nodes, max_light, min_light, chance, active_o
 				if minetest.setting_getbool("display_mob_spawn") then
 					minetest.chat_send_all("[mobs] Add "..name.." at "..minetest.pos_to_string(pos))
 				end
-				minetest.env:add_entity(pos, name)
+				minetest.add_entity(pos, name)
 			end
 		})
 	end
@@ -832,14 +832,14 @@ function mobs:register_arrow(name, def)
 		
 		on_step = function(self, dtime)
 			local pos = self.object:getpos()
-			if minetest.env:get_node(self.object:getpos()).name ~= "air" then
+			if minetest.get_node(self.object:getpos()).name ~= "air" then
 				minetest.sound_play("bowhit1", {pos = pos})
 				self.hit_node(self, pos, node)
 				self.object:remove()
 				return
 			end
 			pos.y = pos.y-1
-			for _,player in pairs(minetest.env:get_objects_inside_radius(pos, 1)) do
+			for _,player in pairs(minetest.get_objects_inside_radius(pos, 1)) do
 				if player:is_player() then
 					self.hit_player(self, player)
 					minetest.sound_play("damage", {pos = pos})

@@ -155,7 +155,7 @@ minetest.register_entity(":__builtin:item", {
 		end
 		
 		p.y = p.y - 0.3
-		local nn = minetest.env:get_node(p).name
+		local nn = minetest.get_node(p).name
 		-- If node is not registered or node is walkably solid
 		if not minetest.registered_nodes[nn] or minetest.registered_nodes[nn].walkable then
 			if self.physical_state then

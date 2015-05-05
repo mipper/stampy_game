@@ -25,7 +25,7 @@ minetest.register_abm({
 	interval = 2,
 	chance = 1,
 	action = function(pos, node)
-		local objs = minetest.env:get_objects_inside_radius({x=pos.x, y=pos.y+1, z=pos.z}, .8)
+		local objs = minetest.get_objects_inside_radius({x=pos.x, y=pos.y+1, z=pos.z}, .8)
 		for i, obj in ipairs(objs) do
 			if not obj:is_player() then
 				local o = obj:get_luaentity()
@@ -35,7 +35,7 @@ minetest.register_abm({
 					local stack = ItemStack(p.itemstring)
 					local cpos = minetest.find_node_near(pos, 1.5, {"default:chest"})
 					if cpos and not stack:is_empty() then
-						local meta = minetest.env:get_meta(cpos)
+						local meta = minetest.get_meta(cpos)
 						local inv = meta:get_inventory()
 						if inv:room_for_item("main", stack) then
 							inv:add_item("main", stack)

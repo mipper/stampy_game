@@ -30,10 +30,26 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:fence_wood 2',
+	output = 'default:fence_wood 3',
 	recipe = {
-		{'group:stick', 'group:stick', 'group:stick'},
-		{'group:stick', 'group:stick', 'group:stick'},
+		{'group:wood', 'group:stick', 'group:wood'},
+		{'group:wood', 'group:stick', 'group:wood'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:wall_cobble 6',
+	recipe = {
+		{'default:cobble', 'default:cobble', 'default:cobble'},
+		{'default:cobble', 'default:cobble', 'default:cobble'},
+	}
+})
+
+minetest.register_craft({
+	output = 'default:wall_mossycobble 6',
+	recipe = {
+		{'default:mossycobble', 'default:mossycobble', 'default:mossycobble'},
+		{'default:mossycobble', 'default:mossycobble', 'default:mossycobble'},
 	}
 })
 

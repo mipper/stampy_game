@@ -123,15 +123,6 @@ minetest.register_node("gate:fencegate", {
 	}},
 })
 
-minetest.override_item("default:fence_wood", {node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.2, -0.5, -0.2, 0.2, 1.0, 0.2},
-		},
-	}})
-
- -- minetest.register_on_placenode(can_place)
-
 minetest.register_craft({
 	output = 'gate:fencegate',
 	recipe = {

@@ -1563,11 +1563,61 @@ minetest.register_node("default:fence_wood", {
 		type = "fixed",
 		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
 	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.2, -0.5, -0.2, 0.2, 1.0, 0.2},
+		},
+	},
 	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 })
 
+local wall_cobble_texture = "default_fence_overlay.png^default_cobble.png^default_fence_overlay.png^[makealpha:255,126,126"
+minetest.register_node("default:wall_cobble", {
+	description = "Cobblestone Wall",
+	drawtype = "fencelike",
+	tiles = {"default_cobble.png"},
+	inventory_image = wall_cobble_texture,
+	wield_image = wall_cobble_texture,
+	paramtype = "light",
+	is_ground_content = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.2, -0.5, -0.2, 0.2, 1.0, 0.2},
+		},
+	},
+	groups = {cracky=2,oddly_breakable_by_hand=2,flammable=2},
+	sounds = default.node_sound_stone_defaults(),
+})
 
+local wall_mossycobble_texture = "default_fence_overlay.png^default_mossycobble.png^default_fence_overlay.png^[makealpha:255,126,126"
+minetest.register_node("default:wall_mossycobble", {
+	description = "Mossy Cobblestone Wall",
+	drawtype = "fencelike",
+	tiles = {"default_mossycobble.png"},
+	inventory_image = wall_mossycobble_texture,
+	wield_image = wall_mossycobble_texture,
+	paramtype = "light",
+	is_ground_content = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.2, -0.5, -0.2, 0.2, 1.0, 0.2},
+		},
+	},
+	groups = {cracky=2,oddly_breakable_by_hand=2,flammable=2},
+	sounds = default.node_sound_stone_defaults(),
+})
 
 minetest.register_node("default:glass", {
 	description = "Glass",

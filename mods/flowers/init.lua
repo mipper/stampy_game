@@ -171,7 +171,7 @@ minetest.register_abm({
 
 -- flowing water removes flowers, torches, snow, etc.
 minetest.register_abm({
-	nodenames = {"group:flora", "group:torch", "group:plant", "group:grass", "default:snow"},
+	nodenames = {"group:flora", "group:torch", "group:plant", "group:grass", "default:snow", "mobs:cobweb"},
 	neighbors = {"default:water_flowing"},
 	interval = 1,
 	chance = 1,

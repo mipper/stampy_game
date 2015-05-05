@@ -50,7 +50,7 @@ local clist = {
 
 local throw_rod = function( itemstack, user, pointed )
 	if bobbers[user:get_player_name()] ~= nil then
-		if bobbers[user:get_player_name()]:get_hp() > 300 then
+		if bobbers[user:get_player_name()]:get_hp() > 300 or bobbers[user:get_player_name()]:get_hp() < 10 then
 			minetest.chat_send_player(user:get_player_name(), "You caught nothing.")
 			minetest.sound_play("fishing_bobber1", {
 				pos = bobbers[user:get_player_name()]:getpos(),
@@ -121,16 +121,18 @@ rod_ent.on_step = function( self, dtime )
 	if self.launcher == nil then self.object:remove(); return end
 
 	local pos = self.object:getpos()
-	local node = minetest.env:get_node(pos)
+	local node = minetest.get_node(pos)
 
 	if node.name ~= 'air' then
-		pos = minetest.env:find_node_near( pos, 1, 'default:water_source' )
+		pos = minetest.find_node_near( pos, 1, 'default:water_source' )
 		if pos ~= nil then
-			bobbers[self.launcher:get_player_name()] = minetest.add_entity({interval = 1,x=pos.x, y=pos.y+(45/64), z=pos.z}, "fishing:bobber_entity")
-			minetest.sound_play("fishing_bobber2", {
-				pos = pos,
-				gain = 0.5,
-			})
+			if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name == "air" then
+				bobbers[self.launcher:get_player_name()] = minetest.add_entity({interval = 1,x=pos.x, y=pos.y+(45/64), z=pos.z}, "fishing:bobber_entity")
+				minetest.sound_play("fishing_bobber2", {
+					pos = pos,
+					gain = 0.5,
+				})
+			end
 		else
 			bobbers[self.launcher:get_player_name()] = nil
 		end

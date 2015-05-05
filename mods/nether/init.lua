@@ -415,6 +415,37 @@ minetest.register_node("nether:brick", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+local fencenether_texture = "default_fence_overlay.png^nether_brick.png^default_fence_overlay.png^[makealpha:255,126,126"
+minetest.register_node("nether:fence", {
+	description = "Nether Brick Fence",
+	drawtype = "fencelike",
+	tiles = {"nether_brick.png"},
+	inventory_image = fencenether_texture,
+	wield_image = fencenether_texture,
+	paramtype = "light",
+	is_ground_content = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.2, -0.5, -0.2, 0.2, 1.0, 0.2},
+		},
+	},
+	groups = {cracky=3,oddly_breakable_by_hand=2,flammable=2},
+	sounds = default.node_sound_stone_defaults(),
+})
+minetest.register_craft({
+	output = 'nether:fence 6',
+	recipe = {
+		{'nether:brick', 'nether:brick', 'nether:brick'},
+		{'nether:brick', 'nether:brick', 'nether:brick'},
+	}
+})
+
+
 local function replace(old, new)
 	for i=1,8 do
 		minetest.register_ore({

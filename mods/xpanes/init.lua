@@ -117,4 +117,6 @@ function pane(node, desc, dropitem, recipeitem)
 end
 
 pane("glass", "Glass Pane", "", "default:glass")
-pane("iron", "Iron Fence", "xpanes:pane_iron", "default:steel_ingot")
+pane("iron", "Iron Bars", "xpanes:pane_iron", "default:steel_ingot")
+
+

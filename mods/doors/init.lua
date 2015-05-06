@@ -1,5 +1,21 @@
 doors = {}
 
+local lightstone_rules = {
+	{x=0,  y=0,  z=-1},
+	{x=1,  y=0,  z=0},
+	{x=-1, y=0,  z=0},
+	{x=0,  y=0,  z=1},
+	{x=1,  y=1,  z=0},
+	{x=1,  y=-1, z=0},
+	{x=-1, y=1,  z=0},
+	{x=-1, y=-1, z=0},
+	{x=0,  y=1,  z=1},
+	{x=0,  y=-1, z=1},
+	{x=0,  y=1,  z=-1},
+	{x=0,  y=-1, z=-1},
+	{x=0,  y=-1, z=0},
+}
+
 -- Registers a door
 function doors.register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
@@ -179,6 +195,7 @@ function doors.register_door(name, def)
 			end
 		end,
 		mesecons = {effector = {
+			rules = lightstone_rules,
 			action_on  = function(pos, node)
 					if minetest.get_meta(pos):get_int("right") == 0 then
 						on_mesecons_signal_open(pos, node)
@@ -255,6 +272,7 @@ function doors.register_door(name, def)
 			end
 		end,
 		mesecons = {effector = {
+			rules = lightstone_rules,
 			action_off = function(pos, node)
 					if minetest.get_meta(pos):get_int("right") == 0 then
 						on_mesecons_signal_close(pos, node)

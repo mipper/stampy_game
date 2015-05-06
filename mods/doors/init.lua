@@ -174,7 +174,16 @@ function doors.register_door(name, def)
 			end
 		end,
 		mesecons = {effector = {
-			action_on  = on_mesecons_signal_open
+			action_on  = function(pos, node)
+					if minetest.get_meta(pos):get_int("right") == 0 then
+						on_mesecons_signal_open(pos, node)
+					end
+					end,
+			action_off  = function(pos, node)
+					if minetest.get_meta(pos):get_int("right") ~= 0 then
+						on_mesecons_signal_open(pos, node)
+					end
+					end,
 		}},
 		
 		can_dig = check_player_priv,
@@ -241,7 +250,16 @@ function doors.register_door(name, def)
 			end
 		end,
 		mesecons = {effector = {
-			action_off = on_mesecons_signal_close
+			action_off = function(pos, node)
+					if minetest.get_meta(pos):get_int("right") == 0 then
+						on_mesecons_signal_close(pos, node)
+					end
+					end,
+			action_on = function(pos, node)
+					if minetest.get_meta(pos):get_int("right") ~= 0 then
+						on_mesecons_signal_close(pos, node)
+					end
+					end,
 		}},
 		
 		can_dig = check_player_priv,

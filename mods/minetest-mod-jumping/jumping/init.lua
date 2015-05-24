@@ -5,6 +5,7 @@
 			"slime.png",
 		},
 		drawtype = "liquid",
+		liquidtype = "source",
 		sunlight_propagates = true,
 		alpha = 190,
 		groups = {level=0, dig_immediate=3, oddly_breakable_by_hand=1, bouncy=50, fall_damage_add_percent=-100},

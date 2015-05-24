@@ -416,6 +416,7 @@ minetest.register_node("default:ice", {
 	description = "Ice",
 	tiles = {"default_ice.png"},
 	drawtype = "liquid",
+	liquidtype = "source",
 	sunlight_propagates = true,
 	is_ground_content = true,
 	paramtype = "light",

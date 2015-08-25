@@ -338,6 +338,17 @@ minetest.register_abm({
 	end
 })
 
+-- put snow on mapgen-generated dirt with snow so it doesn't melt
+minetest.register_on_generated(function(minp, maxp, seed)
+	local plist = minetest.find_nodes_in_area_under_air(minp, maxp, {"default:dirt_with_snow"})
+	if #plist == 0 then return end
+	for i=1,#plist do
+		local pos = plist[i]
+		pos.y = pos.y + 1
+		minetest.set_node(pos, {name="default:snow"})
+	end
+end)
+
 --
 -- Lava particles
 --

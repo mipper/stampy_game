@@ -33,6 +33,8 @@ local beach_frequent_frequency = 1000  --waves
 local beach_frequent_volume = 1.0 
 local water_frequent_frequency = 1000  --water sounds
 local water_frequent_volume = 1.0 
+local jungle_frequent_frequency = 1000  --jungle sounds
+local jungle_frequent_volume = 1.0
 local desert_frequency = 20  --coyote
 local desert_volume = 1.0  
 local desert_frequent_frequency = 700  --desertwind
@@ -144,6 +146,18 @@ local desert_frequent = {
 	handler = {},
 	frequency = desert_frequent_frequency,
 	{name="DesertMonolithMed", length=34.5, gain=desert_frequent_volume}
+}
+
+local jungle = {
+	handler = {},
+	frequency = 0,
+	{name="nightbird-amazonas", length=88, gain=desert_frequent_volume}
+}
+
+local jungle_frequent = {
+	handler = {},
+	frequency = jungle_frequent_frequency,
+	{name="nightbird-amazonas", length=88, gain=desert_frequent_volume}
 }
 
 local flying = {
@@ -443,6 +457,14 @@ local get_ambience = function(player)
 		end	
 	end
 	
+	jungle_in_range = (nodes_in_range(pos, 16, "default:jungleleaves"))
+	if  jungle_in_range > 120 then
+		if music then
+			return {jungle=jungle, jungle_frequent=jungle_frequent, music=music}
+		else
+			return {jungle=jungle, jungle_frequent=jungle_frequent}
+		end
+	end
 	
 	desert_in_range = (nodes_in_range(pos, 6, "default:desert_sand")+nodes_in_range(pos, 6, "default:desert_stone"))
 	--minetest.chat_send_all("desertcount: " .. desert_in_range .. ",".. pos.y )

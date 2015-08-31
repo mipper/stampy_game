@@ -45,8 +45,16 @@ function villages_at_point(minp, noise1)
 	local type = pr:next(1, 1) -- TODO: actually make them
 	local size = pr:next(VILLAGE_MIN_SIZE, VILLAGE_MAX_SIZE) -- TODO: change to type-dependant sizes
 	local height = pr:next(5, 20)
-	--print("A village spawned at: x = "..x..", z = "..z)
-	return {{vx = x, vz = z, vs = size, vh = height, type = type}}
+	local i,nn
+	for i=150,3,-1 do
+		nn = minetest.get_node({x=x,y=i,z=z}).name
+		if nn ~= "ignore" and nn ~= "air" and nn ~= "default:water_source" then
+			--print(nn)
+			--print("A village spawned at: x = "..x..", y = "..i..", z = "..z)
+			return {{vx = x, vz = z, vs = size, vh = i+1, type = type}}
+		end
+	end
+	return {}
 end
 
 --local function dist_center2(ax, bsizex, az, bsizez)

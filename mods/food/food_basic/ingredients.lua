@@ -247,10 +247,10 @@ food.module("bowl", function()
 		groups = {food_bowl=1}
 	})
 	food.craft({
-		output = "food:bowl",
+		output = "food:bowl 4",
 		recipe = {
-			{"default:clay_lump","","default:clay_lump"},
-			{"","default:clay_lump",""}
+			{"group:wood","","group:wood"},
+			{"","group:wood",""}
 		}
 	})
 end, true)

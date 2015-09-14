@@ -415,14 +415,13 @@ minetest.register_node("default:snowblock", {
 minetest.register_node("default:ice", {
 	description = "Ice",
 	tiles = {"default_ice.png"},
-	drawtype = "liquid",
-	liquidtype = "source",
+	drawtype = "glasslike",
 	sunlight_propagates = true,
+	use_texture_alpha = true,
 	is_ground_content = true,
 	paramtype = "light",
 	groups = {cracky=3},
 	sounds = default.node_sound_glass_defaults(),
-	alpha = 180,
 	on_dig = function(pos, node, digger)
 		minetest.add_node(pos, {name="default:water_source"})
 	end

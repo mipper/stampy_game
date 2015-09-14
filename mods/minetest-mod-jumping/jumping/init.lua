@@ -4,11 +4,11 @@
 		tiles = {
 			"slime.png",
 		},
-		drawtype = "liquid",
-		liquidtype = "source",
+		drawtype = "glasslike",
 		sunlight_propagates = true,
-		alpha = 190,
-		groups = {level=0, dig_immediate=3, oddly_breakable_by_hand=1, bouncy=50, fall_damage_add_percent=-100},
+		use_texture_alpha = true,
+		is_ground_content = true,
+		groups = {level=0, dig_immediate=3, oddly_breakable_by_hand=1, bouncy=90, fall_damage_add_percent=-100},
 	})
 
 minetest.register_craft({

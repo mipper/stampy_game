@@ -1094,6 +1094,7 @@ mobs:register_mob("mobs:villager", {
 			on_put = function(inv, listname, index, stack, player)
 				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
+					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
 				else
 					inv:set_stack("output", 1, ItemStack(""))
 					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
@@ -1102,6 +1103,7 @@ mobs:register_mob("mobs:villager", {
 			on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
 				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
+					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
 				else
 					inv:set_stack("output", 1, ItemStack(""))
 					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
@@ -1110,6 +1112,7 @@ mobs:register_mob("mobs:villager", {
 			on_take = function(inv, listname, index, stack, player)
 				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
+					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
 				else
 					inv:set_stack("output", 1, ItemStack(""))
 					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})

@@ -1037,7 +1037,7 @@ mobs:register_mob("mobs:dungeon_master", {
 mobs:register_mob("mobs:villager", {
 	type = "animal",
 	hp_max = 30,
-	collisionbox = {-0.4, -0.01, -0.4, 0.4, 2, 0.4},
+	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.95, 0.4},
 	textures = {"farmer.png"},
 	visual = "mesh",
 	mesh = "villager.x",

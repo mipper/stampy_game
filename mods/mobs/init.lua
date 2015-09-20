@@ -1033,6 +1033,57 @@ mobs:register_mob("mobs:dungeon_master", {
 })
 -- mobs:register_spawn("mobs:dungeon_master", {"default:stone"}, 2, -1, 7000, 1, -50)
 
+
+mobs:register_mob("mobs:villager", {
+	type = "animal",
+	hp_max = 30,
+	collisionbox = {-0.4, -0.01, -0.4, 0.4, 2, 0.4},
+	textures = {"farmer.png"},
+	visual = "mesh",
+	mesh = "villager.x",
+	makes_footstep_sound = true,
+	walk_velocity = 1.2,
+	run_velocity = 2.4,
+	damage = 1,
+	drops = {
+		{name = "default:apple",
+		chance = 100,
+		min = 1,
+		max = 2,},
+	},
+	armor = 200,
+	sounds = {
+		random = "Villager1",
+		death = "Villagerdead",
+		hurt = "Villagerhurt1",
+	},
+	animation = {
+		speed_normal = 30,
+		speed_run = 60,
+		stand_start = 0,
+		stand_end = 23,
+		walk_start = 24,
+		walk_end = 49,
+		run_start = 24,
+		run_end = 49,
+		hurt_start = 85,
+		hurt_end = 115,
+		death_start = 117,
+		death_end = 145,
+		shoot_start = 50,
+		shoot_end = 82,
+	},
+	drawtype = "front",
+	water_damage = 1,
+	lava_damage = 5,
+	light_damage = 0,
+	view_range = 16,
+})
+mobs:register_spawn("mobs:villager", {"default:gravel"}, 20, 8, 50, 8, 31000)
+
+
+
+
 mobs:register_arrow("mobs:fireball", {
 	visual = "sprite",
 	visual_size = {x=1, y=1},
@@ -1142,6 +1193,7 @@ mobs:register_egg("mobs:sheep", "Sheep", "spawn_egg_sheep.png")
 mobs:register_egg("mobs:skeleton", "Skeleton", "spawn_egg_skeleton.png")
 mobs:register_egg("mobs:zombie", "Zombie", "spawn_egg_zombie.png")
 mobs:register_egg("mobs:pigman", "Zombie Pigman", "spawn_egg_zombie_pigman.png")
+mobs:register_egg("mobs:villager", "Villager", "spawn_egg_villager.png")
 
 if minetest.setting_get("log_mods") then
 	minetest.log("action", "mobs loaded")

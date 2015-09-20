@@ -1082,7 +1082,7 @@ mobs:register_mob("mobs:villager", {
 		local inv = minetest.create_detached_inventory("trading_inv", {
 			allow_take = function(inv, listname, index, stack, player)
 				if listname == "output" then
-					inv:set_stack("input", 1, ItemStack(""))
+					inv:remove_item("input", inv:get_stack("wanted", 1))
 					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
 				end
 				if listname == "input" or listname == "output" then
@@ -1092,7 +1092,7 @@ mobs:register_mob("mobs:villager", {
 				end
 			end,
 			on_put = function(inv, listname, index, stack, player)
-				if inv:get_stack("input", 1):to_string() == inv:get_stack("wanted", 1):to_string() then
+				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
 				else
 					inv:set_stack("output", 1, ItemStack(""))
@@ -1100,7 +1100,7 @@ mobs:register_mob("mobs:villager", {
 				end
 			end,
 			on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-				if inv:get_stack("input", 1):to_string() == inv:get_stack("wanted", 1):to_string() then
+				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
 				else
 					inv:set_stack("output", 1, ItemStack(""))
@@ -1108,7 +1108,7 @@ mobs:register_mob("mobs:villager", {
 				end
 			end,
 			on_take = function(inv, listname, index, stack, player)
-				if inv:get_stack("input", 1):to_string() == inv:get_stack("wanted", 1):to_string() then
+				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
 				else
 					inv:set_stack("output", 1, ItemStack(""))

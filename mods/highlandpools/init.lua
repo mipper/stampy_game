@@ -68,12 +68,18 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	
 	local c_air = minetest.get_content_id("air")
 	local c_ignore = minetest.get_content_id("ignore")
-	local c_watsour = minetest.get_content_id("default:water_source")
+	local c_watersour = minetest.get_content_id("default:water_source")
+	local c_lavsour = minetest.get_content_id("default:lava_source")
+	local c_watsour = ""
+
 	local c_grass = minetest.get_content_id("default:dirt_with_grass")
 	local c_tree = minetest.get_content_id("default:tree")
 	local c_apple = minetest.get_content_id("default:apple")
 	local c_leaves = minetest.get_content_id("default:leaves")
 	local c_dirt = minetest.get_content_id("default:dirt")
+	local c_stone = minetest.get_content_id("default:stone")
+	local c_sand = minetest.get_content_id("default:sand")
+	local c_dsand = minetest.get_content_id("default:desert_sand")
 	
 	for xcen = x0 + 8, x1 - 7, 8 do
 	for zcen = z0 + 8, z1 - 7, 8 do
@@ -85,8 +91,13 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				break
 			elseif c_node == c_watsour then
 				break
-			elseif c_node == c_grass then
+			elseif c_node == c_grass then -- water lake
 				yasurf = y + 1
+				c_watsour = c_watersour
+				break
+			elseif c_node == c_stone or c_node == c_sand or c_node == c_dsand then  -- lava lake
+				yasurf = y + 1
+				c_watsour = c_lavsour
 				break
 			end
 		end

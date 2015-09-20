@@ -1096,6 +1096,7 @@ mobs:register_mob("mobs:villager", {
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
 				else
 					inv:set_stack("output", 1, ItemStack(""))
+					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
 				end
 			end,
 			on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
@@ -1103,6 +1104,7 @@ mobs:register_mob("mobs:villager", {
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
 				else
 					inv:set_stack("output", 1, ItemStack(""))
+					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
 				end
 			end,
 			on_take = function(inv, listname, index, stack, player)
@@ -1110,6 +1112,7 @@ mobs:register_mob("mobs:villager", {
 					inv:set_stack("output", 1, inv:get_stack("offered", 1))
 				else
 					inv:set_stack("output", 1, ItemStack(""))
+					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
 				end
 			end,
 		})
@@ -1138,6 +1141,10 @@ mobs:register_mob("mobs:villager", {
 			{"default:emerald 1",		"mobs:beef_cooked 5"},
 			{"default:emerald 1",		"mobs:chicken_cooked 7"},
 			{"default:emerald 1",		"farming:cookie 6"},
+			{"default:emerald 1",		"farming:pumpkin_bread 3"},
+			{"default:emerald 1",		"throwing:arrow 10"},
+			{"default:emerald 3",		"throwing:bow_wood 1"},
+			{"default:emerald 8",		"fishing:pole 1"},
 			{"default:emerald 4",		"potionspack:healthii 1"},
 			{"default:emerald 1",		"cake:cake 1"},
 			{"default:emerald 10",		"mobs:saddle 1"},

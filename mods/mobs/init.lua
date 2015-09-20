@@ -1083,6 +1083,7 @@ mobs:register_mob("mobs:villager", {
 			allow_take = function(inv, listname, index, stack, player)
 				if listname == "output" then
 					inv:set_stack("input", 1, ItemStack(""))
+					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
 				end
 				if listname == "input" or listname == "output" then
 					return 1000
@@ -1163,6 +1164,7 @@ mobs:register_mob("mobs:villager", {
 		.."list[detached:trading_inv;offered;5.75,1;1,1;]"
 		.."list[detached:trading_inv;input;2,2.5;1,1;]"
 		.."list[detached:trading_inv;output;5.75,2.5;1,1;]"
+		minetest.sound_play("Villagertrade", {to_player = clicker:get_player_name()})
 		minetest.show_formspec(clicker:get_player_name(), "tradespec", formspec)
 	end,
 })

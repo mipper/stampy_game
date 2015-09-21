@@ -1079,46 +1079,57 @@ mobs:register_mob("mobs:villager", {
 	light_damage = 0,
 	view_range = 16,
 	on_rightclick = function(self, clicker)
-		local inv = minetest.create_detached_inventory("trading_inv", {
-			allow_take = function(inv, listname, index, stack, player)
-				if listname == "output" then
-					inv:remove_item("input", inv:get_stack("wanted", 1))
-					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
-				end
-				if listname == "input" or listname == "output" then
-					return 1000
-				else
-					return 0
-				end
-			end,
-			on_put = function(inv, listname, index, stack, player)
-				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
-					inv:set_stack("output", 1, inv:get_stack("offered", 1))
-					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
-				else
-					inv:set_stack("output", 1, ItemStack(""))
-					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
-				end
-			end,
-			on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
-					inv:set_stack("output", 1, inv:get_stack("offered", 1))
-					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
-				else
-					inv:set_stack("output", 1, ItemStack(""))
-					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
-				end
-			end,
-			on_take = function(inv, listname, index, stack, player)
-				if inv:contains_item("input", inv:get_stack("wanted", 1)) then
-					inv:set_stack("output", 1, inv:get_stack("offered", 1))
-					minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
-				else
-					inv:set_stack("output", 1, ItemStack(""))
-					minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
-				end
-			end,
-		})
+		local inv
+		inv = minetest.get_inventory({type="detached", name="trading_inv"})
+		if not inv then
+			inv = minetest.create_detached_inventory("trading_inv", {
+				allow_take = function(inv, listname, index, stack, player)
+					if listname == "output" then
+						inv:remove_item("input", inv:get_stack("wanted", 1))
+						minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
+					end
+					if listname == "input" or listname == "output" then
+						return 1000
+					else
+						return 0
+					end
+				end,
+				allow_put = function(inv, listname, index, stack, player)
+					if listname == "input" then
+						return 1000
+					else
+						return 0
+					end
+				end,
+				on_put = function(inv, listname, index, stack, player)
+					if inv:contains_item("input", inv:get_stack("wanted", 1)) then
+						inv:set_stack("output", 1, inv:get_stack("offered", 1))
+						minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
+					else
+						inv:set_stack("output", 1, ItemStack(""))
+						minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
+					end
+				end,
+				on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
+					if inv:contains_item("input", inv:get_stack("wanted", 1)) then
+						inv:set_stack("output", 1, inv:get_stack("offered", 1))
+						minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
+					else
+						inv:set_stack("output", 1, ItemStack(""))
+						minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
+					end
+				end,
+				on_take = function(inv, listname, index, stack, player)
+					if inv:contains_item("input", inv:get_stack("wanted", 1)) then
+						inv:set_stack("output", 1, inv:get_stack("offered", 1))
+						minetest.sound_play("Villageraccept", {to_player = player:get_player_name()})
+					else
+						inv:set_stack("output", 1, ItemStack(""))
+						minetest.sound_play("Villagerdeny", {to_player = player:get_player_name()})
+					end
+				end,
+			})
+			end
 		inv:set_size("input", 1)
 		inv:set_size("output", 1)
 		inv:set_size("wanted", 1)

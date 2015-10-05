@@ -128,6 +128,25 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 						inv:set_stack("main", i, stack)
 						return
 					end
+					if stack:get_name() == "mobs:zombie" or
+					   stack:get_name() == "mobs:skeleton" or
+					   stack:get_name() == "mobs:creeper" or
+					   stack:get_name() == "mobs:pigman" or
+					   stack:get_name() == "mobs:villager" or
+					   stack:get_name() == "mobs:chicken" or
+					   stack:get_name() == "mobs:cow" or
+					   stack:get_name() == "mobs:pig" or
+					   stack:get_name() == "mobs:sheep" or
+					   stack:get_name() == "slimes:lavabig" or
+					   stack:get_name() == "slimes:greenbig" or
+					   stack:get_name() == "ocean:guardian" then
+						local pos = pos_under
+						pos.y = pos.y + 0.5
+						minetest.add_entity(pos, stack:get_name())
+						stack:take_item()
+						inv:set_stack("main", i, stack)
+						return
+					end
 					minetest.add_item(pos_under, stack:take_item())
 					inv:set_stack("main", i, stack)
 					return

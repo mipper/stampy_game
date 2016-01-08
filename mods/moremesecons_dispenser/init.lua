@@ -147,6 +147,20 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 						inv:set_stack("main", i, stack)
 						return
 					end
+                                        if explosives and explosives.detonate and string.match(stack:get_name(), "explosives:") then
+						local pos = pos_under
+						pos.y = pos.y + 0.5
+                                                local placer = {
+                                                        get_player_name = function() return "dispenser" end,
+                                                        getpos = function() return pos end,
+                                                        get_player_control = function() return {jump=false,right=false,left=false,LMB=false,RMB=false,sneak=false,aux1=false,down=false,up=false} end,
+                                                }
+                                                local stack2 = minetest.item_place(stack, placer, {type="node", under=pos_under, above=pos_above})
+						stack:take_item()
+						inv:set_stack("main", i, stack)
+                                                explosives.detonate(pos)
+						return
+                                        end
 					minetest.add_item(pos_under, stack:take_item())
 					inv:set_stack("main", i, stack)
 					return

@@ -61,16 +61,16 @@ end)
 minetest.register_globalstep(function(dtime)
 	if weather == "rain" or weather == "snow" then
 		local time = minetest.get_timeofday()
-		if (time >= 0.23 and time <= 0.24) or math.random(1, 10000) == 1 then
+		if (time >= 0.23 and time <= 0.24) or (time >= 0.12 and time <= 0.13) or math.random(1, 100) == 1 then
 			weather = "none"
 			save_weather()
 		end
 	else
-		if math.random(1, 30000) == 2 then
+		if math.random(1, 300000) == 2 then
 			weather = "rain"
 			save_weather()
 		end
-		if math.random(1, 60000) == 2 then
+		if math.random(1, 600000) == 2 then
 			weather = "snow"
 			save_weather()
 		end
@@ -80,5 +80,3 @@ end)
 dofile(minetest.get_modpath("weather").."/rain.lua")
 dofile(minetest.get_modpath("weather").."/snow.lua")
 dofile(minetest.get_modpath("weather").."/command.lua")
-
-

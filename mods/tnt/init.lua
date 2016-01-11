@@ -101,8 +101,8 @@ function tnt:calc_velocity(pos1, pos2, old_vel, power)
 	dist = math.max(dist, 3)
 	vel = vector.divide(vel, dist)
 
-	-- Add old velocity
-	vel = vector.add(vel, old_vel)
+	-- Add some vertical velocity
+	vel = vector.add(vel, {x=0,y=12,z=0})
 	return vel
 end
 
@@ -120,6 +120,14 @@ function tnt:entity_physics(pos, radius, dam)
 					obj_vel, radius * 10)
 			obj:setvelocity({x=vel.x, y=vel.y, z=vel.z})
 			obj:setacceleration({x=-vel.x/5, y=-10, z=-vel.z/5})
+		end
+		if obj:is_player() == true then
+			local emp = minetest.add_entity( obj_pos, 'tnt:pl_ent' )
+			obj:set_attach(emp, "", {x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
+			local vel = tnt:calc_velocity(pos, obj_pos,
+					obj_vel, radius * 10)
+			emp:setvelocity({x=vel.x, y=vel.y, z=vel.z})
+			emp:setacceleration({x=-vel.x/5, y=-10, z=-vel.z/5})
 		end
 		if dam == 1 then
 			local damage = (4 / dist) * radius
@@ -415,6 +423,25 @@ tnt.ent_proto = {
 
 minetest.register_entity( 'tnt:tnt_ent', tnt.ent_proto )
 
+-- invisible object players attach to when TNT detonates
+tnt.pl_proto = {
+	hp_max		= 1000,
+	physical	= true,
+	collisionbox	= { -1/2, -1/2, -1/2, 1/2, 1/2, 1/2 },
+	textures = {"throwing_empty.png"},
+
+	timer		= 0,
+	physical_state	= true,
+
+	on_step = function( sf, dt )
+		sf.timer = sf.timer + dt
+		if sf.timer > 1.5 then
+			sf.object:remove()
+		end
+	end,
+}
+
+minetest.register_entity( 'tnt:pl_ent', tnt.pl_proto )
 
 if minetest.setting_get("log_mods") then
 	minetest.debug("[TNT] Loaded!")

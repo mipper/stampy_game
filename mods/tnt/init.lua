@@ -106,7 +106,7 @@ function tnt:calc_velocity(pos1, pos2, old_vel, power)
 	return vel
 end
 
-function tnt:entity_physics(pos, radius)
+function tnt:entity_physics(pos, radius, dam)
 	-- Make the damage radius larger than the destruction radius
 	radius = radius * 2
 	local objs = minetest.get_objects_inside_radius(pos, radius)
@@ -121,9 +121,10 @@ function tnt:entity_physics(pos, radius)
 			obj:setvelocity({x=vel.x, y=vel.y, z=vel.z})
 			obj:setacceleration({x=-vel.x/5, y=-10, z=-vel.z/5})
 		end
-
-		local damage = (4 / dist) * radius
-		obj:set_hp(obj:get_hp() - damage)
+		if dam == 1 then
+			local damage = (4 / dist) * radius
+			obj:set_hp(obj:get_hp() - damage)
+		end
 	end
 end
 
@@ -181,7 +182,12 @@ function tnt:explode(pos, radius)
 	-- don't destroy any blocks when in water
 	local p0 = {x=pos.x-1, y=pos.y, z=pos.z-1}
 	local p1 = {x=pos.x+1, y=pos.y, z=pos.z+1}
-	if #minetest.find_nodes_in_area(p0, p1, {"group:water"}) > 0 then return {} end
+	if #minetest.find_nodes_in_area(p0, p1, {"group:water"}) > 0 then
+		tnt:entity_physics(pos, radius, 2)
+		return {}
+	else
+		tnt:entity_physics(pos, radius, 1)
+	end
 
 	for z = -radius, radius do
 	for y = -radius, radius do
@@ -227,7 +233,6 @@ function tnt:boom(pos)
 	minetest.sound_play("tnt_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
 
 	local drops = tnt:explode(pos, radius)
-	tnt:entity_physics(pos, radius)
 	tnt:eject_drops(drops, pos, radius)
 	tnt:add_effects(pos, radius)
 end

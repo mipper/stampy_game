@@ -92,6 +92,8 @@ end
 
 
 function tnt:calc_velocity(pos1, pos2, old_vel, power)
+	pos1.y = pos1.y - 3	-- make the player fly upwards even when TNT is on same level
+
 	local vel = vector.direction(pos1, pos2)
 	vel = vector.normalize(vel)
 	vel = vector.multiply(vel, power)
@@ -100,9 +102,8 @@ function tnt:calc_velocity(pos1, pos2, old_vel, power)
 	local dist = vector.distance(pos1, pos2)
 	dist = math.max(dist, 3)
 	vel = vector.divide(vel, dist)
+	pos1.y = pos1.y + 3
 
-	-- Add some vertical velocity
-	vel = vector.add(vel, {x=0,y=12,z=0})
 	return vel
 end
 

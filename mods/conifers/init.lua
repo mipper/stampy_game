@@ -38,7 +38,7 @@ conifers = {}
 --
 minetest.register_node("conifers:trunk", {
 	description = "Conifer Trunk",
-	tile_images = { 
+	tiles = {
 		"conifers_trunktop.png", 
 		"conifers_trunktop.png", 
 		"conifers_trunk.png", 
@@ -63,7 +63,7 @@ minetest.register_node("conifers:trunk", {
 local tex_reversed_trunk = "conifers_trunk.png^[transformR90"
 minetest.register_node("conifers:trunk_reversed", {
 	description = "Conifer Reversed Trunk",
-	tile_images = { 
+	tiles = {
 		tex_reversed_trunk, 
 		tex_reversed_trunk,
 		"conifers_trunktop.png", 
@@ -92,7 +92,7 @@ minetest.register_node("conifers:leaves", {
 	description = "Conifer Leaves",
 	drawtype = "allfaces_optional",
 	visual_scale = 1.3,
-	tile_images = { "conifers_leaves.png" },
+	tiles = { "conifers_leaves.png" },
 	--inventory_image = "conifers_leaves.png",
 	paramtype = "light",
 	groups = {
@@ -122,7 +122,7 @@ minetest.register_node("conifers:leaves_special", {
 	description = "Bright Conifer Leaves",
 	drawtype = "allfaces_optional",
 	visual_scale = 1.3,
-	tile_images = { "conifers_leaves_special.png" },
+	tiles = { "conifers_leaves_special.png" },
 	--inventory_image = "conifers_leaves_special.png",
 	paramtype = "light",
 	groups = {
@@ -151,7 +151,7 @@ minetest.register_node("conifers:leaves_special", {
 minetest.register_node("conifers:sapling", {
 	description = "Conifer Sapling",
 	drawtype = "plantlike",
-	tile_images = {"conifers_sapling.png"},
+	tiles = {"conifers_sapling.png"},
 	inventory_image = "conifers_sapling.png",
 	wield_image = "conifers_sapling.png",
 	paramtype = "light",

@@ -79,7 +79,7 @@ function pane(node, desc, dropitem, recipeitem)
 		end
 		minetest.register_node("xpanes:pane_"..node.."_"..i, {
 			drawtype = "nodebox",
-			tile_images = {"xpanes_top_"..node..".png", "xpanes_top_"..node..".png", texture},
+			tiles = {"xpanes_top_"..node..".png", "xpanes_top_"..node..".png", texture},
 			paramtype = "light",
 			groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
 			drop = dropitem,
@@ -96,7 +96,7 @@ function pane(node, desc, dropitem, recipeitem)
 
 	minetest.register_node("xpanes:pane_"..node, {
 		description = desc,
-		tile_images = {"xpanes_space.png"},
+		tiles = {"xpanes_space.png"},
 		inventory_image = "xpanes_pane_"..node..".png",
 		wield_image = "xpanes_pane_"..node..".png",
 		node_placement_prediction = "",

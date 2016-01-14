@@ -6,7 +6,7 @@
 minetest.register_node("sim_paint:canvas", {
   description = "Painting",
   drawtype = "signlike",
-  tile_images = {"sim_paint_canvas.png"},
+  tiles = {"sim_paint_canvas.png"},
   inventory_image = "sim_paint_canvas.png",
   wield_image = "sim_paint_canvas.png",
   paramtype = "light",
@@ -40,7 +40,7 @@ minetest.register_craft({
 function register_painting(id, image)
   minetest.register_node("sim_paint:id_" .. tostring(id), {
     drawtype = "signlike",
-    tile_images = {image},
+    tiles = {image},
     inventory_image = image,
     paramtype = "light",
     sunlight_propagates = true,

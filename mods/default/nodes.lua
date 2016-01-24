@@ -273,6 +273,19 @@ minetest.register_node("default:dirt_with_grass_footsteps", {
 	}),
 })
 
+minetest.register_node("default:dirt_with_dry_grass", {
+	description = "Dirt with Dry Grass",
+	tiles = {"default_dry_grass.png",
+		"default_dirt.png",
+		{name = "default_dirt.png^default_dry_grass_side.png",
+			tileable_vertical = false}},
+	groups = {crumbly = 3, soil = 1},
+	drop = 'default:dirt',
+	sounds = default.node_sound_dirt_defaults({
+		footstep = {name = "default_grass_footstep", gain = 0.4},
+	}),
+})
+
 minetest.register_node("default:dirt_with_snow", {
 	description = "Dirt with Snow",
 	tiles = {"default_snow.png", "default_dirt.png", "default_dirt.png^default_snow_side.png"},
@@ -654,6 +667,126 @@ minetest.register_node("default:pine_sapling", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
+minetest.register_node("default:acacia_tree", {
+	description = "Acacia Tree",
+	tiles = {"default_acacia_tree_top.png", "default_acacia_tree_top.png",
+		"default_acacia_tree.png"},
+	paramtype2 = "facedir",
+	is_ground_content = false,
+	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	sounds = default.node_sound_wood_defaults(),
+
+	on_place = minetest.rotate_node
+})
+
+minetest.register_node("default:acacia_wood", {
+	description = "Acacia Wood Planks",
+	tiles = {"default_acacia_wood.png"},
+	is_ground_content = false,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
+	sounds = default.node_sound_wood_defaults(),
+})
+
+minetest.register_node("default:acacia_leaves", {
+	description = "Acacia Leaves",
+	drawtype = "allfaces_optional",
+	visual_scale = 1.3,
+	tiles = {"default_acacia_leaves.png"},
+	waving = 1,
+	paramtype = "light",
+	is_ground_content = false,
+	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"default:acacia_sapling"}, rarity = 20},
+			{items = {"default:acacia_leaves"}}
+		}
+	},
+	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
+})
+
+minetest.register_node("default:acacia_sapling", {
+	description = "Acacia Tree Sapling",
+	drawtype = "plantlike",
+	visual_scale = 1.0,
+	tiles = {"default_acacia_sapling.png"},
+	inventory_image = "default_acacia_sapling.png",
+	wield_image = "default_acacia_sapling.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
+	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
+	sounds = default.node_sound_leaves_defaults(),
+})
+
+minetest.register_node("default:aspen_tree", {
+	description = "Aspen Tree",
+	tiles = {"default_aspen_tree_top.png", "default_aspen_tree_top.png",
+		"default_aspen_tree.png"},
+	paramtype2 = "facedir",
+	is_ground_content = false,
+	groups = {tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
+	sounds = default.node_sound_wood_defaults(),
+
+	on_place = minetest.rotate_node
+})
+
+minetest.register_node("default:aspen_wood", {
+	description = "Aspen Wood Planks",
+	tiles = {"default_aspen_wood.png"},
+	is_ground_content = false,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wood = 1},
+	sounds = default.node_sound_wood_defaults(),
+})
+
+minetest.register_node("default:aspen_leaves", {
+	description = "Aspen Leaves",
+	drawtype = "allfaces_optional",
+	visual_scale = 1.3,
+	tiles = {"default_aspen_leaves.png"},
+	waving = 1,
+	paramtype = "light",
+	is_ground_content = false,
+	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"default:aspen_sapling"}, rarity = 20},
+			{items = {"default:aspen_leaves"}}
+		}
+	},
+	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
+})
+
+minetest.register_node("default:aspen_sapling", {
+	description = "Aspen Tree Sapling",
+	drawtype = "plantlike",
+	visual_scale = 1.0,
+	tiles = {"default_aspen_sapling.png"},
+	inventory_image = "default_aspen_sapling.png",
+	wield_image = "default_aspen_sapling.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.35, 0.3}
+	},
+	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
+		attached_node = 1, sapling = 1},
+	sounds = default.node_sound_leaves_defaults(),
+})
+
 --
 -- Ores
 --
@@ -1024,6 +1157,57 @@ for i=2,5 do
 	})
 end
 
+minetest.register_node("default:dry_grass_1", {
+	description = "Dry Grass",
+	drawtype = "plantlike",
+	waving = 1,
+	tiles = {"default_dry_grass_1.png"},
+	inventory_image = "default_dry_grass_3.png",
+	wield_image = "default_dry_grass_3.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	groups = {snappy = 3, flammable = 3, flora = 1, attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
+	},
+
+	on_place = function(itemstack, placer, pointed_thing)
+		-- place a random dry grass node
+		local stack = ItemStack("default:dry_grass_" .. math.random(1, 5))
+		local ret = minetest.item_place(stack, placer, pointed_thing)
+		return ItemStack("default:dry_grass_1 " ..
+			itemstack:get_count() - (1 - ret:get_count()))
+	end,
+})
+
+for i = 2, 5 do
+	minetest.register_node("default:dry_grass_" .. i, {
+		description = "Dry Grass",
+		drawtype = "plantlike",
+		waving = 1,
+		tiles = {"default_dry_grass_" .. i .. ".png"},
+		inventory_image = "default_dry_grass_" .. i .. ".png",
+		wield_image = "default_dry_grass_" .. i .. ".png",
+		paramtype = "light",
+		sunlight_propagates = true,
+		walkable = false,
+		buildable_to = true,
+		groups = {snappy = 3, flammable = 3, flora = 1,
+			attached_node = 1, not_in_creative_inventory=1},
+		drop = "default:dry_grass_1",
+		sounds = default.node_sound_leaves_defaults(),
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
+		},
+	})
+end
+
+
 --
 -- Liquids
 --
@@ -1114,6 +1298,101 @@ minetest.register_node("default:water_flowing", {
 	liquid_viscosity = 1,
 	post_effect_color = {a=64, r=100, g=100, b=200},
 	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
+})
+
+
+minetest.register_node("default:river_water_source", {
+	description = "River Water Source",
+	inventory_image = minetest.inventorycube("default_river_water.png"),
+	drawtype = "liquid",
+	tiles = {
+		{
+			name = "default_river_water_source_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.0,
+			},
+		},
+	},
+	special_tiles = {
+		{
+			name = "default_river_water_source_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.0,
+			},
+			backface_culling = false,
+		},
+	},
+	alpha = 160,
+	paramtype = "light",
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	is_ground_content = false,
+	drop = "",
+	drowning = 1,
+	liquidtype = "source",
+	liquid_alternative_flowing = "default:river_water_flowing",
+	liquid_alternative_source = "default:river_water_source",
+	liquid_viscosity = 1,
+	liquid_renewable = false,
+	liquid_range = 2,
+	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
+	groups = {water = 3, liquid = 3, puts_out_fire = 1},
+})
+
+minetest.register_node("default:river_water_flowing", {
+	description = "Flowing River Water",
+	inventory_image = minetest.inventorycube("default_river_water.png"),
+	drawtype = "flowingliquid",
+	tiles = {"default_river_water.png"},
+	special_tiles = {
+		{
+			name = "default_river_water_flowing_animated.png",
+			backface_culling = false,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 0.8,
+			},
+		},
+		{
+			name = "default_river_water_flowing_animated.png",
+			backface_culling = true,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 0.8,
+			},
+		},
+	},
+	alpha = 160,
+	paramtype = "light",
+	paramtype2 = "flowingliquid",
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	is_ground_content = false,
+	drop = "",
+	drowning = 1,
+	liquidtype = "flowing",
+	liquid_alternative_flowing = "default:river_water_flowing",
+	liquid_alternative_source = "default:river_water_source",
+	liquid_viscosity = 1,
+	liquid_renewable = false,
+	liquid_range = 2,
+	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
+	groups = {water = 3, liquid = 3, puts_out_fire = 1,
+		not_in_creative_inventory = 1},
 })
 
 

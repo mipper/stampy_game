@@ -69,3 +69,12 @@ minetest.register_alias("snow", "default:snow")
 
 -- Mese now comes in the form of blocks, ore, crystal and fragments
 minetest.register_alias("default:mese", "default:mese_block")
+
+
+-- Aliases for pine node names
+minetest.register_alias("default:pine_tree", "default:pinetree")
+minetest.register_alias("default:pine_wood", "default:pinewood")
+
+minetest.register_alias("flowers:mushroom_red", "farming:mushroom_red")
+minetest.register_alias("flowers:mushroom_brown", "farming:mushroom_brown")
+

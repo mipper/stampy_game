@@ -295,6 +295,9 @@ local function generate_building(pos, minp, maxp, data, param2_data, a, pr, extr
 	else
 		scm = binfo.scm
 	end
+	local isdes = minetest.find_node_near(pos, 20, {"default:desert_sand"})
+	local issav = minetest.find_node_near(pos, 20, {"default:dirt_with_dry_grass"})
+
 	scm = rotate(scm, pos.brotate)
 	for x = 0, pos.bsizex - 1 do
 	for y = 0, binfo.ysize - 1 do
@@ -310,7 +313,13 @@ local function generate_building(pos, minp, maxp, data, param2_data, a, pr, extr
 					param2_data[a:index(ax, ay, az)] = t.node.param2
 				end
 			elseif t ~= c_ignore then
-				data[a:index(ax, ay, az)] = t
+				if issav and t == minetest.get_content_id("default:wood") then
+					data[a:index(ax, ay, az)] = minetest.get_content_id("default:acacia_wood")
+				elseif isdes and t == minetest.get_content_id("default:cobble") then
+					data[a:index(ax, ay, az)] = minetest.get_content_id("default:sandstone")
+				else
+					data[a:index(ax, ay, az)] = t
+				end
 			end
 		end
 	end

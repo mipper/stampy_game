@@ -61,7 +61,7 @@ end)
 minetest.register_globalstep(function(dtime)
 	if weather == "rain" or weather == "snow" then
 		local time = minetest.get_timeofday()
-		if (time >= 0.23 and time <= 0.24) or (time >= 0.12 and time <= 0.13) or math.random(1, 100) == 1 then
+		if (time >= 0.23 and time <= 0.24) or (time >= 0.12 and time <= 0.13) or math.random(1, 1000) == 1 then
 			weather = "none"
 			save_weather()
 		end

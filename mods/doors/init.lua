@@ -584,3 +584,48 @@ minetest.register_craft({
 		{'', '', ''},
 	}
 })
+
+
+
+
+doors.register_trapdoor("doors:trapdoor_steel", {
+	description = "Steel Trapdoor",
+	inventory_image = "steel_trapdoor.png",
+	wield_image = "steel_trapdoor.png",
+	tile_front = "steel_trapdoor.png",
+	tile_side = "steel_trapdoor.png",
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	sounds = default.node_sound_wood_defaults(),
+	sound_open = "doors_door_open",
+	sound_close = "doors_door_close"
+})
+
+doors.register_trapdoor_top("doors:trapdoor_steel_top", {
+	description = "Steel Trapdoor (on top of block)",
+	inventory_image = "steel_trapdoor.png",
+	wield_image = "steel_trapdoor.png",
+	tile_front = "steel_trapdoor.png",
+	tile_side = "steel_trapdoor.png",
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	sounds = default.node_sound_wood_defaults(),
+	sound_open = "doors_door_open",
+	sound_close = "doors_door_close"
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "doors:trapdoor_steel_top",
+	recipe = {"doors:trapdoor_steel", "default:stick"},
+})
+
+minetest.register_craft({
+	output = 'doors:trapdoor_steel 2',
+	recipe = {
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		{'', '', ''},
+	}
+})
+
+
+

@@ -418,6 +418,25 @@ function doors.register_trapdoor(name, def)
 		end
 		minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
 	end
+	def.mesecons = {effector = {
+		rules = lightstone_rules,
+		action_on  = function(pos, node)
+				local newname = name_opened
+				local sound = def.sound_open
+				if newname ~= node.name then
+					minetest.sound_play(sound, {pos = pos, gain = 0.3, max_hear_distance = 10})
+				end
+				minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
+				end,
+		action_off  = function(pos, node)
+				local newname = name_closed
+				local sound = def.sound_close
+				if newname ~= node.name then
+					minetest.sound_play(sound, {pos = pos, gain = 0.3, max_hear_distance = 10})
+				end
+				minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
+				end,
+	}}
 
 	-- Common trapdoor configuration
 	def.drawtype = "nodebox"
@@ -469,6 +488,25 @@ function doors.register_trapdoor_top(name, def)
 		end
 		minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
 	end
+	def.mesecons = {effector = {
+		rules = lightstone_rules,
+		action_on  = function(pos, node)
+				local newname = name_opened
+				local sound = def.sound_open
+				if newname ~= node.name then
+					minetest.sound_play(sound, {pos = pos, gain = 0.3, max_hear_distance = 10})
+				end
+				minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
+				end,
+		action_off  = function(pos, node)
+				local newname = name_closed
+				local sound = def.sound_close
+				if newname ~= node.name then
+					minetest.sound_play(sound, {pos = pos, gain = 0.3, max_hear_distance = 10})
+				end
+				minetest.set_node(pos, {name = newname, param1 = node.param1, param2 = node.param2})
+				end,
+	}}
 
 	-- Common trapdoor configuration
 	def.drawtype = "nodebox"

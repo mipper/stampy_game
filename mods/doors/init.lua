@@ -442,6 +442,7 @@ function doors.register_trapdoor(name, def)
 	def.drawtype = "nodebox"
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
+	def.climbable = true
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
@@ -512,6 +513,7 @@ function doors.register_trapdoor_top(name, def)
 	def.drawtype = "nodebox"
 	def.paramtype = "light"
 	def.paramtype2 = "facedir"
+	def.climbable = true
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)

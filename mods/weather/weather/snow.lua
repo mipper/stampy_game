@@ -16,32 +16,27 @@ minetest.register_globalstep(function(dtime)
 		local desnode = {"default:desert_sand", "default:desert_stone", "default:jungletree", "default:jungleleaves", "default:junglegrass", "moreblocks:rope"}
 
 		-- Make sure player is not in a cave/house...
-		if minetest.find_node_near(ppos, 14, desnode) or (minetest.get_node_light(ppos, 0.5) and minetest.get_node_light(ppos, 0.5) < 12) or find_glass(ppos) then return end
+		if minetest.find_node_near(ppos, 14, desnode) or (minetest.get_node_light(ppos, 0.5) and minetest.get_node_light(ppos, 0.5) < 3) or ppos.y < -5 then return end
 
-		local minp = addvectors(ppos, {x=-9, y=7, z=-9})
-		local maxp = addvectors(ppos, {x= 9, y=7, z= 9})
+		-- from https://github.com/xeranas/weather_pack:
 
-		local minp_deep = addvectors(ppos, {x=-10, y=3.2, z=-10})
-		local maxp_deep = addvectors(ppos, {x= 10, y=2.6, z= 10})
-
-		local vel = {x=0, y=   -0.5, z=0}
-		local acc = {x=0, y=   -0.5, z=0}
-
-		minetest.add_particlespawner(5, 0.5,
-			minp, maxp,
-			vel, vel,
-			acc, acc,
-			5, 5,
-			25, 25,
-			false, "weather_snow.png", player:get_player_name())
-
-		minetest.add_particlespawner(4, 0.5,
-			minp_deep, maxp_deep,
-			vel, vel,
-			acc, acc,
-			4, 4,
-			25, 25,
-			false, "weather_snow.png", player:get_player_name())
+		for i=25, 1,-1 do
+			local random_pos_x, random_pos_y, random_pos_z = get_random_pos_by_player_look_dir(player)
+			if minetest.get_node_light({x=random_pos_x, y=random_pos_y, z=random_pos_z}, 0.5) == 15 then
+				minetest.add_particle({
+        			pos = {x=random_pos_x, y=random_pos_y, z=random_pos_z},
+				velocity = {x = math.random(-1,-0.5), y = math.random(-2,-1), z = math.random(-1,-0.5)},
+				acceleration = {x = math.random(-1,-0.5), y=-0.5, z = math.random(-1,-0.5)},
+				expirationtime = 0.6,
+				size = math.random(0.5, 1),
+				collisiondetection = true,
+				collision_removal = true,
+				vertical = true,
+				texture = "snow_snowflake"..math.random(1, 2)..".png",
+				playername = player:get_player_name()
+				})
+			end
+		end
 	end
 end)
 

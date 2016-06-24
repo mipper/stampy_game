@@ -77,6 +77,41 @@ minetest.register_globalstep(function(dtime)
 	end
 end)
 
+-- from https://github.com/xeranas/weather_pack:
+
+-- trying to locate position for particles by player look direction for performance reason.
+-- it is costly to generate many particles around player so goal is focus mainly on front view.  
+get_random_pos_by_player_look_dir = function(player)
+  local look_dir = player:get_look_dir()
+  local player_pos = player:getpos()
+
+  local random_pos_x = 0
+  local random_pos_y = 0
+  local random_pos_z = 0
+
+  if look_dir.x > 0 then
+    if look_dir.z > 0 then
+      random_pos_x = math.random() + math.random(player_pos.x - 2.5, player_pos.x + 10)
+      random_pos_z = math.random() + math.random(player_pos.z - 2.5, player_pos.z + 10)
+    else
+      random_pos_x = math.random() + math.random(player_pos.x - 2.5, player_pos.x + 10)
+      random_pos_z = math.random() + math.random(player_pos.z - 10, player_pos.z + 2.5)
+    end
+  else
+    if look_dir.z > 0 then
+      random_pos_x = math.random() + math.random(player_pos.x - 10, player_pos.x + 2.5)
+      random_pos_z = math.random() + math.random(player_pos.z - 2.5, player_pos.z + 10)
+    else
+      random_pos_x = math.random() + math.random(player_pos.x - 10, player_pos.x + 2.5)
+      random_pos_z = math.random() + math.random(player_pos.z - 10, player_pos.z + 2.5)
+    end
+  end
+
+  random_pos_y = math.random() + math.random(player_pos.y + 1, player_pos.y + 7)
+  return random_pos_x, random_pos_y, random_pos_z
+end
+
+
 dofile(minetest.get_modpath("weather").."/rain.lua")
 dofile(minetest.get_modpath("weather").."/snow.lua")
 dofile(minetest.get_modpath("weather").."/command.lua")

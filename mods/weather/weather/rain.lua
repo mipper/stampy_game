@@ -50,20 +50,26 @@ minetest.register_globalstep(function(dtime)
 			end
 			rain_inside[name] = inside
 		end
-		if inside then return end
-		local minp = addvectors(ppos, {x=-9, y=7, z=-9})
-		local maxp = addvectors(ppos, {x= 9, y=7, z= 9})
 
-		local vel = {x=0, y=   -4, z=0}
-		local acc = {x=0, y=-9.81, z=0}
+		-- from https://github.com/xeranas/weather_pack:
 
-		minetest.add_particlespawner({amount=25, time=0.5,
-			minpos=minp, maxpos=maxp,
-			minvel=vel, maxvel=vel,
-			minacc=acc, maxacc=acc,
-			minexptime=0.8, maxexptime=0.8,
-			minsize=25, maxsize=25,
-			collisiondetection=false, vertical=true, texture="weather_rain.png", player=player:get_player_name()})
+		for i=35, 1,-1 do
+			local random_pos_x, random_pos_y, random_pos_z = get_random_pos_by_player_look_dir(player)
+			if minetest.get_node_light({x=random_pos_x, y=random_pos_y, z=random_pos_z}, 0.5) == 15 then
+				minetest.add_particle({
+				pos = {x=random_pos_x, y=random_pos_y, z=random_pos_z},
+				velocity = {x=0, y=-10, z=0},
+				acceleration = {x=0, y=-30, z=0},
+				expirationtime = 0.2,
+				size = math.random(0.5, 3),
+				collisiondetection = true,
+				collision_removal = true,
+				vertical = true,
+				texture = "rain_raindrop_"..math.random(1, 3)..".png",
+				playername = player:get_player_name()
+				})
+			end
+		end
 	end
 end)
 

@@ -14,7 +14,7 @@ SPRINT_JUMP = 1.1
 SPRINT_STAMINA = 20
 SPRINT_TIMEOUT = 0.5 --Only used if SPRINT_METHOD = 0
 
-
+--[[
 if SPRINT_METHOD == 0 then
 	dofile(minetest.get_modpath("sprint") .. "/wsprint.lua")
 elseif SPRINT_METHOD == 1 then
@@ -23,3 +23,5 @@ else
 	minetest.log("error", "Sprint Mod - SPRINT_METHOD is not set properly, using e to sprint")
 	dofile(minetest.get_modpath("sprint") .. "/esprint.lua")
 end
+]]
+

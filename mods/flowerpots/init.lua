@@ -48,8 +48,8 @@ minetest.register_node("flowerpots:pot", {
 minetest.register_craft({
 	output = "flowerpots:pot",
 	recipe = {
-		{"default:clay_lump", "default:dirt", "default:clay_lump"},
-		{"", "default:clay_lump", ""}
+		{"default:clay_brick", "",                   "default:clay_brick"},
+		{"",                   "default:clay_brick", ""}
 	}
 })
 

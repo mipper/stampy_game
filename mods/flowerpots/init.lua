@@ -256,9 +256,9 @@ if minetest.get_modpath("flowers") then
 			{{-0.1875, -0.5, -0.1875, 0.1875, -0.3125, 0.1875}, {-0.25, -0.3125, -0.25, 0.25, 0.1125, 0.25}})
 	flowerpots.add_plant(1, "dandelion_white", "White Dandelion", "flowers:dandelion_white", "flowers_dandelion_white.png",
 			{{-0.1875, -0.5, -0.1875, 0.1875, -0.3125, 0.1875}, {-0.25, -0.3125, -0.25, 0.25, 0.1125, 0.25}})
-	flowerpots.add_plant(1, "mushroom_red", "Red Mushroom", "flowers:mushroom_red", "flowers_mushroom_red.png",
+	flowerpots.add_plant(1, "mushroom_red", "Red Mushroom", "farming:mushroom_red", "farming_mushroom_red.png",
 			{{-0.1875, -0.5, -0.1875, 0.1875, -0.3125, 0.1875}, {-0.25, -0.3125, -0.25, 0.25, 0.3125, 0.25}})
-	flowerpots.add_plant(1, "mushroom_brown", "Brown Mushroom", "flowers:mushroom_brown", "flowers_mushroom_brown.png",
+	flowerpots.add_plant(1, "mushroom_brown", "Brown Mushroom", "farming:mushroom_brown", "farming_mushroom_brown.png",
 			{{-0.1875, -0.5, -0.1875, 0.1875, -0.3125, 0.1875}, {-0.25, -0.3125, -0.25, 0.25, 0.3125, 0.25}})
 	--flowerpots.add_plant_with_on_place(6, "waterlily", "Waterlily", "flowers:waterlily", {"flowers_waterlily.png", "flowers_waterlily.png^[transformFY"})
 end

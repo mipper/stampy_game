@@ -202,7 +202,7 @@ end
 
 function flowerpots.add_plant_with_on_place(t, name, desc, plant, tiles, slbox)
 	flowerpots.add_plant(t, name, desc, plant, tiles, slbox)
-	print(name)
+	--print(name)
 	flowerpots.override_on_place(plant)
 end
 

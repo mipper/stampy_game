@@ -52,22 +52,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:wall_cobble 6',
-	recipe = {
-		{'default:cobble', 'default:cobble', 'default:cobble'},
-		{'default:cobble', 'default:cobble', 'default:cobble'},
-	}
-})
-
-minetest.register_craft({
-	output = 'default:wall_mossycobble 6',
-	recipe = {
-		{'default:mossycobble', 'default:mossycobble', 'default:mossycobble'},
-		{'default:mossycobble', 'default:mossycobble', 'default:mossycobble'},
-	}
-})
-
-minetest.register_craft({
 	output = 'default:sign_wall',
 	recipe = {
 		{'group:wood', 'group:wood', 'group:wood'},

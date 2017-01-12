@@ -92,18 +92,33 @@ default.cool_lava_source = function(pos)
 	minetest.sound_play("default_cool_lava", {pos = pos,  gain = 0.25})
 end
 
-default.cool_lava_flowing = function(pos)
+default.cool_lava_flowing1 = function(pos)
 	minetest.set_node(pos, {name="default:cobble"})
+	minetest.sound_play("default_cool_lava", {pos = pos,  gain = 0.25})
+end
+
+default.cool_lava_flowing2 = function(pos)
+	minetest.set_node(pos, {name="default:stone"})
 	minetest.sound_play("default_cool_lava", {pos = pos,  gain = 0.25})
 end
 
 minetest.register_abm({
 	nodenames = {"default:lava_flowing"},
-	neighbors = {"group:water"},
+	neighbors = {"default:water_flowing"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		default.cool_lava_flowing(pos, node, active_object_count, active_object_count_wider)
+		default.cool_lava_flowing1(pos, node, active_object_count, active_object_count_wider)
+	end,
+})
+
+minetest.register_abm({
+	nodenames = {"default:lava_flowing"},
+	neighbors = {"default:water_source"},
+	interval = 1,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		default.cool_lava_flowing2(pos, node, active_object_count, active_object_count_wider)
 	end,
 })
 

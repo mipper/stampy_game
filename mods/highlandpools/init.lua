@@ -73,6 +73,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local c_watsour = ""
 
 	local c_grass = minetest.get_content_id("default:dirt_with_grass")
+	local c_drygrass = minetest.get_content_id("default:dirt_with_dry_grass")
 	local c_tree = minetest.get_content_id("default:tree")
 	local c_apple = minetest.get_content_id("default:apple")
 	local c_leaves = minetest.get_content_id("default:leaves")
@@ -91,7 +92,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				break
 			elseif c_node == c_watsour then
 				break
-			elseif c_node == c_grass then -- water lake
+			elseif c_node == c_grass or c_node == c_drygrass then -- water lake
 				yasurf = y + 1
 				c_watsour = c_watersour
 				break

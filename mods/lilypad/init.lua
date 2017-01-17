@@ -41,4 +41,5 @@ minetest.register_node("lilypad:waterlily", {
 		end
 })
 
+minetest.register_alias("flowers:waterlily", "lilypad:waterlily")
 

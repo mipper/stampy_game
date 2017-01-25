@@ -35,11 +35,25 @@ local function add_fire(pos, duration, offset)
 		duration = 1.1
 	end
 	pos.y = pos.y+0.19
-	minetest.add_particle(pos, null, null, duration,
-   					1.5, true, "torches_fire"..tostring(math.random(1,2)) ..".png")
+	minetest.add_particle({
+			pos = pos,
+			velocity = {x=0, y=0, z=0},
+			acceleration = {x=0, y=0, z=0},
+			expirationtime = duration,
+			size = 1.5,
+			collisiondetection = true,
+			texture = "torches_fire"..tostring(math.random(1,2)) ..".png",
+			})
 	pos.y = pos.y +0.01
-	minetest.add_particle(pos, null, null, duration-0.3,
-   					1.5, true, "torches_fire"..tostring(math.random(1,2)) ..".png")
+	minetest.add_particle({
+			pos = pos,
+			velocity = {x=0, y=0, z=0},
+			acceleration = {x=0, y=0, z=0},
+			expirationtime = duration - .3,
+			size = 1.5,
+			collisiondetection = true,
+			texture = "torches_fire"..tostring(math.random(1,2)) ..".png",
+			})
 	if math.random() < .1 then
 		soot_def.pos = pos
 		soot_def.acc = {x=math.random(-20,20)/80, y=3, z=math.random(-20,20)/80}

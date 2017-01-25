@@ -95,13 +95,22 @@ local FISHING_BOBBER_ENTITY={
 					pos = self.object:getpos(),
 					gain = 0.5,
 				})
-				minetest.add_particlespawner(30, 0.5,   -- for how long (?)             -- Particles on splash
-					{x=pos.x,y=pos.y-0.0625,z=pos.z}, {x=pos.x,y=pos.y,z=pos.z}, -- position min, pos max
-					{x=-2,y=-0.0625,z=-2}, {x=2,y=3,z=2}, -- velocity min, vel max
-					{x=0,y=-9.8,z=0}, {x=0,y=-9.8,z=0},
-					0.3, 1.2,
-					0.25, 0.5,  -- min size, max size
-					false, "default_snow.png")
+				minetest.add_particlespawner({
+					amount = 30,
+					time = .5,
+					minpos = {x=pos.x,y=pos.y-0.0625,z=pos.z},
+					maxpos = pos,
+					minvel = {x=-2,y=-0.0625,z=-2},
+					maxvel = {x=2,y=3,z=2},
+					minacc = {x=0,y=-9.8,z=0},
+					maxacc = {x=0,y=-9.8,z=0},
+					minexptime = 0.3,
+					maxexptime = 1.2,
+					minsize = .25,
+					maxsize = .5,
+					collisiondetection = false,
+					texture = "default_snow.png",
+				})
 				self.object:moveto({x=pos.x,y=pos.y-0.0625,z=pos.z})
 			elseif self.object:get_hp() == 295 then
 				self.object:moveto({x=pos.x,y=pos.y+0.0625,z=pos.z})

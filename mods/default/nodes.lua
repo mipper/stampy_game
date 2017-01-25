@@ -1735,22 +1735,22 @@ minetest.register_abm({
 	interval = 1,
 	chance = 2,
 	action = function(pos, node)
-		minetest.add_particlespawner(
-			16, --amount
-			4, --time
-			{x=pos.x-0.5, y=pos.y-0.5, z=pos.z-0.5}, --minpos
-			{x=pos.x+0.5, y=pos.y+0.5, z=pos.z+0.5}, --maxpos
-			{x=-0.5, y=-0.5, z=-0.5}, --minvel
-			{x=0.5, y=0.5, z=0.5}, --maxvel
-			{x=0,y=0,z=0}, --minacc
-			{x=0,y=0,z=0}, --maxacc
-			0.5, --minexptime
-			3, --maxexptime
-			1, --minsize
-			2, --maxsize
-			false, --collisiondetection
-			"nether_particle.png" --texture
-		)
+		minetest.add_particlespawner({
+			amount = 16,
+			time = 4,
+			minpos = {x=pos.x-0.5, y=pos.y-0.5, z=pos.z-0.5},
+			maxpos = {x=pos.x+0.5, y=pos.y+0.5, z=pos.z+0.5},
+			minvel = {x=-0.5, y=-0.5, z=-0.5},
+			maxvel = {x=0.5, y=0.5, z=0.5},
+			minacc = {x=0,y=0,z=0},
+			maxacc = {x=0,y=0,z=0},
+			minexptime = 0.5,
+			maxexptime = 3,
+			minsize = 1,
+			maxsize = 2,
+			collisiondetection = false,
+			texture = "nether_particle.png",
+		})
 	end,
 })
 

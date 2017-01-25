@@ -373,11 +373,19 @@ minetest.register_abm({
 	interval = 1,
 	chance = 200,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-			if active_object_count_wider < 30 then
-				minetest.add_particle({x=pos.x, y=pos.y+.5, z=pos.z},
-						{x=4-math.random(1,40)/5, y=4+math.random(1,40)/20, z=4-math.random(1,40)/5},
-						{x=0, y=-10, z=0}, 2,
-   						1.2, true, "default_lava_particle.png")
+			for  _,object in ipairs(minetest.get_objects_inside_radius(pos, 30)) do
+				if object:is_player() then
+					minetest.add_particle({
+							pos = {x=pos.x, y=pos.y+.5, z=pos.z},
+							velocity = {x=4-math.random(1,40)/5, y=4+math.random(1,40)/20, z=4-math.random(1,40)/5},
+							acceleration = {x=0, y=-10, z=0},
+							expirationtime = 2,
+	   						size = 1.2,
+							collisiondetection = true,
+							texture = "default_lava_particle.png",
+							})
+					return
+				end
 			end
 end})
 

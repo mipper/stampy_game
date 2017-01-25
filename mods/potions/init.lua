@@ -88,27 +88,51 @@ function potions.register_potion(iname, color, exptime, action, expaction)
   			 itemstack:take_item()
 			--Particle Code
 			--Potions Particles
-			minetest.add_particlespawner(30, 0.2,
-				pointed_thing.above, pointed_thing.above,
-				{x=1, y= 2, z=1}, {x=-1, y= 2, z=-1},
-				{x=0.2, y=0.2, z=0.2}, {x=-0.2, y=0.5, z=-0.2},
-				5, 10,
-				1, 3,
-				false, "potions_"..color..".png")
+			minetest.add_particlespawner({
+				amount = 30,
+				time = .2,
+				minpos = pointed_thing.above,
+				maxpos = pointed_thing.above,
+				minvel = {x=1, y= 2, z=1},
+				maxvel = {x=-1, y= 2, z=-1},
+				minacc = {x=0.2, y=0.2, z=0.2},
+				maxacc = {x=-0.2, y=0.5, z=-0.2},
+				minexptime = 5,
+				maxexptime = 10,
+				minsize = 1,
+				maxsize = 3,
+				collisiondetection = false,
+				texture = "potions_"..color..".png",
+			})
   			 
   			 --Shatter Particles
-  			 minetest.add_particlespawner(40, 0.1,
-				pointed_thing.above, pointed_thing.above,
-				{x=2, y=0.2, z=2}, {x=-2, y=0.5, z=-2},
-				{x=0, y=-6, z=0}, {x=0, y=-10, z=0},
-				0.5, 2,
-				0.2, 5,
-				true, "potions_shatter.png")
+			minetest.add_particlespawner({
+				amount = 40,
+				time = .1,
+				minpos = pointed_thing.above,
+				maxpos = pointed_thing.above,
+				minvel = {x=2, y=0.2, z=2},
+				maxvel = {x=-2, y=0.5, z=-2},
+				minacc = {x=0, y=-6, z=0},
+				maxacc = {x=0, y=-10, z=0},
+				minexptime = .5,
+				maxexptime = 2,
+				minsize = .2,
+				maxsize = 5,
+				collisiondetection = true,
+				texture = "potions_shatter.png",
+			})
 				
-				local dir = Vec3(user:get_look_dir()) *20
-				minetest.add_particle(
-				{x=user:getpos().x, y=user:getpos().y+1.5, z=user:getpos().z}, {x=dir.x, y=dir.y, z=dir.z}, {x=0, y=-10, z=0}, 0.2,
-					6, false, "potions_bottle.png^potions_"..color..".png")
+			local dir = Vec3(user:get_look_dir()) *20
+			minetest.add_particle({
+					pos = {x=user:getpos().x, y=user:getpos().y+1.5, z=user:getpos().z},
+					velocity = {x=dir.x, y=dir.y, z=dir.z},
+					acceleration = {x=0, y=-10, z=0},
+					expirationtime = .2,
+					size = 6,
+					collisiondetection = false,
+					texture = "potions_bottle.png^potions_"..color..".png",
+					})
 			return itemstack
 			
 		end,
@@ -122,17 +146,32 @@ minetest.register_craftitem("potions:glass_bottle", {
 		on_place = function(itemstack, user, pointed_thing)
 			itemstack:take_item()
   			 --Shatter Particles
-  			 minetest.add_particlespawner(40, 0.1,
-   		 pointed_thing.above, pointed_thing.above,
-   		 {x=2, y=0.2, z=2}, {x=-2, y=0.5, z=-2},
-   		 {x=0, y=-6, z=0}, {x=0, y=-10, z=0},
-   		 0.5, 2,
-   		 0.2, 5,
-  			 true, "potions_shatter.png")
-		local dir = Vec3(user:get_look_dir()) *20
-				minetest.add_particle(
-				{x=user:getpos().x, y=user:getpos().y+1.5, z=user:getpos().z}, {x=dir.x, y=dir.y, z=dir.z}, {x=0, y=-10, z=0}, 0.2,
-					6, false, "potions_bottle.png")
+			minetest.add_particlespawner({
+				amount = 40,
+				time = .1,
+				minpos = pointed_thing.above,
+				maxpos = pointed_thing.above,
+				minvel = {x=2, y=0.2, z=2},
+				maxvel = {x=-2, y=0.5, z=-2},
+				minacc = {x=0, y=-6, z=0},
+				maxacc = {x=0, y=-10, z=0},
+				minexptime = .5,
+				maxexptime = 2,
+				minsize = .2,
+				maxsize = 5,
+				collisiondetection = true,
+				texture = "potions_shatter.png",
+			})
+			local dir = Vec3(user:get_look_dir()) *20
+			minetest.add_particle({
+					pos = {x=user:getpos().x, y=user:getpos().y+1.5, z=user:getpos().z},
+					velocity = {x=dir.x, y=dir.y, z=dir.z},
+					acceleration = {x=0, y=-10, z=0},
+					expirationtime = .2,
+					size = 6,
+					collisiondetection = false,
+					texture = "potions_bottle.png",
+					})
 			return itemstack
 		end,
 })

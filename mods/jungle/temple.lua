@@ -98,11 +98,11 @@ local on_timer = function (pos)
 			local p22 = {x=pos.x, y=pos.y+1, z=pos.z+i}
 			if minetest.get_node(p11).name == "moremesecons_dispenser:dispenser" then
 				mesecon.receptor_on(p1)
-				nodeupdate(p11)
+				-- nodeupdate(p11)
 			end
 			if minetest.get_node(p22).name == "moremesecons_dispenser:dispenser" then
 				mesecon.receptor_on(p2)
-				nodeupdate(p22)
+				-- nodeupdate(p22)
 			end
 		end
 		minetest.after(3, function()
@@ -118,11 +118,11 @@ local on_timer = function (pos)
 			local p22 = {x=pos.x, y=pos.y+1, z=pos.z+i}
 			if minetest.get_node(p11).name == "moremesecons_dispenser:dispenser" then
 				mesecon.receptor_off(p1)
-				nodeupdate(p11)
+				-- nodeupdate(p11)
 			end
 			if minetest.get_node(p22).name == "moremesecons_dispenser:dispenser" then
 				mesecon.receptor_off(p2)
-				nodeupdate(p22)
+				-- nodeupdate(p22)
 			end
 		end
 	end

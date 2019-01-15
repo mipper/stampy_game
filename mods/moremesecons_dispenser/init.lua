@@ -27,7 +27,7 @@ minetest.register_node("moremesecons_dispenser:dropper", {
 			local dir = minetest.facedir_to_dir(node.param2)
 			local pos_under, pos_above = {x=pos.x - dir.x, y=pos.y - dir.y, z=pos.z - dir.z},
 								{x=pos.x - 2*dir.x, y=pos.y - 2*dir.y, z=pos.z - 2*dir.z}
-			nodeupdate(pos)
+			-- nodeupdate(pos)
 			
 			minetest.sound_play("click3", {pos = pos})
 			local inv = minetest.get_meta(pos):get_inventory()
@@ -78,7 +78,7 @@ minetest.register_node("moremesecons_dispenser:dispenser", {
 			local dir = minetest.facedir_to_dir(node.param2)
 			local pos_under, pos_above = {x=pos.x - dir.x, y=pos.y - dir.y, z=pos.z - dir.z},
 								{x=pos.x - 2*dir.x, y=pos.y - 2*dir.y, z=pos.z - 2*dir.z}
-			nodeupdate(pos)
+			-- nodeupdate(pos)
 			
 			local inv = minetest.get_meta(pos):get_inventory()
 			if inv:is_empty("main") then return end

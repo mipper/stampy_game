@@ -41,7 +41,7 @@ function ocean.make_room(pos)
 				minetest.set_node({x=loch.x+ix,y=loch.y-iy,z=loch.z+iz}, {name=replace(n_str,iy)})
 				if n_str == "a" and math.random(1,30) > 29 then
 					minetest.set_node({x=loch.x+ix,y=loch.y-iy,z=loch.z+iz}, {name="sponge:sponge_wet"})
-				end
+				wend
 			end
 		end
 	end

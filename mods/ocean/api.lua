@@ -1,3 +1,5 @@
+local damage_enabled = minetest.settings:get_bool("enable_damage")
+
 local function near_floor(pos)
 	local n = minetest.get_node_or_nil({x=pos.x,y=pos.y-2,z=pos.z})
 	if n and n.name and n.name ~= "default:water_source" and pos.y < 0 then
@@ -8,7 +10,7 @@ local function near_floor(pos)
 end
 
 function ocean:register_guardian (name, def)
-	
+
 	local defbox = def.size/2
 	minetest.register_entity(name,{
 		initial_properties = {
@@ -29,12 +31,12 @@ function ocean:register_guardian (name, def)
 
 		-- ON ACTIVATE --
 		on_activate = function(self)
-			self.object:setacceleration({x = 0, y = 0, z = 0})
+			self.object:set_acceleration({x = 0, y = 0, z = 0})
 		end,
 
 		-- ON PUNCH --
 		on_punch = function(self)
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
 			--minetest.sound_play(def.sounds.damage.file, {pos = pos,gain = (def.sounds.damage.gain or 0.25)})
 			--effect(pos, 20*math.random(), def.blood)
 			check_for_guardian_death (self,def)
@@ -44,7 +46,8 @@ function ocean:register_guardian (name, def)
 		on_step = function(self, dtime)
 
 			self.timer2 = self.timer2 + dtime
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
+         local attack_player = true
 
 			if self.status == 2 and (self.timer2 >= 0.5) then
 
@@ -55,8 +58,7 @@ function ocean:register_guardian (name, def)
 					self.object:remove()
 				end
 				local objs = minetest.get_objects_inside_radius(pos, 24)
-				local ppos = {}
-				local attack_player
+				local ppos = {x=1,y=1,z=1}
 				self.found_target = false
 				self.yaw = math.random() * 360
 				for i, obj in ipairs(objs) do
@@ -69,22 +71,22 @@ function ocean:register_guardian (name, def)
 						and obj:get_luaentity()
 						and (obj:get_luaentity().name == "ocean:guardian") then
 							self.found_target = obj
-							attack_player = false
+							ocean.attack_player = false
 					end
 				end
 				if self.found_target  ~= false then
-					local target = self.found_target:getpos()
+					local target = self.found_target:get_pos()
 					ppos = {x = target.x - pos.x, y = target.y - pos.y, z = target.z - pos.z}
 					if ppos.x ~= 0 and ppos.z ~= 0 then --found itself as an object
 						self.yaw = math.abs(math.atan(ppos.x/ppos.z) - math.pi / 2)
 						if ppos.z < 0 then self.yaw = self.yaw + math.pi end
 						--self.found_target = true
-					end				
+					end
 				end
 
-				self.object:setyaw(self.yaw)
+				self.object:set_yaw(self.yaw)
 				self.object:set_properties({automatic_rotate = 0})
-				if ppos.y > 0 and pos.y < -1 then
+				if ppos.y > 0 and ppos.y < -1 then
 					self.direction = {x = math.cos(self.yaw)*2, y = .6, z = math.sin(self.yaw)*2}
 				else
 					self.direction = {x = math.cos(self.yaw)*2, y = -.3, z = math.sin(self.yaw)*2}
@@ -97,23 +99,23 @@ function ocean:register_guardian (name, def)
 
 			if self.timer2 > 1.3 then
 
-				self.object:setvelocity(self.direction)
+				self.object:set_velocity(self.direction)
 				if near_floor(pos) then
-					self.object:setvelocity({x = self.direction.x/5, y = 2, z = self.direction.z/5})
-					self.object:setacceleration({x = self.direction.x/5, y = 3, z = self.direction.z/5})
+					self.object:set_velocity({x = self.direction.x/5, y = 2, z = self.direction.z/5})
+					self.object:set_acceleration({x = self.direction.x/5, y = 3, z = self.direction.z/5})
 				else
-					self.object:setacceleration({x = self.direction.x/5, y = self.direction.y/5, z = self.direction.z/5})
+					self.object:set_acceleration({x = self.direction.x/5, y = self.direction.y/5, z = self.direction.z/5})
 				end
 				if too_close(self, pos) and not attack_player then
-					self.object:setyaw(self.yaw + math.pi)
-					self.object:setvelocity({x = -self.direction.x/5, y = -self.direction.y/5, z = -self.direction.z/5})
-					self.object:setacceleration({x = math.random(-20,20)/20, y = math.random(-5,5)/20, z = math.random(-20,20)/20})
+					self.object:set_yaw(self.yaw + math.pi)
+					self.object:set_velocity({x = -self.direction.x/5, y = -self.direction.y/5, z = -self.direction.z/5})
+					self.object:set_acceleration({x = math.random(-20,20)/20, y = math.random(-5,5)/20, z = math.random(-20,20)/20})
 				end
 				self.timer2 = 0
 			end
 
 			if (self.timer >= 6
-				or (self.timer >= 1 
+				or (self.timer >= 1
 				and self.found_target ~= false)) then
 
 				self.timer = 0
@@ -176,7 +178,7 @@ function check_for_guardian_death(self,def)
 
 	if self.object:get_hp() > 0 then return end
 
-	local pos = self.object:getpos()
+	local pos = self.object:get_pos()
 	pos.y = pos.y + 0.5
 
 	--if (def.sounds.death.file ~= nil ) then minetest.sound_play(def.sounds.death.file, {pos = pos,gain = (def.sounds.death.gain or 0.25)}) end
@@ -186,7 +188,7 @@ function check_for_guardian_death(self,def)
 		if math.random(1, drop.chance) == 1 then
 			obj = minetest.add_item(pos, ItemStack(drop.name.." "..math.random(drop.min, drop.max)))
 			if obj then
-				obj:setvelocity({x=math.random(-1,1), y=5, z=math.random(-1,1)})
+				obj:set_velocity({x=math.random(-1,1), y=5, z=math.random(-1,1)})
 			end
 		end
 	end
@@ -195,7 +197,7 @@ end
 -- check minimum distance to players
 function ocean:check_player_dist(pos, node)
 	for _,player in pairs(minetest.get_connected_players()) do
-		local p = player:getpos()
+		local p = player:get_pos()
 		local dist = ((p.x-pos.x)^2 + (p.y-pos.y)^2 + (p.z-pos.z)^2)^0.5
 		if dist < 24 then
 			return 1
@@ -207,7 +209,7 @@ end
 -- spawn guardian
 ocean.spawn = {}
 function ocean:register_spawn(name, nodes, neighbors, max_light, min_light, chance, active_object_count, max_height)
-	ocean.spawn[name] = true	
+	ocean.spawn[name] = true
 	minetest.register_abm({
 		nodenames = nodes,
 		neighbors = neighbors,
@@ -251,7 +253,7 @@ function ocean:register_spawn(name, nodes, neighbors, max_light, min_light, chan
 			nod = minetest.get_node_or_nil(pos)
 			if not nod or not minetest.registered_nodes[nod.name]
 			or minetest.registered_nodes[nod.name].walkable == true then
-				return 
+				return
 			end
 
 			-- spawn mob half block higher
@@ -261,4 +263,3 @@ function ocean:register_spawn(name, nodes, neighbors, max_light, min_light, chan
 		end
 	})
 end
-

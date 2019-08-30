@@ -30,7 +30,7 @@ minetest.register_node("ocean:prismarine_bricks", {
 minetest.register_node("ocean:sea_lantern", {
 	description = "Sea Lantern",
 	tiles = {"sea_lantern.png"},
-	light_source = 15,
+	light_source = 14,
 	groups = {cracky=3,oddly_breakable_by_hand=3},
 	sounds = default.node_sound_glass_defaults(),
 })
@@ -151,16 +151,16 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local cnt = 0
 
 	local perlin1 = minetest.get_perlin(perl1.SEED1, perl1.OCTA1, perl1.PERS1, perl1.SCAL1)
-	local noise1 = perlin1:get2d({x=minp.x,y=minp.y})--,z=minp.z})
-		
+	local noise1 = perlin1:get_2d({x=minp.x,y=minp.y})--,z=minp.z})
+
 	if noise1 < -.2 then
 	 local mpos = {x=math.random(minp.x,maxp.x), y=math.random(minp.y,maxp.y), z=math.random(minp.z,maxp.z)}
 
-		local p2 = minetest.find_node_near(mpos, 25, {"default:dirt","default:sand","default:desert_sand","default:stone"})	
+		local p2 = minetest.find_node_near(mpos, 25, {"default:dirt","default:sand","default:desert_sand","default:stone"})
 		while p2 == nil and cnt < 5 do
 			cnt = cnt+1
 			mpos = {x=math.random(minp.x,maxp.x), y=math.random(minp.y,maxp.y), z=math.random(minp.z,maxp.z)}
-			p2 = minetest.find_node_near(mpos, 25, {"default:dirt","default:sand","default:desert_sand","default:stone"})	
+			p2 = minetest.find_node_near(mpos, 25, {"default:dirt","default:sand","default:desert_sand","default:stone"})
 		end
 		if p2 == nil then return end
 		if p2.y > 0 then return end
@@ -192,5 +192,3 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		end
 	end
 end)
-
-
